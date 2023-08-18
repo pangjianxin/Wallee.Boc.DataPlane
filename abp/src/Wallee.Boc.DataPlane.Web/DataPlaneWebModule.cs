@@ -5,11 +5,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using System.IO;
-using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
@@ -21,8 +19,6 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Hangfire;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
@@ -36,6 +32,7 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Hangfire;
 using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.MultiTenancy;
+using Wallee.Boc.DataPlane.Web.Extensions;
 using Wallee.Boc.DataPlane.Web.Menus;
 
 namespace Wallee.Boc.DataPlane.Web;
@@ -85,6 +82,8 @@ public class DataPlaneWebModule : AbpModule
     {
         var hostingEnvironment = context.Services.GetHostingEnvironment();
         var configuration = context.Services.GetConfiguration();
+        context.Services.AddSameSiteCookiePolicy();
+        context.ConfigureCors(configuration);
 
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
@@ -190,7 +189,7 @@ public class DataPlaneWebModule : AbpModule
         {
             app.UseErrorPage();
         }
-
+        app.UseCookiePolicy();
         app.UseCorrelationId();
         app.UseStaticFiles();
         app.UseRouting();
@@ -212,18 +211,10 @@ public class DataPlaneWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
 
-        var backgroundJobOptions =
-               context.ServiceProvider.GetRequiredService<IOptions<AbpBackgroundJobOptions>>().Value;
         app.UseHangfireDashboard("/hangfire", new DashboardOptions
         {
             DashboardTitle = "ÏµÍ³ÒÇ±í°å",
-            AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() },
-            DisplayNameFunc = (jobContext, job) =>
-            {
-                var jobType = job.Args.First().GetType();
-                var abpJobType = backgroundJobOptions.GetJob(jobType);
-                return abpJobType.JobName;
-            }
+            //AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() },
         });
 
         app.UseConfiguredEndpoints();
