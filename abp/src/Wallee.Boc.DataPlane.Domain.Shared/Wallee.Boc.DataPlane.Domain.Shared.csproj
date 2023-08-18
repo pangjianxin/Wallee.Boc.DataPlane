@@ -11,7 +11,6 @@
 
   <ItemGroup>
     <PackageReference Include="Volo.Abp.Identity.Domain.Shared" Version="7.3.2" />
-    <PackageReference Include="Volo.Abp.BackgroundJobs.Domain.Shared" Version="7.3.2" />
     <PackageReference Include="Volo.Abp.AuditLogging.Domain.Shared" Version="7.3.2" />
     <PackageReference Include="Volo.Abp.TenantManagement.Domain.Shared" Version="7.3.2" />
     <PackageReference Include="Volo.Abp.FeatureManagement.Domain.Shared" Version="7.3.2" />

@@ -1,6 +1,4 @@
-﻿using Wallee.Boc.DataPlane.Localization;
-using Volo.Abp.AuditLogging;
-using Volo.Abp.BackgroundJobs;
+﻿using Volo.Abp.AuditLogging;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
@@ -12,12 +10,12 @@ using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
+using Wallee.Boc.DataPlane.Localization;
 
 namespace Wallee.Boc.DataPlane;
 
 [DependsOn(
     typeof(AbpAuditLoggingDomainSharedModule),
-    typeof(AbpBackgroundJobsDomainSharedModule),
     typeof(AbpFeatureManagementDomainSharedModule),
     typeof(AbpIdentityDomainSharedModule),
     typeof(AbpOpenIddictDomainSharedModule),

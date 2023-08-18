@@ -42,6 +42,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wallee.Boc.DataPlane.Application\Wallee.Boc.DataPlane.Application.csproj" />
+    <ProjectReference Include="..\Wallee.Boc.DataPlane.Hangfire\Wallee.Boc.DataPlane.Hangfire.csproj" />
     <ProjectReference Include="..\Wallee.Boc.DataPlane.HttpApi\Wallee.Boc.DataPlane.HttpApi.csproj" />
     <ProjectReference Include="..\Wallee.Boc.DataPlane.EntityFrameworkCore\Wallee.Boc.DataPlane.EntityFrameworkCore.csproj" />
     <PackageReference Include="Volo.Abp.Autofac" Version="7.3.2" />

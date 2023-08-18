@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using System.IO;
+using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
@@ -19,6 +21,8 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
+using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Hangfire;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
@@ -208,9 +212,18 @@ public class DataPlaneWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
 
+        var backgroundJobOptions =
+               context.ServiceProvider.GetRequiredService<IOptions<AbpBackgroundJobOptions>>().Value;
         app.UseHangfireDashboard("/hangfire", new DashboardOptions
         {
-            AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() }
+            DashboardTitle = "ÏµÍ³ÒÇ±í°å",
+            AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() },
+            DisplayNameFunc = (jobContext, job) =>
+            {
+                var jobType = job.Args.First().GetType();
+                var abpJobType = backgroundJobOptions.GetJob(jobType);
+                return abpJobType.JobName;
+            }
         });
 
         app.UseConfiguredEndpoints();

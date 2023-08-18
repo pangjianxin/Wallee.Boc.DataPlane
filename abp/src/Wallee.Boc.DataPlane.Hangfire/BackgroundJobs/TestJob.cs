@@ -1,26 +1,21 @@
-﻿using Hangfire;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundJobs.Hangfire;
+using Volo.Abp.DependencyInjection;
 using Wallee.Boc.DataPlane.BackgroundJobs;
 
 namespace Wallee.Boc.DataPlane.Hangfire.BackgroundJobs
 {
-    public class TestJob : AsyncBackgroundJob<TestJobArgs>
+
+    public class TestJob : AsyncBackgroundJob<TestJobArgs>, ITransientDependency
     {
-        private readonly ILogger<TestJob> _logger;
+       // HangfireBackgroundJobManager
 
-        public TestJob(ILogger<TestJob> logger)
+        public override async Task ExecuteAsync(TestJobArgs args)
         {
-            _logger = logger;
-        }
-
-        [AutomaticRetry(Attempts = 100)]
-        [Queue("default")]
-        public override Task ExecuteAsync(TestJobArgs args)
-        {
-            _logger.LogInformation("TestJob Executing.....");
-
-            throw new NotImplementedException();
+            Logger.LogInformation("TestJob Executing.....");
+            await Task.Delay(100);
+            //throw new ArgumentException(nameof(TestJobArgs));
         }
     }
 }
