@@ -5,9 +5,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System;
 using System.IO;
+using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
@@ -19,7 +22,8 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.Hangfire;
+using Volo.Abp.BackgroundJobs;
+using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
 using Volo.Abp.SettingManagement.Web;
@@ -157,7 +161,7 @@ public class DataPlaneWebModule : AbpModule
     {
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
-            options.ConventionalControllers.Create(typeof(DataPlaneApplicationModule).Assembly);
+            //options.ConventionalControllers.Create(typeof(DataPlaneApplicationModule).Assembly);
         });
     }
 
@@ -203,6 +207,7 @@ public class DataPlaneWebModule : AbpModule
 
         app.UseUnitOfWork();
         app.UseAuthorization();
+
         app.UseSwagger();
         app.UseAbpSwaggerUI(options =>
         {
@@ -211,10 +216,21 @@ public class DataPlaneWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
 
+        var options = app.ApplicationServices.GetRequiredService<IOptions<AbpBackgroundJobOptions>>().Value;
         app.UseHangfireDashboard("/hangfire", new DashboardOptions
         {
-            DashboardTitle = "ÏµÍ³ÒÇ±í°å",
-            //AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() },
+            DashboardTitle = "....",
+            DisplayNameFunc = (dashboardContext, job) =>
+            {
+                var args = job.Args;
+
+                var jobName = options.GetJob(job.Args.Take(2).Last().GetType()).JobName;
+
+                Console.WriteLine($"--------------------------------------------------{jobName}----------------------------");
+
+                return jobName;
+            }
+
         });
 
         app.UseConfiguredEndpoints();

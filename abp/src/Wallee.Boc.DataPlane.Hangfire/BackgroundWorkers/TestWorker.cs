@@ -1,7 +1,7 @@
 ﻿using Hangfire;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BackgroundWorkers.Hangfire;
-using Wallee.Boc.DataPlane.Hangfire.BackgroundJobs;
+using Wallee.Boc.DataPlane.BackgroundJobs;
 
 namespace Wallee.Boc.DataPlane.Hangfire.BackgroundWorkers
 {
@@ -11,14 +11,13 @@ namespace Wallee.Boc.DataPlane.Hangfire.BackgroundWorkers
 
         public TestWorker(IBackgroundJobManager backgroundJobManager)
         {
-            RecurringJobId = "后台工作者测试";
-            CronExpression = Cron.MinuteInterval(1);
+            RecurringJobId = "TestWorker";
+            CronExpression = Cron.Daily();
             _backgroundJobManager = backgroundJobManager;
         }
         public override async Task DoWorkAsync(CancellationToken cancellationToken = default)
         {
-            Console.WriteLine($"--------------------test worker start to trigger the background job----------------------");
-            await _backgroundJobManager.EnqueueAsync(new TestJobArgs(), delay: TimeSpan.FromSeconds(4));
+            await _backgroundJobManager.EnqueueAsync(new TestJobArgs());
         }
     }
 }
