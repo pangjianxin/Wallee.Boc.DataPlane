@@ -15,6 +15,7 @@ namespace Wallee.Boc.DataPlane.Hangfire.BackgroundWorkers
             CronExpression = Cron.Daily();
             _backgroundJobManager = backgroundJobManager;
         }
+        [JobDisplayName("Test Worker")]
         public override async Task DoWorkAsync(CancellationToken cancellationToken = default)
         {
             await _backgroundJobManager.EnqueueAsync(new TestJobArgs());

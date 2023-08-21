@@ -34,6 +34,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Hangfire;
+using Wallee.Boc.DataPlane.Hangfire.Dashboards;
 using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.MultiTenancy;
 using Wallee.Boc.DataPlane.Web.Extensions;
@@ -216,22 +217,7 @@ public class DataPlaneWebModule : AbpModule
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
 
-        var options = app.ApplicationServices.GetRequiredService<IOptions<AbpBackgroundJobOptions>>().Value;
-        app.UseHangfireDashboard("/hangfire", new DashboardOptions
-        {
-            DashboardTitle = "....",
-            DisplayNameFunc = (dashboardContext, job) =>
-            {
-                var args = job.Args;
-
-                var jobName = options.GetJob(job.Args.Take(2).Last().GetType()).JobName;
-
-                Console.WriteLine($"--------------------------------------------------{jobName}----------------------------");
-
-                return jobName;
-            }
-
-        });
+        app.UseMyHangfireDashboard();
 
         app.UseConfiguredEndpoints();
     }
