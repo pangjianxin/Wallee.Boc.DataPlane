@@ -8,6 +8,7 @@ using System.Reflection;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.BackgroundWorkers.Hangfire;
+using Volo.Abp.Hangfire;
 
 namespace Wallee.Boc.DataPlane.Hangfire.Dashboards
 {
@@ -16,9 +17,10 @@ namespace Wallee.Boc.DataPlane.Hangfire.Dashboards
         public static void UseMyHangfireDashboard(this IApplicationBuilder app)
         {
             var options = app.ApplicationServices.GetRequiredService<IOptions<AbpBackgroundJobOptions>>().Value;
+
             app.UseHangfireDashboard("/hangfire", new DashboardOptions
             {
-                DashboardTitle = "....",
+                DashboardTitle = "仪表板",
                 DisplayNameFunc = (DashboardContext dashboardContext, Job job) =>
                 {
                     var jobType = job.Type;
@@ -36,7 +38,8 @@ namespace Wallee.Boc.DataPlane.Hangfire.Dashboards
                         jobName = filters?.DisplayName!;
                     }
                     return jobName;
-                }
+                },
+                AsyncAuthorization = new[] { new AbpHangfireAuthorizationFilter() }
             });
         }
     }

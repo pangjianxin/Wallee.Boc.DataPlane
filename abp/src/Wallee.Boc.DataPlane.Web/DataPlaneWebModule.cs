@@ -2,6 +2,7 @@ using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -9,6 +10,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
 using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using Volo.Abp;
@@ -124,6 +127,14 @@ public class DataPlaneWebModule : AbpModule
                     bundle.AddFiles("/global-styles.css");
                 }
             );
+
+            options.ScriptBundles.Configure(typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName,
+               bundleConfiguration =>
+               {
+                   bundleConfiguration.AddFiles(
+                       "/Pages/Identity/Users/user-extend.js"
+                   );
+               });
         });
     }
 
@@ -188,7 +199,22 @@ public class DataPlaneWebModule : AbpModule
             app.UseDeveloperExceptionPage();
         }
 
-        app.UseAbpRequestLocalization();
+        app.UseAbpRequestLocalization(options =>
+        {
+            var supportedCultures = new[]
+            {
+                new CultureInfo("zh-Hans"),
+                new CultureInfo("en"),
+            };
+            options.DefaultRequestCulture = new RequestCulture("zh-Hans");
+            options.SupportedCultures = supportedCultures;
+            options.SupportedUICultures = supportedCultures;
+            options.RequestCultureProviders = new List<IRequestCultureProvider>
+            {
+                new QueryStringRequestCultureProvider(),
+                new CookieRequestCultureProvider()
+            };
+        });
 
         if (!env.IsDevelopment())
         {
