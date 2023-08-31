@@ -29,7 +29,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits
         public async Task OnGetAsync()
         {
             var dto = await _organizationUnitAppService.GetAsync(OrganizationUnitId);
-            ViewModel = new OrganizationUnitUpdateViewModel { DisplayName = dto?.DisplayName! };
+            ViewModel = ObjectMapper.Map<OrganizationUnitDto, OrganizationUnitUpdateViewModel>(dto);
         }
 
         public async Task OnPostAsync()

@@ -37,11 +37,6 @@ public static class DataPlaneModuleExtensionConfigurator
 
     private static void ConfigureExtraProperties()
     {
-        //OneTimeRunner.Run(() =>
-        //{
-
-        //});
-
         ObjectExtensionManager.Instance.Modules()
                 .ConfigureIdentity(identity =>
                 {

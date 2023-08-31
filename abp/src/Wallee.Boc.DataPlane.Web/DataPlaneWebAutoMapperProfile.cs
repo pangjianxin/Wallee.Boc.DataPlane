@@ -11,5 +11,6 @@ public class DataPlaneWebAutoMapperProfile : Profile
         //Define your AutoMapper configuration here for the Web project.
         CreateMap<OrganizationUnitCreateViewModel, OrganizationUnitCreateDto>().MapExtraProperties();
         CreateMap<OrganizationUnitUpdateViewModel, OrganizationUnitUpdateDto>().MapExtraProperties();
+        CreateMap<OrganizationUnitDto, OrganizationUnitUpdateViewModel>().MapExtraProperties();
     }
 }

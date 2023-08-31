@@ -42,7 +42,7 @@
                             [
                                 {
                                     text: "删除",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.Delete'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.Delete'),
                                     confirmMessage: function (data) {
                                         return `确认删除当前用户吗?(${data.record.userName})`;
                                     },
@@ -90,7 +90,7 @@
                             [
                                 {
                                     text: "删除",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.Delete'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.Delete'),
                                     confirmMessage: function (data) {
                                         return `确认删除当前角色吗?(${data.record.name})`;
                                     },
@@ -154,7 +154,7 @@
                                     text: "查看",
                                     iconClass: "fas fa-search",
                                     displayNameHtml: false,
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit'),
                                     action: function (data) {
                                         currentOu = data.record.id;
                                         $("#currentOuTitle_u").html(data.record.displayName);
@@ -176,7 +176,7 @@
                                 }, {
                                     text: l('Edit'),
                                     iconClass: "fas fa-edit",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.Update'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.Update'),
                                     confirmMessage: function (data) {
                                         return `确认更新?(${data.record.displayName})`;
                                     },
@@ -186,7 +186,7 @@
                                 }, {
                                     text: "子机构",
                                     iconClass: "fas fa-plus",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.Update'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.Update'),
                                     confirmMessage: function (data) {
                                         return `确认新增子机构?(${data.record.displayName})`;
                                     },
@@ -196,7 +196,7 @@
                                 }, {
                                     text: l('Delete'),
                                     iconClass: "fas fa-trash",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.Delete'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.Delete'),
                                     confirmMessage: function (data) {
                                         return l('FileDeletionConfirmationMessage', data.record.id);
                                     },
