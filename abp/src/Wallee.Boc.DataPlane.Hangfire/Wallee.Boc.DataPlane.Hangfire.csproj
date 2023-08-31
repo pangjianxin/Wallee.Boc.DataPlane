@@ -7,7 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CsvHelper" Version="30.0.1" />
+    <PackageReference Include="FluentFTP" Version="47.1.0" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.8.2" />
+    <PackageReference Include="Stateless" Version="5.13.0" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.HangFire" Version="7.3.2" />
     <PackageReference Include="Volo.Abp.BackgroundWorkers.Hangfire" Version="7.3.2" />
   </ItemGroup>

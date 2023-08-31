@@ -1,4 +1,3 @@
-using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
@@ -6,14 +5,11 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Volo.Abp;
 using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
@@ -25,19 +21,19 @@ using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
 using Volo.Abp.AspNetCore.Serilog;
 using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
-using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BackgroundJobs.Hangfire;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
+using Volo.Abp.ObjectExtending.Modularity;
+using Volo.Abp.ObjectExtending;
 using Volo.Abp.SettingManagement.Web;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
+using Volo.Abp.Threading;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
+using Wallee.Boc.DataPlane.Background;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
-using Wallee.Boc.DataPlane.Hangfire;
-using Wallee.Boc.DataPlane.Hangfire.Dashboards;
 using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.MultiTenancy;
 using Wallee.Boc.DataPlane.Web.Extensions;
@@ -57,10 +53,11 @@ namespace Wallee.Boc.DataPlane.Web;
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    typeof(DataPlaneHangfireModule)
+    typeof(DataPlaneBackgroundModule)
     )]
 public class DataPlaneWebModule : AbpModule
 {
+    private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
@@ -101,6 +98,20 @@ public class DataPlaneWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+    }
+
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        OneTimeRunner.Run(() =>
+        {
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    IdentityModuleExtensionConsts.ModuleName,
+                    IdentityModuleExtensionConsts.EntityNames.OrganizationUnit,
+                    createFormTypes: new[] { typeof(Pages.Identity.OrganizationUnits.OrganizationUnitCreateViewModel) },
+                    editFormTypes: new[] { typeof(Pages.Identity.OrganizationUnits.OrganizationUnitUpdateViewModel) }
+                );
+        });
     }
 
     private void ConfigureAuthentication(ServiceConfigurationContext context)
@@ -242,8 +253,6 @@ public class DataPlaneWebModule : AbpModule
         });
         app.UseAuditing();
         app.UseAbpSerilogEnrichers();
-
-        app.UseMyHangfireDashboard();
 
         app.UseConfiguredEndpoints();
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
+using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.SqlServer;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
@@ -21,7 +22,8 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
     typeof(AbpEntityFrameworkCoreSqlServerModule),
     typeof(AbpAuditLoggingEntityFrameworkCoreModule),
     typeof(AbpTenantManagementEntityFrameworkCoreModule),
-    typeof(AbpFeatureManagementEntityFrameworkCoreModule)
+    typeof(AbpFeatureManagementEntityFrameworkCoreModule),
+    typeof(AbpBackgroundJobsEntityFrameworkCoreModule)
     )]
 public class DataPlaneEntityFrameworkCoreModule : AbpModule
 {

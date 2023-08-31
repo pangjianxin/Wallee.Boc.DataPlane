@@ -1,4 +1,5 @@
 ﻿using Volo.Abp.AuditLogging;
+using Volo.Abp.BackgroundJobs;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Localization;
@@ -21,7 +22,8 @@ namespace Wallee.Boc.DataPlane;
     typeof(AbpOpenIddictDomainSharedModule),
     typeof(AbpPermissionManagementDomainSharedModule),
     typeof(AbpSettingManagementDomainSharedModule),
-    typeof(AbpTenantManagementDomainSharedModule)    
+    typeof(AbpTenantManagementDomainSharedModule),
+    typeof(AbpBackgroundJobsDomainSharedModule)
     )]
 public class DataPlaneDomainSharedModule : AbpModule
 {

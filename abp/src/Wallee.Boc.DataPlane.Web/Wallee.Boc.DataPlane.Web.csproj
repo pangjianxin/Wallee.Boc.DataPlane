@@ -23,6 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Identity\OrganizationUnits\AddRoleToOuModal.cshtml" />
+    <None Include="Pages\Identity\OrganizationUnits\AddUserToOuModal.cshtml" />
+    <None Include="Pages\Identity\OrganizationUnits\CreateModal.cshtml" />
+    <None Include="Pages\Identity\OrganizationUnits\EditModal.cshtml" />
+    <None Include="Pages\Identity\OrganizationUnits\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Pages\**\*.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -42,7 +50,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wallee.Boc.DataPlane.Application\Wallee.Boc.DataPlane.Application.csproj" />
-    <ProjectReference Include="..\Wallee.Boc.DataPlane.Hangfire\Wallee.Boc.DataPlane.Hangfire.csproj" />
+    <ProjectReference Include="..\Wallee.Boc.DataPlane.Background\Wallee.Boc.DataPlane.Background.csproj" />
     <ProjectReference Include="..\Wallee.Boc.DataPlane.HttpApi\Wallee.Boc.DataPlane.HttpApi.csproj" />
     <ProjectReference Include="..\Wallee.Boc.DataPlane.EntityFrameworkCore\Wallee.Boc.DataPlane.EntityFrameworkCore.csproj" />
     <PackageReference Include="Volo.Abp.Autofac" Version="7.3.2" />

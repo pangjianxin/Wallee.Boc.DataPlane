@@ -15,7 +15,7 @@ namespace Wallee.Boc.DataPlane.Dashboard
 
         public async Task TestAsync()
         {
-            await _backgroundJobManager.EnqueueAsync(new TestJobArgs());
+            await _backgroundJobManager.EnqueueAsync(new FirstJobArgs());
         }
     }
 }

@@ -1,0 +1,90 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout;
+@using Wallee.Boc.DataPlane.Localization;
+@using Wallee.Boc.DataPlane.Permissions;
+@using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IAuthorizationService Authorization
+@inject IHtmlLocalizer<DataPlaneResource> L
+
+@section scripts{
+    <abp-script src="/Pages/Identity/OrganizationUnits/Index.js"></abp-script>
+}
+@section styles{
+    <abp-style src="/Pages/Identity/OrganizationUnits/Index.css"></abp-style>
+}
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["OrganizationUnit"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-row>
+            <abp-column size-lg="_4">
+                <abp-card>
+                    <abp-card-header background="Light" class="d-flex flex-row justify-content-between align-items-center">
+                        <span>机构目录树</span>
+                        @if (await Authorization.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Create))
+                        {
+                            <abp-button size="Small" button-type="Primary" icon="fas fa-plus" text="新增根机构" id="CreateNewRootOrganizationUnit"></abp-button>
+                        }
+                    </abp-card-header>
+                    <abp-card-body>
+                        <abp-table id="ousTable" class="nowrap" />
+                    </abp-card-body>
+                </abp-card>
+            </abp-column>
+            <abp-column size-lg="_8">
+                <abp-tabs tab-style="Tab">
+                    <abp-tab title="用户">
+                        <abp-card id="userInfoEmpty" class="d-flex flex-column justify-content-center align-items-center">
+                            <abp-card-body abp-rounded="Top" style="width:100%;" background="Light">
+                                <abp-card-text>请点击左侧菜单选择机构进行用户相关操作</abp-card-text>
+                            </abp-card-body>
+                        </abp-card>
+                        <abp-card id="userInfo">
+                            <abp-card-header style="padding:0 0 10px 0;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <abp-card-title class="text-primary" id="currentOuTitle_u"></abp-card-title>
+                                    <abp-button button-type="Outline_Primary" icon="plus" id="addUserToOuBtn" text="新增用户"></abp-button>
+                                </div>
+                            </abp-card-header>
+                            <abp-card-body style="padding:0 0 10px 0;">
+                                <abp-table striped-rows="true" id="ouUsersTable" class="nowrap" />
+                            </abp-card-body>
+                        </abp-card>
+                    </abp-tab>
+                    <abp-tab title="角色">
+                        <abp-card id="roleInfoEmpty" class="d-flex flex-column justify-content-center align-items-center">
+                            <abp-card-body abp-rounded="Top" style="width:100%;" background="Light">
+                                <abp-card-text>请点击左侧菜单选择机构进行角色相关操作</abp-card-text>
+                            </abp-card-body>
+                        </abp-card>
+                        <abp-card id="roleInfo">
+                            <abp-card-header style="padding:0 0 10px 0;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <abp-card-title class="text-primary" id="currentOuTitle_r"></abp-card-title>
+                                    <abp-button button-type="Outline_Primary" icon="plus" id="addRoleToOuBtn" text="新增角色"></abp-button>
+                                </div>
+                            </abp-card-header>
+                            <abp-card-body style="padding:0 0 10px 0;">
+                                <abp-table striped-rows="true" id="ouRolesTable" class="nowrap" />
+                            </abp-card-body>
+                        </abp-card>
+                    </abp-tab>
+                </abp-tabs>
+            </abp-column>
+        </abp-row>
+
+    </abp-card-body>
+</abp-card>
+

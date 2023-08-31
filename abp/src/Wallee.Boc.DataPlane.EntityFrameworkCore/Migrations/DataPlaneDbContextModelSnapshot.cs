@@ -286,6 +286,64 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AbpEntityPropertyChanges", (string)null);
                 });
 
+            modelBuilder.Entity("Volo.Abp.BackgroundJobs.BackgroundJobRecord", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<bool>("IsAbandoned")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("JobArgs")
+                        .IsRequired()
+                        .HasMaxLength(1048576)
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("JobName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<DateTime?>("LastTryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NextTryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<byte>("Priority")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)15);
+
+                    b.Property<short>("TryCount")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasDefaultValue((short)0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsAbandoned", "NextTryTime");
+
+                    b.ToTable("AbpBackgroundJobs", (string)null);
+                });
+
             modelBuilder.Entity("Volo.Abp.FeatureManagement.FeatureDefinitionRecord", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1011,6 +1069,11 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
+                    b.Property<string>("OrgNo")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1021,6 +1084,8 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Code");
+
+                    b.HasIndex("OrgNo");
 
                     b.HasIndex("ParentId");
 

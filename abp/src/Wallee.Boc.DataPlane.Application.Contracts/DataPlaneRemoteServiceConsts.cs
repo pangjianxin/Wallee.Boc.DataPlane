@@ -6,6 +6,6 @@ namespace Wallee.Boc.DataPlane
 {
     public class DataPlaneRemoteServiceConsts
     {
-        public const string Default = "DataPlane";
+        public const string RemoteServiceName = "DataPlane";
     }
 }

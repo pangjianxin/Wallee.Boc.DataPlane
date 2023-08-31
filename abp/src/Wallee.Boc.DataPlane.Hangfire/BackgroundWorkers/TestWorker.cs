@@ -18,7 +18,22 @@ namespace Wallee.Boc.DataPlane.Hangfire.BackgroundWorkers
         [JobDisplayName("Test Worker")]
         public override async Task DoWorkAsync(CancellationToken cancellationToken = default)
         {
-            await _backgroundJobManager.EnqueueAsync(new TestJobArgs());
+            await _backgroundJobManager.EnqueueAsync(new FirstJobArgs()
+            {
+                Date = DateTime.Now,
+                Continuation = new SecondJobArgs()
+                {
+                    Date = DateTime.Now,
+                    Continuation = new ThirdJobArgs()
+                    {
+                        Date = DateTime.Now,
+                        Continuation = new FirstJobArgs
+                        {
+                            Date = DateTime.Now.AddDays(1)
+                        }
+                    }
+                }
+            });
         }
     }
 }

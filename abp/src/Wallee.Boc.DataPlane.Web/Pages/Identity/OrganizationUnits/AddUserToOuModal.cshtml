@@ -1,0 +1,26 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
+@model AddUserToOuModalModel
+
+@{
+    Layout = null;
+}
+
+<abp-script src="/Pages/Identity/OrganizationUnits/AddUserToOuModal.js"></abp-script>
+
+<script type="text/javascript">
+    var organizationUnitId = "@Model.OrganizationUnitId";
+</script>
+
+
+
+<abp-modal size="Large">
+    <abp-modal-header title="新增用户-@(Model.OrganizationUnit?.DisplayName)"></abp-modal-header>
+    <abp-modal-body>
+        <abp-table id="unAddedUsersTable"></abp-table>
+    </abp-modal-body>
+    <form>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </form>
+</abp-modal>

@@ -7,7 +7,7 @@ using Wallee.Boc.DataPlane.Dashboard;
 
 namespace Wallee.Boc.DataPlane.Controllers
 {
-    [RemoteService(Name = DataPlaneRemoteServiceConsts.Default)]
+    [RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
     [Route("api/app/sample")]
     public class DashboardController : DataPlaneController, IDashboardAppService
     {

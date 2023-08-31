@@ -1,0 +1,22 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
+@model AddRoleToOuModalModel
+
+@{
+    Layout = null;
+}
+
+<abp-script src="/Pages/Identity/OrganizationUnits/AddRoleToOuModal.js"></abp-script>
+<script type="text/javascript">
+    var organizationUnitId = "@Model.OrganizationUnitId";
+</script>
+<abp-modal size="Large">
+    <abp-modal-header title="新增角色-@(Model.OrganizationUnit?.DisplayName)"></abp-modal-header>
+    <abp-modal-body>
+        <abp-table id="unAddedRoleTable"></abp-table>
+    </abp-modal-body>
+    <form>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </form>
+</abp-modal>

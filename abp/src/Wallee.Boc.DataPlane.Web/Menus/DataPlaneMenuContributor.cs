@@ -5,6 +5,7 @@ using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
 using Volo.Abp.UI.Navigation;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.Web.Menus;
 
@@ -18,7 +19,7 @@ public class DataPlaneMenuContributor : IMenuContributor
         }
     }
 
-    private Task ConfigureMainMenuAsync(MenuConfigurationContext context)
+    private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
         var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<DataPlaneResource>();
@@ -36,7 +37,7 @@ public class DataPlaneMenuContributor : IMenuContributor
 
         if (MultiTenancyConsts.IsEnabled)
         {
-            administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+            //administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
         }
         else
         {
@@ -46,6 +47,10 @@ public class DataPlaneMenuContributor : IMenuContributor
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
         administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
 
-        return Task.CompletedTask;
+        if (await context.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Default))
+        {
+            var identity = administration.GetMenuItem(IdentityMenuNames.GroupName);
+            identity.AddItem(new ApplicationMenuItem(DataPlaneMenus.OrganizationUnit, l["Menu:OrganizationUnit"], "/Identity/OrganizationUnits"));
+        }
     }
 }
