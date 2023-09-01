@@ -4,8 +4,14 @@ public static class DataPlanePermissions
 {
     public const string GroupName = "DataPlane";
 
-    //Add your own permission names. Example:
-    //public const string MyPermission1 = GroupName + ".MyPermission1";
+    public static class BackgroundJobs
+    {
+        public const string Default = GroupName + ".BackgroundJobs";
+        public const string Create = Default + ".Create";
+        public const string Update = Default + ".Update";
+        public const string Delete = Default + ".Delete";
+        public const string Operation = Default + ".Operation";
+    }
     public class OrganizationUnits
     {
         public const string Default = GroupName + ".OrganizationUnit";

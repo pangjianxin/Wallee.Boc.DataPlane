@@ -37,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallee.Boc.DataPlane.HttpAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallee.Boc.DataPlane.DbMigrator", "src\Wallee.Boc.DataPlane.DbMigrator\Wallee.Boc.DataPlane.DbMigrator.csproj", "{AA94D832-1CCC-4715-95A9-A483F23A1A5D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wallee.Boc.DataPlane.Background", "src\Wallee.Boc.DataPlane.Background\Wallee.Boc.DataPlane.Background.csproj", "{F7C68FB3-C3E1-42E8-B3F6-A26018CF4B56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wallee.Boc.DataPlane.Background", "src\Wallee.Boc.DataPlane.Background\Wallee.Boc.DataPlane.Background.csproj", "{F7C68FB3-C3E1-42E8-B3F6-A26018CF4B56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

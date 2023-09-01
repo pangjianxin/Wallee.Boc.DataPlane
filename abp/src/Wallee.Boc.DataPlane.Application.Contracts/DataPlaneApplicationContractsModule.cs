@@ -26,7 +26,7 @@ namespace Wallee.Boc.DataPlane;
 )]
 public class DataPlaneApplicationContractsModule : AbpModule
 {
-    private static readonly OneTimeRunner OneTimeRunner = new OneTimeRunner();
+    private static readonly OneTimeRunner _oneTimeRunner = new();
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {
         DataPlaneDtoExtensions.Configure();
@@ -34,7 +34,7 @@ public class DataPlaneApplicationContractsModule : AbpModule
 
     public override void PostConfigureServices(ServiceConfigurationContext context)
     {
-        OneTimeRunner.Run(() =>
+        _oneTimeRunner.Run(() =>
         {
             ModuleExtensionConfigurationHelper.ApplyEntityConfigurationToApi(
                 IdentityModuleExtensionConsts.ModuleName,

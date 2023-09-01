@@ -1,0 +1,32 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Wallee.Boc.DataPlane.Web.Pages.BackgroundJobs
+@model IndexModel
+@inject IPageLayout PageLayout
+
+
+@section scripts{
+    <abp-script src="/Pages/BackgroundJobs/Index.js"></abp-script>
+}
+@{
+    PageLayout.Content.Title = "后台任务索引";
+    PageLayout.Content.BreadCrumb.Add("后台任务", "/BackgroundJobs/Index");
+}
+
+
+<abp-card>
+    <abp-card-header>
+        <abp-card-title>
+            后台任务列表
+        </abp-card-title>
+        <abp-card-subtitle>
+            <i class="fas fa-bell">&nbsp;</i>
+            通过左侧操作栏按钮对条目进行修改、删除等操作
+        </abp-card-subtitle>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table class="table display nowrap" id="backgroundJobsTable"></abp-table>
+    </abp-card-body>
+    <abp-card-footer>
+    </abp-card-footer>
+</abp-card>

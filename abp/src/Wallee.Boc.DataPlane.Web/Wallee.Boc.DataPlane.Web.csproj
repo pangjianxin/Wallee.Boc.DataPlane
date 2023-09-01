@@ -23,6 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\BackgroundJobs\Index.cshtml" />
+    <None Include="Pages\BackgroundJobs\UpdateModal.cshtml" />
     <None Include="Pages\Identity\OrganizationUnits\AddRoleToOuModal.cshtml" />
     <None Include="Pages\Identity\OrganizationUnits\AddUserToOuModal.cshtml" />
     <None Include="Pages\Identity\OrganizationUnits\CreateModal.cshtml" />

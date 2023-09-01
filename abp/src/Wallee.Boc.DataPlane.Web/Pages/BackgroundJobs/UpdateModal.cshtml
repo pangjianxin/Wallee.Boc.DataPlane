@@ -1,0 +1,19 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@using Wallee.Boc.DataPlane.Web.Pages.BackgroundJobs;
+@model UpdateModalModel
+@{
+    Layout = null;
+}
+<abp-dynamic-form abp-model="@Model.ViewModel" asp-page="UpdateModal">
+    <abp-modal>
+        <abp-modal-header>
+            创建金融机构信息
+        </abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="@Model.Id"></abp-input>
+            <abp-form-content />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@AbpModalButtons.Save|AbpModalButtons.Cancel"></abp-modal-footer>
+    </abp-modal>
+</abp-dynamic-form>

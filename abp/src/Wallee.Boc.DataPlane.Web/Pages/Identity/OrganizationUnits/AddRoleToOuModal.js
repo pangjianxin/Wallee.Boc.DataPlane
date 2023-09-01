@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var ouService = wallee.boc.vote.organizationUnits.organizationUnit;
+    var ouService = wallee.boc.dataPlane.controllers.organizationUnit;
 
     var inputAction = function (requestData, dataTableSettings) {
         console.log(requestData);
@@ -30,7 +30,7 @@
                             [
                                 {
                                     text: "添加",
-                                    visible: abp.auth.isGranted('Vote.OrganizationUnit.ManageRoles'),
+                                    visible: abp.auth.isGranted('DataPlane.OrganizationUnit.ManageRoles'),
                                     confirmMessage: function (data) {
                                         return `确认要添加该角色?(${data.record.name})`;
                                     },
