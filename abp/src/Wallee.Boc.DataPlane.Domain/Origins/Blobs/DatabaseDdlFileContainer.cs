@@ -2,8 +2,8 @@
 
 namespace Wallee.Boc.DataPlane.Origins.Blobs
 {
-    [BlobContainerName("origin-data")]
-    public class OriginDataFileContainer
+    [BlobContainerName("database-ddl-files")]
+    public class DatabaseDdlFileContainer
     {
 
     }
