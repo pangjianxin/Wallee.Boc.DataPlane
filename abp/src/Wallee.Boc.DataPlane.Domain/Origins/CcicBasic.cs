@@ -2,6 +2,9 @@
 
 namespace Wallee.Boc.DataPlane.Origins
 {
+    /// <summary>
+    /// 对公客户基础信息
+    /// </summary>
     public class CcicBasic
     {
         /// <summary>
