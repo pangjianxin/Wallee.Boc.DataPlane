@@ -1,11 +1,12 @@
 ﻿using System;
+using Volo.Abp.Domain.Entities;
 
-namespace Wallee.Boc.DataPlane.Origins
+namespace Wallee.Boc.DataPlane.Origins.CcicBasics
 {
     /// <summary>
     /// 对公客户基础信息
     /// </summary>
-    public class CcicBasic
+    public class CcicBasic : AggregateRoot
     {
         /// <summary>
         /// 客户号
@@ -50,12 +51,12 @@ namespace Wallee.Boc.DataPlane.Origins
         /// <summary>
         /// 开户日期
         /// </summary>
-        public DateTime OPNAC_DT { get; set; }
+        public DateTime? OPNAC_DT { get; set; }
 
         /// <summary>
         /// 关闭日期
         /// </summary>
-        public DateTime CLS_DT { get; set; }
+        public DateTime? CLS_DT { get; set; }
 
         /// <summary>
         /// 最后确认日期
@@ -136,5 +137,12 @@ namespace Wallee.Boc.DataPlane.Origins
         /// 记录清理状态代码
         /// </summary>
         public string? RCRD_CLNUP_STSCD { get; set; }
+
+        public override object[] GetKeys()
+        {
+            return new object[] {
+                CUSNO,LGPER_CODE
+            };
+        }
     }
 }

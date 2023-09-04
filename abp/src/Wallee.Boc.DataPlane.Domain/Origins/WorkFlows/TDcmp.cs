@@ -5,19 +5,19 @@ using Wallee.Boc.DataPlane.WorkFlows;
 namespace Wallee.Boc.DataPlane.Origins.WorkFlows
 {
     /// <summary>
-    /// 对公客户信息装载工作流
+    /// 信息管理平台工作流
     /// </summary>
-    public class CcicCusInfo : AuditedAggregateRoot<Guid>
+    public class TDcmp : AuditedAggregateRoot<Guid>
     {
         /// <summary>
         /// 状态
         /// </summary>
-        public CcicCusInfoStatus Status { get; private set; }
+        public TDcmpStatus Status { get; private set; }
         /// <summary>
         /// 数据日期
         /// </summary>
         public DateTime DataDate { get; private set; }
-        public void SetStatus(CcicCusInfoStatus status)
+        public void SetStatus(TDcmpStatus status)
         {
             Status = status;
         }

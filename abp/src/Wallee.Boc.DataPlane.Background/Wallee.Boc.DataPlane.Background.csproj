@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Wallee.Boc.DataPlane.Domain\Wallee.Boc.DataPlane.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="BackgroundJobs\" />
+  </ItemGroup>
+
 </Project>
