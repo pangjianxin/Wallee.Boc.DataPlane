@@ -18,6 +18,16 @@
         /// ftp的文件存储基础路径
         /// </summary>
         public string FtpBasePath { get; set; } = default!;
+        /// <summary>
+        /// 对公客户基础信息文件名
+        /// </summary>
+        public string CcicBasicFileName { get; set; } = default!;
+        /// <summary>
+        /// 对公客户地址信息文件名称
+        /// </summary>
+        public string CcicAddressFileName { get; set; } = default!;
+
+        public string TDcmpJobExecutionCronExpression { get; set; } = default!;
 
     }
 }

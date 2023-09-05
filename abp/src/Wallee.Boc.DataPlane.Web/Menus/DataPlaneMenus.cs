@@ -1,4 +1,4 @@
-﻿namespace Wallee.Boc.DataPlane.Web.Menus;
+namespace Wallee.Boc.DataPlane.Web.Menus;
 
 public class DataPlaneMenus
 {
@@ -10,5 +10,8 @@ public class DataPlaneMenus
     public const string OrganizationUnit = Prefix + ".OrganizationUnit";
 
     //Add your menu items here...
-
+    public const string TDcmp = Prefix + ".TDcmp";
+    public const string TDcmp_CcicBasic = Prefix + ".CcicBasic";
+    public const string TDcmp_CcicAddress = Prefix + ".CcicAddress";
+    public const string TDcmp_WorkFlow = Prefix + ".TDcmpWorkFlow";
 }

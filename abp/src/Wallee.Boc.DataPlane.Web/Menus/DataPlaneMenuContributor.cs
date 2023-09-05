@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.MultiTenancy;
 using Volo.Abp.Identity.Web.Navigation;
@@ -57,5 +57,31 @@ public class DataPlaneMenuContributor : IMenuContributor
             var identity = administration.GetMenuItem(IdentityMenuNames.GroupName);
             identity.AddItem(new ApplicationMenuItem(DataPlaneMenus.OrganizationUnit, l["Menu:OrganizationUnit"], "/Identity/OrganizationUnits"));
         }
+
+        var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list");
+
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicBasic.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(name: DataPlaneMenus.TDcmp_CcicBasic, displayName: l["Menu:CcicBasic"], url: "/TDcmp/CcicBasics/CcicBasic", icon: "fas fa-list", order: 1)
+            );
+        }
+
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicAddress.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.TDcmp_CcicAddress, l["Menu:CcicAddress"], "/TDcmp/CcicAddresses/CcicAddress", icon: "fas fa-list", order: 2)
+            );
+        }
+
+        if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.TDcmp_WorkFlow, l["Menu:TDcmpWorkFlow"], "/TDcmp/WorkFlows/TDcmpWorkFlow")
+            );
+        }
+
+        context.Menu.AddItem(tDcmpMenu);
+
     }
 }

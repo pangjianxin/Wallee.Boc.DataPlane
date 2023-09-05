@@ -5,6 +5,5 @@ namespace Wallee.Boc.DataPlane.Dashboard
 {
     public interface IDashboardAppService : IApplicationService
     {
-        Task TestAsync();
     }
 }

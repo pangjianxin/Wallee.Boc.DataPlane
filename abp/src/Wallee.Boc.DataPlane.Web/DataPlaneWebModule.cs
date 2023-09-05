@@ -38,6 +38,8 @@ using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.MultiTenancy;
 using Wallee.Boc.DataPlane.Web.Extensions;
 using Wallee.Boc.DataPlane.Web.Menus;
+using Volo.Abp.Timing;
+using System;
 
 namespace Wallee.Boc.DataPlane.Web;
 
@@ -90,6 +92,7 @@ public class DataPlaneWebModule : AbpModule
         context.Services.AddSameSiteCookiePolicy();
         context.ConfigureCors(configuration);
 
+        ConfigureClock();
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureBundles();
@@ -124,6 +127,14 @@ public class DataPlaneWebModule : AbpModule
         Configure<AppUrlOptions>(options =>
         {
             options.Applications["MVC"].RootUrl = configuration["App:SelfUrl"];
+        });
+    }
+
+    private void ConfigureClock()
+    {
+        Configure<AbpClockOptions>(options =>
+        {
+            options.Kind = DateTimeKind.Local;
         });
     }
 
@@ -238,10 +249,10 @@ public class DataPlaneWebModule : AbpModule
         app.UseAuthentication();
         app.UseAbpOpenIddictValidation();
 
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            app.UseMultiTenancy();
-        }
+        //if (MultiTenancyConsts.IsEnabled)
+        //{
+        //    app.UseMultiTenancy();
+        //}
 
         app.UseUnitOfWork();
         app.UseAuthorization();

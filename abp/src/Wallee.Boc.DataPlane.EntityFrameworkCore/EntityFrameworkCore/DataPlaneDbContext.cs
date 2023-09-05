@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
@@ -12,6 +12,10 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
+using Volo.Abp.EntityFrameworkCore.Modeling;
+using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -52,6 +56,15 @@ public class DataPlaneDbContext :
     public DbSet<TenantConnectionString> TenantConnectionStrings { get; set; }
 
     #endregion
+    /// <summary>
+    /// 对公客户基础信息
+    /// </summary>
+    public DbSet<CcicBasic> CcicBasics { get; set; }
+    public DbSet<CcicAddress> CcicAddresses { get; set; }
+    /// <summary>
+    /// 信息管理平台工作流
+    /// </summary>
+    public DbSet<TDcmpWorkFlow> TDcmpWorkFlows { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
@@ -74,13 +87,41 @@ public class DataPlaneDbContext :
         builder.ConfigureBackgroundJobs();
         builder.ConfigureTenantManagement();
 
-        /* Configure your own tables/entities inside here */
+        builder.Entity<CcicBasic>(b =>
+        {
+            b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicBasics", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户基础信息"));
+            b.ConfigureByConvention(); 
+            
+            b.HasKey(e => new
+            {
+                e.CUSNO,
+                e.LGPER_CODE,
+            });
+        });
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(DataPlaneConsts.DbTablePrefix + "YourEntities", DataPlaneConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+
+        builder.Entity<CcicAddress>(b =>
+        {
+            b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicAddresses", DataPlaneConsts.DbSchema);
+            b.ConfigureByConvention(); 
+            
+            b.HasKey(e => new
+            {
+                e.CUSNO,
+                e.LGPER_CODE,
+            });
+
+            /* Configure more properties here */
+        });
+
+
+        builder.Entity<TDcmpWorkFlow>(b =>
+        {
+            b.ToTable(DataPlaneConsts.DbTablePrefix + "TDcmpWorkFlows", DataPlaneConsts.DbSchema, table => table.HasComment("信息管理平台工作流"));
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }

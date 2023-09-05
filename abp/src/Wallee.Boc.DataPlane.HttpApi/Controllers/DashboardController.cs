@@ -17,12 +17,5 @@ namespace Wallee.Boc.DataPlane.Controllers
         {
             _dashboardAppService = dashboardAppService;
         }
-
-        [HttpGet]
-        [Route("test")]
-        public async Task TestAsync()
-        {
-            await _dashboardAppService.TestAsync();
-        }
     }
 }

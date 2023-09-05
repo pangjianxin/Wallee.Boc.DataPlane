@@ -29,4 +29,9 @@
     <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="TDcmp\CcicBasics\" />
+    <Folder Include="TDcmp\CcicAddresses\" />
+  </ItemGroup>
+
 </Project>

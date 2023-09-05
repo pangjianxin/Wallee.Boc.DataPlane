@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
+using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
@@ -10,6 +12,7 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -39,6 +42,9 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
                 /* Remove "includeAllEntities: true" to create
                  * default repositories only for aggregate roots */
             options.AddDefaultRepositories(includeAllEntities: true);
+            options.AddRepository<CcicBasic, CcicBasicRepository>();
+            options.AddRepository<CcicAddress, CcicAddressRepository>();
+            options.AddRepository<TDcmpWorkFlow, TDcmpWorkFlowRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

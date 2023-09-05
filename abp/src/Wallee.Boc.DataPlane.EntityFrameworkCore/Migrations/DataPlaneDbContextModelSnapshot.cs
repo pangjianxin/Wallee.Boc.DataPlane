@@ -1688,6 +1688,242 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
+            modelBuilder.Entity("Wallee.Boc.DataPlane.TDcmp.CcicAddresses.CcicAddress", b =>
+                {
+                    b.Property<string>("CUSNO")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LGPER_CODE")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ADDR1")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ADDR_LANG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ADDR_SN")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ADDR_TP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BKCD_URBN_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CITY")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CNRG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CNTY")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CRTR_TLR_REFNO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CRT_DTTM")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CRT_TLR_ORG_REFNO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CTY_LNG_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CTY_RGON_RSK_GRD_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CUR_ACDT_PERI")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<string>("DEL_FLAG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<string>("LAST_MNT_STS_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LAST_MOD_DTTM")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LTST_MOD_TLR_REFNO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MOD_TLR_ORG_REFNO")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PRVC_MNCP")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PSALC")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PS_NAME")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("RCRD_VRSN_SN")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("REL_DES")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("REL_END_DT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("REL_END_TIME")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("REL_STRT_DT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("REL_STRT_TIME")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("REL_TP_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RLTV_UNNPY_URBN_CODE")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RTNPT_FLAG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CUSNO", "LGPER_CODE");
+
+                    b.ToTable("AppCcicAddresses", (string)null);
+                });
+
+            modelBuilder.Entity("Wallee.Boc.DataPlane.TDcmp.CcicBasics.CcicBasic", b =>
+                {
+                    b.Property<string>("CUSNO")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LGPER_CODE")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AL_CODE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BLG_ORG_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CLS_DT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("COMM_LNG")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CRTR_TLR_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CRT_DTTM")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CRT_TLR_ORG_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CSMGR_TLR_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CSTST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CUR_ACDT_PERI")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CUSRL_TE_CHNL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<string>("DEL_FLAG")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DSABL_REASN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DSABL_REASN_NOTE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<DateTime>("LAST_CNMDT_PERI")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LAST_MNT_STS_CODE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("LAST_MOD_DTTM")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LTST_MOD_TLR_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MOD_TLR_ORG_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("OPNAC_DT")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OPNAC_ORG_REFNO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PART_RL_TP_CODE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RCRD_CLNUP_STSCD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RCRD_VRSN_SN")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("CUSNO", "LGPER_CODE");
+
+                    b.ToTable("AppCcicBasics", null, t =>
+                        {
+                            t.HasComment("对公客户基础信息");
+                        });
+                });
+
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLogAction", b =>
                 {
                     b.HasOne("Volo.Abp.AuditLogging.AuditLog", null)
