@@ -63,21 +63,21 @@ public class DataPlaneMenuContributor : IMenuContributor
         if (await context.IsGrantedAsync(DataPlanePermissions.CcicBasic.Default))
         {
             tDcmpMenu.AddItem(
-                new ApplicationMenuItem(name: DataPlaneMenus.TDcmp_CcicBasic, displayName: l["Menu:CcicBasic"], url: "/TDcmp/CcicBasics/CcicBasic", icon: "fas fa-list", order: 1)
+                new ApplicationMenuItem(name: DataPlaneMenus.TDcmp_CcicBasic, displayName: l["Menu:CcicBasic"], url: "/TDcmp/CcicBasics/CcicBasic", icon: "fas fa-list", order: 2)
             );
         }
 
         if (await context.IsGrantedAsync(DataPlanePermissions.CcicAddress.Default))
         {
             tDcmpMenu.AddItem(
-                new ApplicationMenuItem(DataPlaneMenus.TDcmp_CcicAddress, l["Menu:CcicAddress"], "/TDcmp/CcicAddresses/CcicAddress", icon: "fas fa-list", order: 2)
+                new ApplicationMenuItem(DataPlaneMenus.TDcmp_CcicAddress, l["Menu:CcicAddress"], "/TDcmp/CcicAddresses/CcicAddress", icon: "fas fa-list", order: 3)
             );
         }
 
         if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Default))
         {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(DataPlaneMenus.TDcmp_WorkFlow, l["Menu:TDcmpWorkFlow"], "/TDcmp/WorkFlows/TDcmpWorkFlow")
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.TDcmp_WorkFlow, l["Menu:TDcmpWorkFlow"], "/TDcmp/WorkFlows/TDcmpWorkFlow", icon: "fas fa-list", order: 1)
             );
         }
 

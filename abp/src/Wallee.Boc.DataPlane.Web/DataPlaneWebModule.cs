@@ -150,10 +150,16 @@ public class DataPlaneWebModule : AbpModule
                 }
             );
 
-            options.ScriptBundles.Configure(typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName,
-               bundleConfiguration =>
+            options.ScriptBundles.Configure(LeptonXLiteThemeBundles.Scripts.Global, bundle =>
+            {
+                bundle.AddFiles("/libs/viz-js/viz-standalone.js");
+            });
+
+            options.ScriptBundles.Configure(
+                typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName,
+               bundle =>
                {
-                   bundleConfiguration.AddFiles(
+                   bundle.AddFiles(
                        "/Pages/Identity/Users/user-extend.js"
                    );
                });

@@ -1,7 +1,5 @@
-﻿using FluentFTP;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Modularity;
 using Wallee.Boc.DataPlane.Background.Ftp;
@@ -16,9 +14,9 @@ namespace Wallee.Boc.DataPlane.Background
         {
             var configuration = context.Services.GetConfiguration();
 
-            ConfigureFtp(configuration);
-
             ConfigureBackgruond();
+
+            ConfigureFtp(configuration);
         }
 
 
@@ -28,7 +26,7 @@ namespace Wallee.Boc.DataPlane.Background
             Configure<AbpBackgroundJobWorkerOptions>(options =>
             {
                 //超时时间，设置7天(一周)，一天是86_400
-                options.DefaultTimeout = 604_800;
+                options.DefaultTimeout = 86_400 * 7;
             });
         }
 

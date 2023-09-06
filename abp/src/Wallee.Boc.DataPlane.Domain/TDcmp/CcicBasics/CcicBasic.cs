@@ -131,7 +131,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics
         /// <summary>
         /// 记录版本序号
         /// </summary>
-        public decimal RCRD_VRSN_SN { get; set; }
+        public string RCRD_VRSN_SN { get; set; }
 
         /// <summary>
         /// 记录清理状态代码
@@ -145,65 +145,10 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics
             };
         }
 
-    protected CcicBasic()
-    {
-    }
-
-    public CcicBasic(
-        string cUSNO,
-        string lGPER_CODE,
-        string? aL_CODE,
-        string? cOMM_LNG,
-        string? cUSRL_TE_CHNL,
-        string? cSMGR_TLR_REFNO,
-        string? oPNAC_ORG_REFNO,
-        string? bLG_ORG_REFNO,
-        DateTime? oPNAC_DT,
-        DateTime? cLS_DT,
-        DateTime lAST_CNMDT_PERI,
-        string? cSTST,
-        string? dSABL_REASN,
-        string? dSABL_REASN_NOTE,
-        string? pART_RL_TP_CODE,
-        string? dEL_FLAG,
-        string? cRTR_TLR_REFNO,
-        string? cRT_TLR_ORG_REFNO,
-        DateTime cRT_DTTM,
-        DateTime cUR_ACDT_PERI,
-        string? lTST_MOD_TLR_REFNO,
-        string? mOD_TLR_ORG_REFNO,
-        string? lAST_MNT_STS_CODE,
-        DateTime lAST_MOD_DTTM,
-        decimal rCRD_VRSN_SN,
-        string? rCRD_CLNUP_STSCD
-    )
-    {
-        CUSNO = cUSNO;
-        LGPER_CODE = lGPER_CODE;
-        AL_CODE = aL_CODE;
-        COMM_LNG = cOMM_LNG;
-        CUSRL_TE_CHNL = cUSRL_TE_CHNL;
-        CSMGR_TLR_REFNO = cSMGR_TLR_REFNO;
-        OPNAC_ORG_REFNO = oPNAC_ORG_REFNO;
-        BLG_ORG_REFNO = bLG_ORG_REFNO;
-        OPNAC_DT = oPNAC_DT;
-        CLS_DT = cLS_DT;
-        LAST_CNMDT_PERI = lAST_CNMDT_PERI;
-        CSTST = cSTST;
-        DSABL_REASN = dSABL_REASN;
-        DSABL_REASN_NOTE = dSABL_REASN_NOTE;
-        PART_RL_TP_CODE = pART_RL_TP_CODE;
-        DEL_FLAG = dEL_FLAG;
-        CRTR_TLR_REFNO = cRTR_TLR_REFNO;
-        CRT_TLR_ORG_REFNO = cRT_TLR_ORG_REFNO;
-        CRT_DTTM = cRT_DTTM;
-        CUR_ACDT_PERI = cUR_ACDT_PERI;
-        LTST_MOD_TLR_REFNO = lTST_MOD_TLR_REFNO;
-        MOD_TLR_ORG_REFNO = mOD_TLR_ORG_REFNO;
-        LAST_MNT_STS_CODE = lAST_MNT_STS_CODE;
-        LAST_MOD_DTTM = lAST_MOD_DTTM;
-        RCRD_VRSN_SN = rCRD_VRSN_SN;
-        RCRD_CLNUP_STSCD = rCRD_CLNUP_STSCD;
-    }
+#pragma warning disable CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        protected CcicBasic()
+#pragma warning restore CS8618 // 在退出构造函数时，不可为 null 的字段必须包含非 null 值。请考虑声明为可以为 null。
+        {
+        }
     }
 }

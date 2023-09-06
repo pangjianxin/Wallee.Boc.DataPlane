@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Stateless;
+using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
@@ -28,15 +29,35 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
                 throw new UserFriendlyException("已存在该日期的工作流");
             }
 
-            var workFlow = new TDcmpWorkFlow(GuidGenerator.Create(), dataDate);
+            var workFlow = new TDcmpWorkFlow(GuidGenerator.Create(), dataDate, "");
 
-            var stateMachine = new TDcmpStateMachine(workFlow, _backgroundJobManager);
+            var stateMachine = new TDcmpStateMachine(workFlow, _backgroundJobManager, Clock.Now);
 
-            await stateMachine.NotifyTDcmpInitialized();
+            await stateMachine.NotifyTDcmpWorkFlowInitialized();
 
             workFlow = await _tDcmpWorkFlowRepository.InsertAsync(workFlow, autoSave: true);
 
             return workFlow;
+        }
+
+        public Task<TDcmpWorkFlow> NotifyCcicBasicCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            stateMachine.NotifyCcicBasicCompleted();
+            return Task.FromResult(tDcmpWorkFlow);
+        }
+
+        public Task<TDcmpWorkFlow> NotifyCcicAddressCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            stateMachine.NotifyCcicAddressCompleted();
+            return Task.FromResult(tDcmpWorkFlow);
+        }
+
+        public Task<string> GetDotGraphAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            return Task.FromResult(stateMachine.GetDotGraph());
         }
     }
 }

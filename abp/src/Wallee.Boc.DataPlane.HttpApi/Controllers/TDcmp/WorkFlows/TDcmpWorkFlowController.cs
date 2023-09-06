@@ -1,14 +1,20 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
 
 namespace Wallee.Boc.DataPlane.Controllers.TDcmp.WorkFlows
 {
+    [RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
+    [Route("/api/app/t-dcmp/work-flow")]
+    [Authorize]
     public class TDcmpWorkFlowController : DataPlaneController, ITDcmpWorkFlowAppService
     {
         private readonly ITDcmpWorkFlowAppService _tDcmpWorkFlowAppService;
@@ -18,29 +24,51 @@ namespace Wallee.Boc.DataPlane.Controllers.TDcmp.WorkFlows
             _tDcmpWorkFlowAppService = tDcmpWorkFlowAppService;
         }
 
-        public Task<TDcmpWorkFlowDto> CreateAsync(CreateUpdateTDcmpWorkFlowDto input)
+        [HttpPost]
+        public async Task<TDcmpWorkFlowDto> CreateAsync(CreateUpdateTDcmpWorkFlowDto input)
         {
-            throw new NotImplementedException();
+            return await _tDcmpWorkFlowAppService.CreateAsync(input);
         }
 
-        public Task DeleteAsync(Guid id)
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _tDcmpWorkFlowAppService.DeleteAsync(id);
         }
 
-        public Task<TDcmpWorkFlowDto> GetAsync(Guid id)
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<TDcmpWorkFlowDto> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _tDcmpWorkFlowAppService.GetAsync(id);
         }
 
-        public Task<PagedResultDto<TDcmpWorkFlowDto>> GetListAsync(TDcmpWorkFlowGetListInput input)
+        [HttpGet]
+        [Route("current")]
+        public async Task<TDcmpWorkFlowDto> GetCurrentAsync()
         {
-            throw new NotImplementedException();
+            return await _tDcmpWorkFlowAppService.GetCurrentAsync();
         }
 
-        public Task<TDcmpWorkFlowDto> UpdateAsync(Guid id, CreateUpdateTDcmpWorkFlowDto input)
+        [HttpGet]
+        [Route("dotn-graph")]
+        public async Task<string> GetDotGraphAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _tDcmpWorkFlowAppService.GetDotGraphAsync(id);
+        }
+
+        [HttpGet]
+        public async Task<PagedResultDto<TDcmpWorkFlowDto>> GetListAsync(TDcmpWorkFlowGetListInput input)
+        {
+            return await _tDcmpWorkFlowAppService.GetListAsync(input);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<TDcmpWorkFlowDto> UpdateAsync(Guid id, CreateUpdateTDcmpWorkFlowDto input)
+        {
+            return await _tDcmpWorkFlowAppService.UpdateAsync(id, input);
         }
     }
 }

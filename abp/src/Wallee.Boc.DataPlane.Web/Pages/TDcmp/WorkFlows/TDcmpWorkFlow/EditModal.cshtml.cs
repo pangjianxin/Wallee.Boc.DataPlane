@@ -14,7 +14,7 @@ public class EditModalModel : DataPlanePageModel
     public Guid Id { get; set; }
 
     [BindProperty]
-    public CreateEditTDcmpWorkFlowViewModel ViewModel { get; set; }
+    public CreateEditTDcmpWorkFlowViewModel ViewModel { get; set; } = default!;
 
     private readonly ITDcmpWorkFlowAppService _service;
 

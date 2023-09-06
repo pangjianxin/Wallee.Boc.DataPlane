@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Repositories;
@@ -33,7 +32,20 @@ public class TDcmpWorkFlowAppService : CrudAppService<TDcmpWorkFlow, TDcmpWorkFl
 
     public override async Task<TDcmpWorkFlowDto> CreateAsync(CreateUpdateTDcmpWorkFlowDto input)
     {
-        return await MapToGetOutputDtoAsync(await _tDcmpWorkFlowManager.CreateAsync(input.DataDate));
+        var workFlow = await _tDcmpWorkFlowManager.CreateAsync(input.DataDate);
+
+        return await MapToGetOutputDtoAsync(workFlow);
+    }
+
+    public async Task<TDcmpWorkFlowDto> GetCurrentAsync()
+    {
+        var workFlow = await _repository.FirstOrDefaultAsync(it => it.Status != TDcmpStatus.已完成);
+        return await MapToGetOutputDtoAsync(workFlow);
+    }
+
+    public async Task<string> GetDotGraphAsync(Guid id)
+    {
+        return await _tDcmpWorkFlowManager.GetDotGraphAsync(await _repository.GetAsync(id));
     }
 
     protected override async Task<IQueryable<TDcmpWorkFlow>> CreateFilteredQueryAsync(TDcmpWorkFlowGetListInput input)
@@ -41,8 +53,7 @@ public class TDcmpWorkFlowAppService : CrudAppService<TDcmpWorkFlow, TDcmpWorkFl
         // TODO: AbpHelper generated
         return (await base.CreateFilteredQueryAsync(input))
             .WhereIf(input.Status != null, x => x.Status == input.Status)
-            .WhereIf(input.DataDate != null, x => x.DataDate == input.DataDate)
-            .WhereIf(input.Comment != null, x => x.Comment == input.Comment)
-            ;
+            .WhereIf(input.DataDate != null, x => x.DataDate.Date == input.DataDate.GetValueOrDefault().Date)
+            .WhereIf(input.Comment != null, x => x.Comment!.Contains(input.Comment!));
     }
 }

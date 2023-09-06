@@ -10,33 +10,40 @@ using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
     public abstract class TDcmpAsyncBackgroundJob<TArgs> : AsyncBackgroundJob<TArgs> where TArgs : TDcmpBackgroundJobArgs
     {
-        protected readonly FtpOptions _ftpOptions;
-        protected readonly IBlobContainer<DataPlaneFileContainer> _tDcmpFileContainer;
-        protected readonly IClock _clock;
+        protected ITDcmpWorkFlowRepository Repository { get; set; }
+        protected FtpOptions FtpOptions { get; set; }
+        protected IBlobContainer<DataPlaneFileContainer> TDcmpFileContainer { get; set; }
+        protected IClock Clock { get; set; }
 
         public TDcmpAsyncBackgroundJob(
             IOptions<FtpOptions> ftpOptions,
             IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
-            IClock clock)
+            IClock clock,
+            ITDcmpWorkFlowRepository repository)
         {
-            _ftpOptions = ftpOptions.Value;
-            _tDcmpFileContainer = tDcmpFileContainer;
-            _clock = clock;
+            FtpOptions = ftpOptions.Value;
+            TDcmpFileContainer = tDcmpFileContainer;
+            Clock = clock;
+            Repository = repository;
         }
-        protected async Task<Stream> GetStreamFromFtp(TArgs args)
+        protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow, TArgs args)
         {
-            var fileDate = args.DataDate.ToString("yyyyMMdd");
 
-            var ccicBasicFileName = string.Format(_ftpOptions.CcicBasicFileName, fileDate);
+            var fileDate = workFlow.DataDate.ToString("yyyyMMdd");
 
-            var ftpBasePath = string.Format(_ftpOptions.FtpBasePath, fileDate);
+            var ccicBasicFileName = string.Format(FtpOptions.CcicBasicFileName, fileDate);
+
+            var ftpBasePath = string.Format(FtpOptions.FtpBasePath, fileDate);
+
             var bormFileFullName = Path.Combine(ftpBasePath, ccicBasicFileName);
-            using IAsyncFtpClient ftpClient = new AsyncFtpClient(_ftpOptions.Address, _ftpOptions.UserName, _ftpOptions.Password);
+
+            using IAsyncFtpClient ftpClient = new AsyncFtpClient(FtpOptions.Address, FtpOptions.UserName, FtpOptions.Password);
             await ftpClient.AutoConnect();
 
             if (!await ftpClient.FileExists(bormFileFullName))
@@ -45,6 +52,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             }
 
             var memory = new MemoryStream();
+
             var result = await ftpClient.DownloadStream(memory, bormFileFullName);
 
             if (!result)
@@ -54,10 +62,11 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             }
 
             memory.Seek(0, SeekOrigin.Begin);
+
             return memory;
         }
 
-        protected async Task PrepareCcicBasicTempTableAsync(string connStr, string tableName)
+        protected async Task PrepareCcicBasicTempTableAsync(string connStr, string tableName, string blobName)
         {
             using var conn = new SqlConnection(connStr);
             await conn.OpenAsync();
@@ -68,7 +77,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
                 var sqlCommand = conn.CreateCommand();
                 sqlCommand.Transaction = tran;
 
-                sqlCommand.CommandText = string.Format(Encoding.UTF8.GetString(await _tDcmpFileContainer.GetAllBytesAsync("")), tableName);
+                sqlCommand.CommandText = string.Format(Encoding.UTF8.GetString(await TDcmpFileContainer.GetAllBytesAsync(blobName)), tableName);
 
                 await sqlCommand.ExecuteNonQueryAsync();
 
@@ -80,26 +89,6 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 throw;
             }
-        }
-
-        protected TimeSpan CalculateNextLoopDelay(DateTime currentDate)
-        {
-            var now = _clock.Now;
-
-            var nextFileDateTime = currentDate.Date.AddDays(1);
-
-            var delay = TimeSpan.FromSeconds(5);
-
-            if (nextFileDateTime.Date >= now.Date)
-            {
-                var nextTryTimeCron = CronExpression.Parse(_ftpOptions.TDcmpJobExecutionCronExpression);
-
-                var nextTryTime = nextTryTimeCron.GetNextOccurrence((DateTimeOffset)nextFileDateTime.AddDays(1), TimeZoneInfo.Local)!.Value;
-
-                delay = nextTryTime - now;
-            }
-
-            return delay;
         }
     }
 }

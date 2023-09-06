@@ -90,8 +90,8 @@ public class DataPlaneDbContext :
         builder.Entity<CcicBasic>(b =>
         {
             b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicBasics", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户基础信息"));
-            b.ConfigureByConvention(); 
-            
+            b.ConfigureByConvention();
+
             b.HasKey(e => new
             {
                 e.CUSNO,
@@ -103,8 +103,8 @@ public class DataPlaneDbContext :
         builder.Entity<CcicAddress>(b =>
         {
             b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicAddresses", DataPlaneConsts.DbSchema);
-            b.ConfigureByConvention(); 
-            
+            b.ConfigureByConvention();
+
             b.HasKey(e => new
             {
                 e.CUSNO,
@@ -118,9 +118,10 @@ public class DataPlaneDbContext :
         builder.Entity<TDcmpWorkFlow>(b =>
         {
             b.ToTable(DataPlaneConsts.DbTablePrefix + "TDcmpWorkFlows", DataPlaneConsts.DbSchema, table => table.HasComment("信息管理平台工作流"));
-            b.ConfigureByConvention(); 
-            
-
+            b.ConfigureByConvention();
+            b.HasKey(it => it.Id);
+            b.Property(it => it.Comment).IsRequired(false).HasMaxLength(int.MaxValue);
+            b.Property(it => it.CronExpression).IsRequired().HasMaxLength(100);
             /* Configure more properties here */
         });
     }

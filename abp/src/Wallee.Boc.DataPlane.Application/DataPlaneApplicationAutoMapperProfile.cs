@@ -7,6 +7,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics.Dtos;
+using Volo.Abp.BackgroundJobs;
+using Wallee.Boc.DataPlane.BackgroundJobs;
 
 namespace Wallee.Boc.DataPlane;
 
@@ -22,5 +24,6 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<CcicAddress, CcicAddressDto>();
         CreateMap<TDcmpWorkFlow, TDcmpWorkFlowDto>();
         CreateMap<CreateUpdateTDcmpWorkFlowDto, TDcmpWorkFlow>(MemberList.Source);
+        CreateMap<BackgroundJobRecord, BackgroundJobRecordDto>();
     }
 }

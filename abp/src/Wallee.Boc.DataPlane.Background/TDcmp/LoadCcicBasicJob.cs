@@ -12,9 +12,11 @@ using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
@@ -28,17 +30,26 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
             IOptions<FtpOptions> ftpOptions,
             IConfiguration configuration,
-            IClock clock) : base(ftpOptions, tDcmpFileContainer, clock)
+            IClock clock,
+            ITDcmpWorkFlowRepository repository) : base(ftpOptions, tDcmpFileContainer, clock, repository)
         {
             _backgroundJobManager = backgroundJobManager;
             _configuration = configuration;
         }
+
+        [UnitOfWork]
         public override async Task ExecuteAsync(LoadCcicBasicJobArgs args)
         {
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+
             var connStr = _configuration.GetConnectionString("Default");
+
             var tableName = "dbo.CcicBasic_Tmp";
-            await PrepareCcicBasicTempTableAsync(connStr!, tableName);
-            using var stream = await GetStreamFromFtp(args);
+
+            await PrepareCcicBasicTempTableAsync(connStr!, tableName, "");
+
+            using var stream = await GetStreamFromFtp(workFlow, args);
+
             await LoadCcicBasicTemp(stream, tableName);
         }
 

@@ -1,27 +1,8 @@
 $(function () {
-
-    $("#TDcmpWorkFlowFilter :input").on('input', function () {
-        dataTable.ajax.reload();
-    });
-
-    //After abp v7.2 use dynamicForm 'column-size' instead of the following settings
-    //$('#TDcmpWorkFlowCollapse div').addClass('col-sm-3').parent().addClass('row');
-
-    var getFilter = function () {
-        var input = {};
-        $("#TDcmpWorkFlowFilter")
-            .serializeArray()
-            .forEach(function (data) {
-                if (data.value != '') {
-                    input[abp.utils.toCamelCase(data.name.replace(/TDcmpWorkFlowFilter./g, ''))] = data.value;
-                }
-            })
-        return input;
-    };
-
+ 
     var l = abp.localization.getResource('DataPlane');
 
-    var service = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
+    var service = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
     var createModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/EditModal');
 
@@ -29,11 +10,11 @@ $(function () {
         processing: true,
         serverSide: true,
         paging: true,
-        searching: false,//disable default searchbox
+        searching: true,//disable default searchbox
         autoWidth: false,
         scrollCollapse: true,
         order: [[0, "asc"]],
-        ajax: abp.libs.datatables.createAjax(service.getList,getFilter),
+        ajax: abp.libs.datatables.createAjax(service.getList),
         columnDefs: [
             {
                 rowAction: {
@@ -90,4 +71,13 @@ $(function () {
         e.preventDefault();
         createModal.open();
     });
+
+    var tDcmpWorkFlowWidget = new abp.WidgetManager({
+        wrapper: '#tDcmpWorkFlowWidget',
+        filterCallback: function () {
+            var date = $('#localAuthStatisticEndTime').val();
+            return { endTime: date }
+        }
+    });
+    tDcmpWorkFlowWidget.init();
 });

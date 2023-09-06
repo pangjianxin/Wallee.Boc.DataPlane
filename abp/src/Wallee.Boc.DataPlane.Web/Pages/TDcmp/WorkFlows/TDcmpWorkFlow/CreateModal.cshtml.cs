@@ -9,7 +9,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.TDcmp.WorkFlows.TDcmpWorkFlow;
 public class CreateModalModel : DataPlanePageModel
 {
     [BindProperty]
-    public CreateEditTDcmpWorkFlowViewModel ViewModel { get; set; }
+    public CreateEditTDcmpWorkFlowViewModel ViewModel { get; set; } = default!;
 
     private readonly ITDcmpWorkFlowAppService _service;
 
