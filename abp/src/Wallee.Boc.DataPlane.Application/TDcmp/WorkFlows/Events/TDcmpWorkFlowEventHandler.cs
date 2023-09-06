@@ -21,7 +21,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows.Events
         [UnitOfWork]
         public async Task HandleEventAsync(TDcmpWorkFlowCompletedEto eventData)
         {
-            await _tDcmpWorkFlowManager.CreateAsync(eventData.DataDate.AddDays(1).Date);
+            await _tDcmpWorkFlowManager.CreateAsync(eventData.DataDate.AddDays(1).Date, eventData.CronExpression);
         }
 
     }

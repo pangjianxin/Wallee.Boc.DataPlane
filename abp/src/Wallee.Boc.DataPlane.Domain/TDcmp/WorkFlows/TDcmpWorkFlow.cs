@@ -61,6 +61,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             AddDistributedEvent(new TDcmpWorkFlowCompletedEto
             {
                 DataDate = DataDate,
+                CronExpression = CronExpression
             });
         }
     }

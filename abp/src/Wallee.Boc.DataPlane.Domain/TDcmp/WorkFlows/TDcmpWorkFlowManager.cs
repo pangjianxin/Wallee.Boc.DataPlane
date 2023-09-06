@@ -22,14 +22,16 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             _backgroundJobManager = backgroundJobManager;
         }
 
-        public async Task<TDcmpWorkFlow> CreateAsync(DateTime dataDate)
+        public async Task<TDcmpWorkFlow> CreateAsync(DateTime dataDate, string cronExpression)
         {
+            Check.NotNullOrEmpty(cronExpression, nameof(cronExpression));
+
             if (await _tDcmpWorkFlowRepository.AnyAsync(it => it.DataDate.Date == dataDate.Date))
             {
                 throw new UserFriendlyException("已存在该日期的工作流");
             }
 
-            var workFlow = new TDcmpWorkFlow(GuidGenerator.Create(), dataDate, "");
+            var workFlow = new TDcmpWorkFlow(GuidGenerator.Create(), dataDate, cronExpression);
 
             var stateMachine = new TDcmpStateMachine(workFlow, _backgroundJobManager, Clock.Now);
 

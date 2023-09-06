@@ -23,4 +23,8 @@ public class TDcmpWorkFlowDto : AuditedEntityDto<Guid>
     /// 备注(有可能会记录异常的堆栈信息)
     /// </summary>
     public string? Comment { get; set; }
+    /// <summary>
+    /// Cron表达式
+    /// </summary>
+    public string CronExpression { get; set; } = default!;
 }

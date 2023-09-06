@@ -1,5 +1,5 @@
 $(function () {
- 
+
     var l = abp.localization.getResource('DataPlane');
 
     var service = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
@@ -46,11 +46,23 @@ $(function () {
             },
             {
                 title: l('TDcmpWorkFlowStatus'),
-                data: "status"
+                data: "status",
+                render: function (data) {
+                    console.log(data);
+                    let color = data === 1 ? "success" : "danger";
+                    return `<span class='badge bg-${color}'>${l('Enum:TDcmpStatus:' + data)}</span>`;
+                }
+            },
+            {
+                title: "Cron表达式",
+                data: "cronExpression"
             },
             {
                 title: l('TDcmpWorkFlowDataDate'),
-                data: "dataDate"
+                data: "dataDate",
+                render: function (data) {
+                    return luxon.DateTime.fromISO(data, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT);
+                }
             },
             {
                 title: l('TDcmpWorkFlowComment'),

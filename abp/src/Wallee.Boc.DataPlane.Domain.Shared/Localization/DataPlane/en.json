@@ -88,6 +88,9 @@
     "CreateTDcmpWorkFlow": "CreateTDcmpWorkFlow",
     "EditTDcmpWorkFlow": "EditTDcmpWorkFlow",
     "TDcmpWorkFlowDeletionConfirmationMessage": "Are you sure to delete the tDcmpWorkFlow {0}?",
-    "SuccessfullyDeleted": "Successfully deleted"
+    "SuccessfullyDeleted": "Successfully deleted",
+    "Enum:TDcmpStatus:1": "初始化",
+    "Enum:TDcmpStatus:2": "基础信息",
+    "Enum:TDcmpStatus:3": "地址信息"
   }
 }

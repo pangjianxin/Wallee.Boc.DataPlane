@@ -17,6 +17,5 @@ public interface ITDcmpWorkFlowAppService :
         CreateUpdateTDcmpWorkFlowDto,
         CreateUpdateTDcmpWorkFlowDto>
 {
-    Task<TDcmpWorkFlowDto> GetCurrentAsync();
-    Task<string> GetDotGraphAsync(Guid id);
+    Task<ExecutingTDcmpWorkFlowDto?> GetExecutingAsync();
 }

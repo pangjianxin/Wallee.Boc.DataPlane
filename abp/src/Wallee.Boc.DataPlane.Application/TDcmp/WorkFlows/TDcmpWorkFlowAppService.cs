@@ -32,20 +32,25 @@ public class TDcmpWorkFlowAppService : CrudAppService<TDcmpWorkFlow, TDcmpWorkFl
 
     public override async Task<TDcmpWorkFlowDto> CreateAsync(CreateUpdateTDcmpWorkFlowDto input)
     {
-        var workFlow = await _tDcmpWorkFlowManager.CreateAsync(input.DataDate);
+        var workFlow = await _tDcmpWorkFlowManager.CreateAsync(input.DataDate, input.CronExpression);
 
         return await MapToGetOutputDtoAsync(workFlow);
     }
 
-    public async Task<TDcmpWorkFlowDto> GetCurrentAsync()
+    public async Task<ExecutingTDcmpWorkFlowDto?> GetExecutingAsync()
     {
         var workFlow = await _repository.FirstOrDefaultAsync(it => it.Status != TDcmpStatus.已完成);
-        return await MapToGetOutputDtoAsync(workFlow);
-    }
 
-    public async Task<string> GetDotGraphAsync(Guid id)
-    {
-        return await _tDcmpWorkFlowManager.GetDotGraphAsync(await _repository.GetAsync(id));
+        if (workFlow == default)
+        {
+            return default;
+        }
+        return new ExecutingTDcmpWorkFlowDto
+        {
+            Dto = await MapToGetOutputDtoAsync(workFlow),
+            DotGraph = await _tDcmpWorkFlowManager.GetDotGraphAsync(workFlow)
+        };
+
     }
 
     protected override async Task<IQueryable<TDcmpWorkFlow>> CreateFilteredQueryAsync(TDcmpWorkFlowGetListInput input)

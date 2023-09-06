@@ -1,6 +1,7 @@
 ﻿using Cronos;
 using Stateless;
 using Stateless.Graph;
+using Stateless.Reflection;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.BackgroundJobs;
@@ -15,8 +16,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         private enum Trigger
         {
             初始化 = 0,
-            加载对公基础信息 = 1,
-            加载对公地址信息 = 2,
+            加载基础信息 = 1,
+            加载地址信息 = 2,
 
             已完成 = 99
         }
@@ -38,20 +39,20 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
 
             _stateMachine = new StateMachine<TDcmpStatus, Trigger>(() => _tDcmp.Status, _tDcmp.SetStatus);
 
-            _ccicBasic = _stateMachine.SetTriggerParameters<Guid>(Trigger.加载对公基础信息);
+            _ccicBasic = _stateMachine.SetTriggerParameters<Guid>(Trigger.加载基础信息);
 
-            _ccicAddress = _stateMachine.SetTriggerParameters<Guid>(Trigger.加载对公地址信息);
+            _ccicAddress = _stateMachine.SetTriggerParameters<Guid>(Trigger.加载地址信息);
 
             _stateMachine.Configure(TDcmpStatus.初始化)
-                .OnActivateAsync(OnStateMachineInitializedAsync, "开始处理数据")
-                .Permit(Trigger.加载对公基础信息, TDcmpStatus.对公基础信息);
+                .OnActivateAsync(OnStateMachineInitializedAsync, "数据加工开始")
+                .Permit(Trigger.加载基础信息, TDcmpStatus.基础信息);
 
-            _stateMachine.Configure(TDcmpStatus.对公基础信息)
-                .OnEntryFromAsync(_ccicBasic, OnCcicBasicCompletedAsync, "开始加载基础信息")
-                .Permit(Trigger.加载对公地址信息, TDcmpStatus.对公地址信息);
+            _stateMachine.Configure(TDcmpStatus.基础信息)
+                .OnEntryFromAsync(_ccicBasic, OnCcicBasicCompletedAsync, "第一步")
+                .Permit(Trigger.加载地址信息, TDcmpStatus.地址信息);
 
-            _stateMachine.Configure(TDcmpStatus.对公地址信息)
-                .OnEntryFrom(_ccicAddress, OnCcicAddressCompleted)
+            _stateMachine.Configure(TDcmpStatus.地址信息)
+                .OnEntryFromAsync(_ccicAddress, OnCcicAddressCompletedAsync, "第二步")
                 .Permit(Trigger.已完成, TDcmpStatus.已完成);
 
             //_stateMachine.Configure(TDcmpStatus.已完成)
@@ -60,7 +61,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
 
         public string GetDotGraph()
         {
-            return UmlDotGraph.Format(_stateMachine.GetInfo());
+            StateMachineInfo info = _stateMachine.GetInfo();
+            return UmlDotGraph.Format(info);
         }
 
         public async Task NotifyTDcmpWorkFlowInitialized()
@@ -104,11 +106,12 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             TimeSpan.FromSeconds(5));
         }
 
-        private void OnCcicAddressCompleted(Guid workFlowId)
+        private Task OnCcicAddressCompletedAsync(Guid workFlowId)
         {
             _tDcmp.Complete();
             _tDcmp.SetComment($"文件处理完毕");
             _stateMachine.Fire(Trigger.已完成);
+            return Task.CompletedTask;
         }
 
 

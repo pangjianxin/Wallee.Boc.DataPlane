@@ -45,17 +45,10 @@ namespace Wallee.Boc.DataPlane.Controllers.TDcmp.WorkFlows
         }
 
         [HttpGet]
-        [Route("current")]
-        public async Task<TDcmpWorkFlowDto> GetCurrentAsync()
+        [Route("executing")]
+        public async Task<ExecutingTDcmpWorkFlowDto?> GetExecutingAsync()
         {
-            return await _tDcmpWorkFlowAppService.GetCurrentAsync();
-        }
-
-        [HttpGet]
-        [Route("dotn-graph")]
-        public async Task<string> GetDotGraphAsync(Guid id)
-        {
-            return await _tDcmpWorkFlowAppService.GetDotGraphAsync(id);
+            return await _tDcmpWorkFlowAppService.GetExecutingAsync();
         }
 
         [HttpGet]
