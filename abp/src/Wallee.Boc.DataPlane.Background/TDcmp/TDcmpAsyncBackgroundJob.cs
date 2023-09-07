@@ -7,6 +7,7 @@ using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.Extensions;
@@ -33,7 +34,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Clock = clock;
             Repository = repository;
         }
-        protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow, TArgs args)
+        protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow)
         {
             var fileDate = workFlow.DataDate.ToString("yyyyMMdd");
 
@@ -65,15 +66,18 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             return memory;
         }
 
-        protected virtual async Task<string> PrepareTempTableAsync<T>(IReadOnlyRepository<T> repository) where T : AggregateRoot
+        protected virtual async Task<string> PrepareTempTableAsync<T>(IReadOnlyRepository<T> repository, IUnitOfWork uow) where T : AggregateRoot
         {
             var tableName = await repository.GetTableName("Temp");
 
             var dbContext = await repository.GetDbContextAsync();
 
+
             var count = (await dbContext.Database.SqlQueryRaw<int>($"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}'")
-                .ToListAsync())
-                .FirstOrDefault();
+               .ToListAsync())
+               .FirstOrDefault();
+
+
 
             if (count > 0)
             {
@@ -84,6 +88,8 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
                 var createTableScript = await repository.GenerateCreateTableScript(tableName);
                 await dbContext.Database.ExecuteSqlRawAsync(createTableScript);
             }
+
+            await uow.SaveChangesAsync();
 
             return tableName;
         }

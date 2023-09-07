@@ -131,7 +131,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics
         /// <summary>
         /// 记录版本序号
         /// </summary>
-        public string RCRD_VRSN_SN { get; set; }
+        public string? RCRD_VRSN_SN { get; set; }
 
         /// <summary>
         /// 记录清理状态代码

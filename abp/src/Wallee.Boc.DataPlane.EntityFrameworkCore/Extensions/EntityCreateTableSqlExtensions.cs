@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp.Data;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 
@@ -26,7 +27,7 @@ namespace Wallee.Boc.DataPlane.Extensions
             var entityType = dbContext.Model.FindEntityType(typeof(T));
             //var tableName = $"{entityType?.GetTableName()}_Temp";
             //var schema = entityType?.GetSchema() ?? "dbo";
-            var properties = entityType?.GetProperties();
+            var properties = entityType?.GetProperties().Where(it => it.Name != nameof(IHasConcurrencyStamp.ConcurrencyStamp) && it.Name != nameof(IHasExtraProperties.ExtraProperties));
             var primaryKey = entityType?.FindPrimaryKey();
 
             var stringBuilder = new StringBuilder();

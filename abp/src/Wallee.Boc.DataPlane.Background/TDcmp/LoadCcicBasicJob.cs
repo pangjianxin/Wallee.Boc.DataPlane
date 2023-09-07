@@ -43,14 +43,17 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             _ccicBasicRepository = ccicBasicRepository;
         }
 
-        [UnitOfWork]
         public override async Task ExecuteAsync(LoadCcicBasicJobArgs args)
         {
+            using var uow = _unitOfWorkManager.Begin();
 
             var workFlow = await Repository.GetAsync(args.WorkFlowId);
 
-            var tableName = await PrepareTempTableAsync(_ccicBasicRepository);
+            var tableName = await PrepareTempTableAsync(_ccicBasicRepository, uow);
 
+            using var stream = await GetStreamFromFtp(workFlow);
+
+            await LoadCcicBasicTemp(stream, tableName);
             //using var uow = _unitOfWorkManager.Begin();
             //try
             //{
@@ -60,7 +63,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
             //    await PrepareTempTableAsync(_ccicBasicRepository);
 
-            //    using var stream = await GetStreamFromFtp(workFlow, args);
+            //    
 
             //    await LoadCcicBasicTemp(stream, tableName);
             //}
@@ -96,6 +99,14 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
                     {
                         HasHeaderRecord = false,
                         TrimOptions = TrimOptions.Trim | TrimOptions.InsideQuotes,
+                        Delimiter = "\u0001|\u0001",
+                        BadDataFound = args =>
+                        {
+                            if (args.RawRecord.StartsWith("|||diip-control|||"))
+                            {
+                                return;
+                            }
+                        }
                     });
 
                     // make sure to enable triggers
