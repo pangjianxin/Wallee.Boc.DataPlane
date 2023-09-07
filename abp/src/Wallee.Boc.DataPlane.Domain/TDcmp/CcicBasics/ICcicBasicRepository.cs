@@ -1,6 +1,4 @@
-using System;
 using Volo.Abp.Domain.Repositories;
-
 namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 
 /// <summary>

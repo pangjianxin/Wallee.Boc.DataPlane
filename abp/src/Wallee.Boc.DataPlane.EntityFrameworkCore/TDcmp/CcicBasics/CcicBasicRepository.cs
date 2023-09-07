@@ -1,9 +1,8 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
+using Wallee.Boc.DataPlane.EntityFrameworkCore;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 
@@ -16,5 +15,5 @@ public class CcicBasicRepository : EfCoreRepository<DataPlaneDbContext, CcicBasi
     public override async Task<IQueryable<CcicBasic>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).IncludeDetails();
-    }
+    }  
 }

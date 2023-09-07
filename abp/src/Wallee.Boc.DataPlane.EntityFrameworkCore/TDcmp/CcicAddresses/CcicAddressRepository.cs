@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
@@ -15,5 +16,12 @@ public class CcicAddressRepository : EfCoreRepository<DataPlaneDbContext, CcicAd
     public override async Task<IQueryable<CcicAddress>> WithDetailsAsync()
     {
         return (await GetQueryableAsync()).IncludeDetails();
+    }
+
+    public async Task ExecuteSqlRawAsync(string sql)
+    {
+        var dbContext = await GetDbContextAsync();
+        var str = dbContext.Database.GenerateCreateScript();
+        await dbContext.Database.ExecuteSqlRawAsync(sql);
     }
 }

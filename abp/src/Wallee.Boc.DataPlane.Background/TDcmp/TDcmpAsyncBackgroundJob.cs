@@ -1,14 +1,15 @@
-﻿using Cronos;
-using FluentFTP;
-using Microsoft.Data.SqlClient;
+﻿using FluentFTP;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System.Text;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring;
+using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
+using Wallee.Boc.DataPlane.Extensions;
 using Wallee.Boc.DataPlane.TDcmp;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
@@ -34,7 +35,6 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         }
         protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow, TArgs args)
         {
-
             var fileDate = workFlow.DataDate.ToString("yyyyMMdd");
 
             var ccicBasicFileName = string.Format(FtpOptions.CcicBasicFileName, fileDate);
@@ -57,7 +57,6 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
             if (!result)
             {
-                args.Exception = "下载未成功";
                 throw new AbpException("下载未成功");
             }
 
@@ -66,29 +65,27 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             return memory;
         }
 
-        protected async Task PrepareCcicBasicTempTableAsync(string connStr, string tableName, string blobName)
+        protected virtual async Task<string> PrepareTempTableAsync<T>(IReadOnlyRepository<T> repository) where T : AggregateRoot
         {
-            using var conn = new SqlConnection(connStr);
-            await conn.OpenAsync();
+            var tableName = await repository.GetTableName("Temp");
 
-            using var tran = conn.BeginTransaction($"CREATE_{tableName}");
-            try
+            var dbContext = await repository.GetDbContextAsync();
+
+            var count = (await dbContext.Database.SqlQueryRaw<int>($"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}'")
+                .ToListAsync())
+                .FirstOrDefault();
+
+            if (count > 0)
             {
-                var sqlCommand = conn.CreateCommand();
-                sqlCommand.Transaction = tran;
-
-                sqlCommand.CommandText = string.Format(Encoding.UTF8.GetString(await TDcmpFileContainer.GetAllBytesAsync(blobName)), tableName);
-
-                await sqlCommand.ExecuteNonQueryAsync();
-
-                await tran.CommitAsync();
+                await dbContext.Database.ExecuteSqlRawAsync($"TRUNCATE TABLE {tableName}");
             }
-            catch
+            else
             {
-                await tran.RollbackAsync();
-
-                throw;
+                var createTableScript = await repository.GenerateCreateTableScript(tableName);
+                await dbContext.Database.ExecuteSqlRawAsync(createTableScript);
             }
+
+            return tableName;
         }
     }
 }

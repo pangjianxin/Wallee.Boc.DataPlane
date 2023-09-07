@@ -20,26 +20,40 @@
         var init = function (filters) {
             var tDcmpWorkFlowService = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
             tDcmpWorkFlowService.getExecuting().then(data => {
-                console.log(data.dto)
-                $("#tdcmpStatus").append($(`
-                <span class="badge bg-success d-flex flex-column justify-content-center">
-                <span class="fs-5">${luxon.DateTime.fromISO(data.dto.creationTime, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}</span>
-                <span class="mt-1 text-light">创建日期</span>
+
+                $("#tdcmpCreationDate").append($(`<span>
+                <i class="fas fa-clock">&nbsp;创建日期</i>
+                ${luxon.DateTime.fromISO(data.dto.creationTime, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}
                 </span>`));
-                $("#tdcmpStatus").append($(`
-                <span class="badge bg-secondary d-flex flex-column justify-content-center" style="margin-left:5px">
-                <span class="fs-5">${luxon.DateTime.fromISO(data.dto.dataDate, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}</span>
-                <span class="mt-1 text-light">数据日期</span>
+
+                $("#tdcmpDataDate").append($(`
+                <span class="badge bg-warning" style="margin-left:5px;" title="数据日期">
+                <i class="fas fa-calendar"></i>
+                ${luxon.DateTime.fromISO(data.dto.dataDate, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}
                 </span>`));
+               
                 $("#tdcmpStatus").append($(`
-                <span class="badge bg-primary d-flex flex-column justify-content-center" style="margin-left:5px">
-                <span class="fs-5">${l('Enum:TDcmpStatus:' + data.dto.status)}</span>
-                <span class="mt-1 text-light">当前状态</span>
-                </span>`));
+                <span class="badge bg-secondary" style="margin-left:5px;" title="任务总数">
+                 <i class="far fa-lightbulb" style="margin-right:5px;"></i>
+                ${data.dto.totalTaskCount}
+                </span>
+                `));
+                $("#tdcmpStatus").append($(`
+                <span class="badge bg-secondary" style="margin-left:5px;" title="完成数量">
+                <i class="fas fa-lightbulb" style="margin-right:5px;"></i>
+                ${data.dto.completedCount}
+                </span>
+                `));
+                $("#tdcmpStatus").append($(`
+                <span class="badge bg-primary" style="margin-left:5px;" title="当前状态">
+                <i class="fas fa-thermometer-three-quarters" style="margin-right:5px;"></i>
+                ${l('Enum:TDcmpStatus:' + data.dto.status)}
+                </span>
+                `));
+
+                $("#tdcmpProgress").append($(`<span>${Math.ceil(data.dto.completedCount / data.dto.totalTaskCount)}%</span>`));
                 render(data.dotGraph)
                     .then(element => {
-                        element.removeAttribute("height");
-                        element.removeAttribute("width");
                         $("#dotGraph").append(element);
                     })
                     .catch(error => {

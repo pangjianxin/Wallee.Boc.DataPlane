@@ -22,7 +22,7 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<OrganizationUnit, OrganizationUnitDto>().MapExtraProperties();
         CreateMap<CcicBasic, CcicBasicDto>();
         CreateMap<CcicAddress, CcicAddressDto>();
-        CreateMap<TDcmpWorkFlow, TDcmpWorkFlowDto>();
+        CreateMap<TDcmpWorkFlow, TDcmpWorkFlowDto>().ForMember(it => it.TotalTaskCount, config => config.MapFrom(it => it.TotalTaskCount));
         CreateMap<CreateUpdateTDcmpWorkFlowDto, TDcmpWorkFlow>(MemberList.Source);
         CreateMap<BackgroundJobRecord, BackgroundJobRecordDto>();
     }

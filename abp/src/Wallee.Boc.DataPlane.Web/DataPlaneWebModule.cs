@@ -40,6 +40,7 @@ using Wallee.Boc.DataPlane.Web.Extensions;
 using Wallee.Boc.DataPlane.Web.Menus;
 using Volo.Abp.Timing;
 using System;
+using Wallee.Boc.DataPlane.Minio;
 
 namespace Wallee.Boc.DataPlane.Web;
 
@@ -55,7 +56,8 @@ namespace Wallee.Boc.DataPlane.Web;
     typeof(AbpTenantManagementWebModule),
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule),
-    typeof(DataPlaneBackgroundModule)
+    typeof(DataPlaneBackgroundModule),
+    typeof(DataPlaneMinioModule)
     )]
 public class DataPlaneWebModule : AbpModule
 {

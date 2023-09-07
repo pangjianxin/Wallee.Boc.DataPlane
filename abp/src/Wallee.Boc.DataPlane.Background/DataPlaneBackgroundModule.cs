@@ -3,10 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Modularity;
 using Wallee.Boc.DataPlane.Background.Ftp;
+using Wallee.Boc.DataPlane.EntityFrameworkCore;
 
 namespace Wallee.Boc.DataPlane.Background
 {
-    [DependsOn(typeof(DataPlaneDomainModule))]
+    [DependsOn(typeof(DataPlaneEntityFrameworkCoreModule))]
     public class DataPlaneBackgroundModule : AbpModule
     {
 

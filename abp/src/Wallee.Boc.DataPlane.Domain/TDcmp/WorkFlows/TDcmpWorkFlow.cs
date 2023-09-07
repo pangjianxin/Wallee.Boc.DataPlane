@@ -1,5 +1,5 @@
-using Cronos;
 using System;
+using System.Linq;
 using Volo.Abp.Domain.Entities.Auditing;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Events;
 
@@ -38,12 +38,27 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         /// </summary>
         public string CronExpression { get; private set; }
         /// <summary>
+        /// 已完成的任务数
+        /// </summary>
+        public int CompletedCount { get; private set; }
+        /// <summary>
+        /// 任务总数
+        /// </summary>
+        public int TotalTaskCount
+        {
+            get
+            {
+                return Enum.GetValues<TDcmpStatus>().Count();
+            }
+        }
+        /// <summary>
         /// 设置状态
         /// </summary>
         /// <param name="status"></param>
         public void SetStatus(TDcmpStatus status)
         {
             Status = status;
+            CompletedCount++;
         }
         /// <summary>
         /// 设置备注/异常信息
@@ -53,11 +68,13 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             Comment = comment;
         }
-
+        /// <summary>
+        /// 设置完成
+        /// </summary>
         public void Complete()
         {
             Status = TDcmpStatus.已完成;
-
+            CompletedCount++;
             AddDistributedEvent(new TDcmpWorkFlowCompletedEto
             {
                 DataDate = DataDate,

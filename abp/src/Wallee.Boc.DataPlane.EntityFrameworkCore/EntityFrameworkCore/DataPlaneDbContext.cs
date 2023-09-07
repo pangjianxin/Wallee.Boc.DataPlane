@@ -122,6 +122,7 @@ public class DataPlaneDbContext :
             b.HasKey(it => it.Id);
             b.Property(it => it.Comment).IsRequired(false).HasMaxLength(int.MaxValue);
             b.Property(it => it.CronExpression).IsRequired().HasMaxLength(100);
+            b.Ignore(it => it.TotalTaskCount);
             /* Configure more properties here */
         });
     }

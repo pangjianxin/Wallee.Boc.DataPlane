@@ -24,6 +24,8 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     {
         private readonly IBackgroundJobManager _backgroundJobManager;
         private readonly IConfiguration _configuration;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly ICcicBasicRepository _ccicBasicRepository;
 
         public LoadCcicBasicJob(
             IBackgroundJobManager backgroundJobManager,
@@ -31,26 +33,45 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             IOptions<FtpOptions> ftpOptions,
             IConfiguration configuration,
             IClock clock,
-            ITDcmpWorkFlowRepository repository) : base(ftpOptions, tDcmpFileContainer, clock, repository)
+            ITDcmpWorkFlowRepository repository,
+            IUnitOfWorkManager unitOfWorkManager,
+            ICcicBasicRepository ccicBasicRepository) : base(ftpOptions, tDcmpFileContainer, clock, repository)
         {
             _backgroundJobManager = backgroundJobManager;
             _configuration = configuration;
+            _unitOfWorkManager = unitOfWorkManager;
+            _ccicBasicRepository = ccicBasicRepository;
         }
 
         [UnitOfWork]
         public override async Task ExecuteAsync(LoadCcicBasicJobArgs args)
         {
+
             var workFlow = await Repository.GetAsync(args.WorkFlowId);
 
-            var connStr = _configuration.GetConnectionString("Default");
+            var tableName = await PrepareTempTableAsync(_ccicBasicRepository);
 
-            var tableName = "dbo.CcicBasic_Tmp";
+            //using var uow = _unitOfWorkManager.Begin();
+            //try
+            //{
+            //    var connStr = _configuration.GetConnectionString("Default");
 
-            await PrepareCcicBasicTempTableAsync(connStr!, tableName, "");
+            //    var tableName = "dbo.CcicBasic_Tmp";
 
-            using var stream = await GetStreamFromFtp(workFlow, args);
+            //    await PrepareTempTableAsync(_ccicBasicRepository);
 
-            await LoadCcicBasicTemp(stream, tableName);
+            //    using var stream = await GetStreamFromFtp(workFlow, args);
+
+            //    await LoadCcicBasicTemp(stream, tableName);
+            //}
+            //catch (Exception ex)
+            //{
+            //    workFlow.SetComment(ex.Message);
+            //    await Repository.UpdateAsync(workFlow, autoSave: true);
+            //    await uow.CompleteAsync();
+            //    throw;
+            //}
+
         }
 
         private async Task LoadCcicBasicTemp(Stream stream, string tableName)

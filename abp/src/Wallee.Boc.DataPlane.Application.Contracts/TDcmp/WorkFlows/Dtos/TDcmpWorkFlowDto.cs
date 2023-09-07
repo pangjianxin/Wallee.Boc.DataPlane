@@ -27,4 +27,6 @@ public class TDcmpWorkFlowDto : AuditedEntityDto<Guid>
     /// Cron表达式
     /// </summary>
     public string CronExpression { get; set; } = default!;
+    public int TotalTaskCount { get; set; }
+    public int CompletedCount { get; set; }
 }

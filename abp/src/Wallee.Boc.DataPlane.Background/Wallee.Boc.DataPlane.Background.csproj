@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wallee.Boc.DataPlane.Domain\Wallee.Boc.DataPlane.Domain.csproj" />
+    <ProjectReference Include="..\Wallee.Boc.DataPlane.EntityFrameworkCore\Wallee.Boc.DataPlane.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
 </Project>
