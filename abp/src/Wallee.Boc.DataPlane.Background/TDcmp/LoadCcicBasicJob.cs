@@ -11,8 +11,10 @@ using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.EventBus.Local;
 using Volo.Abp.Timing;
 using Volo.Abp.Uow;
+using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -22,119 +24,76 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
     public class LoadCcicBasicJob : TDcmpAsyncBackgroundJob<LoadCcicBasicJobArgs>, ITransientDependency
     {
-        private readonly IBackgroundJobManager _backgroundJobManager;
-        private readonly IConfiguration _configuration;
-        private readonly IUnitOfWorkManager _unitOfWorkManager;
         private readonly ICcicBasicRepository _ccicBasicRepository;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicBasicJob(
-            IBackgroundJobManager backgroundJobManager,
             IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
             IOptions<FtpOptions> ftpOptions,
-            IConfiguration configuration,
             IClock clock,
             ITDcmpWorkFlowRepository repository,
-            IUnitOfWorkManager unitOfWorkManager,
-            ICcicBasicRepository ccicBasicRepository) : base(ftpOptions, tDcmpFileContainer, clock, repository)
+            ICcicBasicRepository ccicBasicRepository,
+            TDcmpWorkFlowManager tDcmpWorkFlowManager,
+            IConfiguration config) : base(ftpOptions, tDcmpFileContainer, clock, repository, config)
         {
-            _backgroundJobManager = backgroundJobManager;
-            _configuration = configuration;
-            _unitOfWorkManager = unitOfWorkManager;
             _ccicBasicRepository = ccicBasicRepository;
+            _tDcmpWorkFlowManager = tDcmpWorkFlowManager;
         }
 
+        [UnitOfWork]
         public override async Task ExecuteAsync(LoadCcicBasicJobArgs args)
         {
-            using var uow = _unitOfWorkManager.Begin();
-
             var workFlow = await Repository.GetAsync(args.WorkFlowId);
-
-            var tableName = await PrepareTempTableAsync(_ccicBasicRepository, uow);
-
-            using var stream = await GetStreamFromFtp(workFlow);
-
-            await LoadCcicBasicTemp(stream, tableName);
-            //using var uow = _unitOfWorkManager.Begin();
-            //try
-            //{
-            //    var connStr = _configuration.GetConnectionString("Default");
-
-            //    var tableName = "dbo.CcicBasic_Tmp";
-
-            //    await PrepareTempTableAsync(_ccicBasicRepository);
-
-            //    
-
-            //    await LoadCcicBasicTemp(stream, tableName);
-            //}
-            //catch (Exception ex)
-            //{
-            //    workFlow.SetComment(ex.Message);
-            //    await Repository.UpdateAsync(workFlow, autoSave: true);
-            //    await uow.CompleteAsync();
-            //    throw;
-            //}
-
-        }
-
-        private async Task LoadCcicBasicTemp(Stream stream, string tableName)
-        {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-
-            var connStr = _configuration.GetConnectionString("Default");
-
-            using var conn = new SqlConnection(connStr);
-
-            await conn.OpenAsync();
-
-            using var tran = conn.BeginTransaction($"CREATE_{tableName}");
 
             try
             {
-                using (var gzStream = new GZipStream(stream, CompressionMode.Decompress))
-                {
-                    using var streamReader = new StreamReader(gzStream, Encoding.GetEncoding("GB18030"));
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicBasicFileName);
 
-                    using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
-                    {
-                        HasHeaderRecord = false,
-                        TrimOptions = TrimOptions.Trim | TrimOptions.InsideQuotes,
-                        Delimiter = "\u0001|\u0001",
-                        BadDataFound = args =>
-                        {
-                            if (args.RawRecord.StartsWith("|||diip-control|||"))
-                            {
-                                return;
-                            }
-                        }
-                    });
+                await UpsertAsync(stream, _ccicBasicRepository, typeof(CcicBasicMap));
 
-                    // make sure to enable triggers
-                    // more on triggers in next post
-                    SqlBulkCopy bulkCopy = new(
-                        conn,
-                        SqlBulkCopyOptions.TableLock |
-                        SqlBulkCopyOptions.FireTriggers,
-                        tran)
-                    {
-                        // set the destination table name
-                        DestinationTableName = tableName
-                    };
+                await _tDcmpWorkFlowManager.NotifyCcicBasicCompletedAsync(workFlow);
 
-                    using var csvDataReader = new CsvDataReader(csv);
-
-                    await bulkCopy.WriteToServerAsync(csvDataReader);
-                }
-
-                await tran.CommitAsync();
-
+                await Repository.UpdateAsync(workFlow);
             }
-            catch
+            catch (Exception ex)
             {
-                await tran.RollbackAsync();
-
+                await WriteExceptionAsync(workFlow, ex);
                 throw;
             }
+        }
+
+    }
+
+    internal class CcicBasicMap : ClassMapBase<CcicBasic>
+    {
+        public CcicBasicMap()
+        {
+            Map(m => m.CUSNO).Index(0);
+            Map(m => m.LGPER_CODE).Index(1);
+            Map(m => m.AL_CODE).Index(2);
+            Map(m => m.COMM_LNG).Index(3);
+            Map(m => m.CUSRL_TE_CHNL).Index(4);
+            Map(m => m.CSMGR_TLR_REFNO).Index(5);
+            Map(m => m.OPNAC_ORG_REFNO).Index(6);
+            Map(m => m.BLG_ORG_REFNO).Index(7);
+            Map(m => m.OPNAC_DT).Index(8).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
+            Map(m => m.CLS_DT).Index(9).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
+            Map(m => m.LAST_CNMDT_PERI).Index(10).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
+            Map(m => m.CSTST).Index(11);
+            Map(m => m.DSABL_REASN).Index(12);
+            Map(m => m.DSABL_REASN_NOTE).Index(13);
+            Map(m => m.PART_RL_TP_CODE).Index(14);
+            Map(m => m.DEL_FLAG).Index(15);
+            Map(m => m.CRTR_TLR_REFNO).Index(16);
+            Map(m => m.CRT_TLR_ORG_REFNO).Index(17);
+            Map(m => m.CRT_DTTM).Index(18).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd HH:mm:ss:ff")!.Value);
+            Map(m => m.CUR_ACDT_PERI).Index(19).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 19, "yyyyMMdd")!.Value);
+            Map(m => m.LTST_MOD_TLR_REFNO).Index(20);
+            Map(m => m.MOD_TLR_ORG_REFNO).Index(21);
+            Map(m => m.LAST_MNT_STS_CODE).Index(22);
+            Map(m => m.LAST_MOD_DTTM).Index(23).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd HH:mm:ss:ff")!.Value);
+            Map(m => m.RCRD_VRSN_SN).Index(24);
+            Map(m => m.RCRD_CLNUP_STSCD).Index(25);
         }
     }
 }

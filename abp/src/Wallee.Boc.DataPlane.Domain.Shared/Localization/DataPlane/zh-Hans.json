@@ -94,6 +94,7 @@
     "SuccessfullyDeleted": "Successfully deleted",
     "Enum:TDcmpStatus:1": "初始化",
     "Enum:TDcmpStatus:2": "基础信息",
-    "Enum:TDcmpStatus:3": "地址信息"
+    "Enum:TDcmpStatus:3": "地址信息",
+    "Enum:TDcmpStatus:99": "已完成"
   }
 }

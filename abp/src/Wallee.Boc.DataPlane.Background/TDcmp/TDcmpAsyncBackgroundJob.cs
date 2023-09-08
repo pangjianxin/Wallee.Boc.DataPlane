@@ -1,44 +1,52 @@
-﻿using FluentFTP;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using FluentFTP;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using System.Globalization;
+using System.IO.Compression;
+using System.Text;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Entities;
-using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Timing;
-using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.Blobs;
-using Wallee.Boc.DataPlane.Extensions;
 using Wallee.Boc.DataPlane.TDcmp;
+using Wallee.Boc.DataPlane.TDcmp.Repositories;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
     public abstract class TDcmpAsyncBackgroundJob<TArgs> : AsyncBackgroundJob<TArgs> where TArgs : TDcmpBackgroundJobArgs
     {
-        protected ITDcmpWorkFlowRepository Repository { get; set; }
-        protected FtpOptions FtpOptions { get; set; }
-        protected IBlobContainer<DataPlaneFileContainer> TDcmpFileContainer { get; set; }
-        protected IClock Clock { get; set; }
+        protected ITDcmpWorkFlowRepository Repository { get; }
+        public IConfiguration Config { get; }
+        protected FtpOptions FtpOptions { get; }
+        protected IBlobContainer<DataPlaneFileContainer> TDcmpFileContainer { get; }
+        protected IClock Clock { get; }
 
         public TDcmpAsyncBackgroundJob(
             IOptions<FtpOptions> ftpOptions,
             IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
             IClock clock,
-            ITDcmpWorkFlowRepository repository)
+            ITDcmpWorkFlowRepository repository,
+            IConfiguration config)
         {
             FtpOptions = ftpOptions.Value;
             TDcmpFileContainer = tDcmpFileContainer;
             Clock = clock;
             Repository = repository;
+            Config = config;
         }
-        protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow)
+        protected async Task<Stream> GetStreamFromFtp(TDcmpWorkFlow workFlow, string fileName)
         {
             var fileDate = workFlow.DataDate.ToString("yyyyMMdd");
 
-            var ccicBasicFileName = string.Format(FtpOptions.CcicBasicFileName, fileDate);
+            var ccicBasicFileName = string.Format(fileName, fileDate);
 
             var ftpBasePath = string.Format(FtpOptions.FtpBasePath, fileDate);
 
@@ -66,32 +74,60 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             return memory;
         }
 
-        protected virtual async Task<string> PrepareTempTableAsync<T>(IReadOnlyRepository<T> repository, IUnitOfWork uow) where T : AggregateRoot
+        protected virtual async Task UpsertAsync<T>(Stream stream, ITDcmpRepository<T> tDcmpRepository, Type csvClassMap) where T : AggregateRoot
         {
-            var tableName = await repository.GetTableName("Temp");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            using var gzStream = new GZipStream(stream, CompressionMode.Decompress);
+            using var streamReader = new StreamReader(gzStream, Encoding.GetEncoding("GB18030"));
 
-            var dbContext = await repository.GetDbContextAsync();
-
-
-            var count = (await dbContext.Database.SqlQueryRaw<int>($"SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tableName}'")
-               .ToListAsync())
-               .FirstOrDefault();
-
-
-
-            if (count > 0)
+            using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                await dbContext.Database.ExecuteSqlRawAsync($"TRUNCATE TABLE {tableName}");
-            }
-            else
+                HasHeaderRecord = false,
+                TrimOptions = TrimOptions.Trim | TrimOptions.InsideQuotes,
+                Delimiter = "\u0001|\u0001",
+                ShouldSkipRecord = args =>
+                {
+                    if (args.Row.Parser.RawRecord.StartsWith("|||diip-control|||"))
+                    {
+                        return true;
+                    }
+                    return false;
+                },
+            });
+
+            csv.Context.RegisterClassMap(csvClassMap);
+
+            var records = csv.GetRecords<T>();
+
+            await tDcmpRepository.UpsertAsync(records);
+        }
+
+        protected async Task WriteExceptionAsync(TDcmpWorkFlow workFlow, Exception exception)
+        {
+            var connStr = Config.GetConnectionString("Default");
+
+            using var conn = new SqlConnection(connStr);
+            await conn.OpenAsync();
+
+            using var tran = conn.BeginTransaction("Write_Exception_To_TDcmpWorkFlow");
+            try
             {
-                var createTableScript = await repository.GenerateCreateTableScript(tableName);
-                await dbContext.Database.ExecuteSqlRawAsync(createTableScript);
+                var sqlCommand = conn.CreateCommand();
+
+                sqlCommand.Transaction = tran;
+
+                sqlCommand.CommandText = $"UPDATE dbo.AppTDcmpWorkFlows SET Comment=N'{exception.Message.Replace("'", "''")}' WHERE ID='{workFlow.Id}'";
+
+                await sqlCommand.ExecuteNonQueryAsync();
+
+                await tran.CommitAsync();
             }
+            catch
+            {
+                await tran.RollbackAsync();
 
-            await uow.SaveChangesAsync();
-
-            return tableName;
+                throw;
+            }
         }
     }
 }

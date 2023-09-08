@@ -70,14 +70,14 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             await _stateMachine.ActivateAsync();
         }
 
-        public void NotifyCcicBasicCompleted()
+        public async Task NotifyCcicBasicCompletedAsync()
         {
-            _stateMachine.Fire(_ccicBasic, _tDcmp.DataDate);
+            await _stateMachine.FireAsync(_ccicBasic, _tDcmp.Id);
         }
 
-        public void NotifyCcicAddressCompleted()
+        public async Task NotifyCcicAddressCompletedAsync()
         {
-            _stateMachine.Fire(_ccicAddress, _tDcmp.DataDate);
+            await _stateMachine.FireAsync(_ccicAddress, _tDcmp.Id);
         }
 
         /// <summary>

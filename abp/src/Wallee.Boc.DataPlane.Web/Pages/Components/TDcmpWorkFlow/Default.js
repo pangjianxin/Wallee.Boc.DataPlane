@@ -20,7 +20,7 @@
         var init = function (filters) {
             var tDcmpWorkFlowService = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
             tDcmpWorkFlowService.getExecuting().then(data => {
-
+                console.log(data);
                 $("#tdcmpCreationDate").append($(`<span>
                 <i class="fas fa-clock">&nbsp;创建日期</i>
                 ${luxon.DateTime.fromISO(data.dto.creationTime, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}
@@ -31,7 +31,7 @@
                 <i class="fas fa-calendar"></i>
                 ${luxon.DateTime.fromISO(data.dto.dataDate, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}
                 </span>`));
-               
+
                 $("#tdcmpStatus").append($(`
                 <span class="badge bg-secondary" style="margin-left:5px;" title="任务总数">
                  <i class="far fa-lightbulb" style="margin-right:5px;"></i>
@@ -50,8 +50,8 @@
                 ${l('Enum:TDcmpStatus:' + data.dto.status)}
                 </span>
                 `));
-
-                $("#tdcmpProgress").append($(`<span>${Math.ceil(data.dto.completedCount / data.dto.totalTaskCount)}%</span>`));
+                console.log(data.dto.completedCount / data.dto.totalTaskCount);
+                $("#tdcmpProgress").append($(`<span>${Math.ceil(data.dto.completedCount / data.dto.totalTaskCount * 100)}%</span>`));
                 render(data.dotGraph)
                     .then(element => {
                         $("#dotGraph").append(element);

@@ -43,7 +43,7 @@ public class TDcmpWorkFlowAppService : CrudAppService<TDcmpWorkFlow, TDcmpWorkFl
 
         if (workFlow == default)
         {
-            return default;
+            workFlow = await AsyncExecuter.FirstOrDefaultAsync((await _repository.GetQueryableAsync()).OrderByDescending(it => it.DataDate));
         }
         return new ExecutingTDcmpWorkFlowDto
         {

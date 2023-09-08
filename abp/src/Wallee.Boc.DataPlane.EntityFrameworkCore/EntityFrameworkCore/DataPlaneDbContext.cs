@@ -97,6 +97,18 @@ public class DataPlaneDbContext :
                 e.CUSNO,
                 e.LGPER_CODE,
             });
+
+            //b.Property(it => it.CUSNO).HasComment("客户号").IsRequired(true).HasMaxLength(10);
+            //b.Property(it => it.LGPER_CODE).HasComment("法人编码").IsRequired(true).HasMaxLength(3);
+
+            //b.Property(it => it.AL_CODE).HasComment("终身编码").IsRequired(true).HasMaxLength(17);
+
+            //b.Property(it => it.COMM_LNG).HasComment("通讯语言").IsRequired(false).HasMaxLength(2);
+
+            //b.Property(it => it.LGPER_CODE).HasComment("法人编码").IsRequired(true).HasMaxLength(3);
+
+            //b.Property(it => it.LGPER_CODE).HasComment("法人编码").IsRequired(true).HasMaxLength(3);
+
         });
 
 
@@ -108,7 +120,9 @@ public class DataPlaneDbContext :
             b.HasKey(e => new
             {
                 e.CUSNO,
-                e.LGPER_CODE,
+                e.ADDR_TP,
+                e.ADDR_SN,
+                e.LGPER_CODE
             });
 
             /* Configure more properties here */

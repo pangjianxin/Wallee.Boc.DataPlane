@@ -42,18 +42,18 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             return workFlow;
         }
 
-        public Task<TDcmpWorkFlow> NotifyCcicBasicCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        public async Task<TDcmpWorkFlow> NotifyCcicBasicCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
         {
             var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
-            stateMachine.NotifyCcicBasicCompleted();
-            return Task.FromResult(tDcmpWorkFlow);
+            await stateMachine.NotifyCcicBasicCompletedAsync();
+            return tDcmpWorkFlow;
         }
 
-        public Task<TDcmpWorkFlow> NotifyCcicAddressCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        public async Task<TDcmpWorkFlow> NotifyCcicAddressCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
         {
             var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
-            stateMachine.NotifyCcicAddressCompleted();
-            return Task.FromResult(tDcmpWorkFlow);
+            await stateMachine.NotifyCcicAddressCompletedAsync();
+            return tDcmpWorkFlow;
         }
 
         public Task<string> GetDotGraphAsync(TDcmpWorkFlow tDcmpWorkFlow)

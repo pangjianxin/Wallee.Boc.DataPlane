@@ -1,7 +1,7 @@
 ﻿/* 定义滚动条的样式 */
 ::-webkit-scrollbar {
     width: 8px; /* 滚动条的宽度 */
-    height:5px;
+    height:8px;
 }
 
 /* 定义滚动条轨道的样式 */

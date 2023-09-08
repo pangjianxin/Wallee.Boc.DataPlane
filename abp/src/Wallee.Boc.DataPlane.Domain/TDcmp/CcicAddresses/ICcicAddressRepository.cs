@@ -1,10 +1,8 @@
-using System;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories;
+using Wallee.Boc.DataPlane.TDcmp.Repositories;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 
-public interface ICcicAddressRepository : IRepository<CcicAddress>
+public interface ICcicAddressRepository : ITDcmpRepository<CcicAddress>
 {
-    Task ExecuteSqlRawAsync(string sql);
 }

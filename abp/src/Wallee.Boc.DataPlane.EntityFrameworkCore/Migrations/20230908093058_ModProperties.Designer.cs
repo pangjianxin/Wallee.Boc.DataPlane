@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 namespace Wallee.Boc.DataPlane.Migrations
 {
     [DbContext(typeof(DataPlaneDbContext))]
-    partial class DataPlaneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230908093058_ModProperties")]
+    partial class ModProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1693,12 +1696,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<string>("CUSNO")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ADDR_TP")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("ADDR_SN")
-                        .HasColumnType("int");
-
                     b.Property<string>("LGPER_CODE")
                         .HasColumnType("nvarchar(450)");
 
@@ -1706,6 +1703,13 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ADDR_LANG")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ADDR_SN")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ADDR_TP")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BKCD_URBN_CODE")
@@ -1802,7 +1806,7 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<string>("RTNPT_FLAG")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CUSNO", "ADDR_TP", "ADDR_SN", "LGPER_CODE");
+                    b.HasKey("CUSNO", "LGPER_CODE");
 
                     b.ToTable("AppCcicAddresses", (string)null);
                 });
