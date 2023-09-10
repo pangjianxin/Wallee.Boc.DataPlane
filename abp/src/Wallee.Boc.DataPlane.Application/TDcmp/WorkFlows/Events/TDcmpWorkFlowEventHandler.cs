@@ -1,21 +1,18 @@
 ﻿using System.Threading.Tasks;
+using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
-using Volo.Abp.Timing;
 using Volo.Abp.Uow;
 
 namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows.Events
 {
-    public class TDcmpWorkFlowEventHandler : IDistributedEventHandler<TDcmpWorkFlowCompletedEto>
+    public class TDcmpWorkFlowEventHandler : IDistributedEventHandler<TDcmpWorkFlowCompletedEto>, ITransientDependency
     {
         private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
-        private readonly IClock _clock;
 
         public TDcmpWorkFlowEventHandler(
-            TDcmpWorkFlowManager dcmpWorkFlowManager,
-            IClock clock)
+            TDcmpWorkFlowManager dcmpWorkFlowManager)
         {
             _tDcmpWorkFlowManager = dcmpWorkFlowManager;
-            _clock = clock;
         }
 
         [UnitOfWork]

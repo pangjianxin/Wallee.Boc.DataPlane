@@ -1738,18 +1738,8 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<DateTime?>("CUR_ACDT_PERI")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
                     b.Property<string>("DEL_FLAG")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
 
                     b.Property<string>("LAST_MNT_STS_CODE")
                         .HasColumnType("nvarchar(max)");
@@ -1848,12 +1838,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<string>("CUSRL_TE_CHNL")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
                     b.Property<string>("DEL_FLAG")
                         .HasColumnType("nvarchar(max)");
 
@@ -1862,10 +1846,6 @@ namespace Wallee.Boc.DataPlane.Migrations
 
                     b.Property<string>("DSABL_REASN_NOTE")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExtraProperties")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
 
                     b.Property<DateTime?>("LAST_CNMDT_PERI")
                         .HasColumnType("datetime2");

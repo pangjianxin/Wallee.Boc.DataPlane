@@ -38,7 +38,7 @@ $(function () {
                     items:
                         [
                             {
-                                text: "�鿴",
+                                text: "查看",
                                 visible: abp.auth.isGranted('DataPlane.CcicBasic'),
                                 action: function (data) {
                                     //data.record.cUSNO,
@@ -49,11 +49,11 @@ $(function () {
             },
             {
                 title: l('CUSNO'),
-                data: "cUSNO"
+                data: "cusno"
             },
             {
                 title: l('LGPER_CODE'),
-                data: "lGPER_CODE"
+                data: "lgpeR_CODE"
             },
             {
                 title: l('CcicBasicAL_CODE'),
@@ -61,95 +61,131 @@ $(function () {
             },
             {
                 title: l('CcicBasicCOMM_LNG'),
-                data: "cOMM_LNG"
+                data: "comM_LNG"
             },
             {
                 title: l('CcicBasicCUSRL_TE_CHNL'),
-                data: "cUSRL_TE_CHNL"
+                data: "cusrL_TE_CHNL"
             },
             {
                 title: l('CcicBasicCSMGR_TLR_REFNO'),
-                data: "cSMGR_TLR_REFNO"
+                data: "csmgR_TLR_REFNO"
             },
             {
                 title: l('CcicBasicOPNAC_ORG_REFNO'),
-                data: "oPNAC_ORG_REFNO"
+                data: "opnaC_ORG_REFNO"
             },
             {
                 title: l('CcicBasicBLG_ORG_REFNO'),
-                data: "bLG_ORG_REFNO"
+                data: "blG_ORG_REFNO"
             },
             {
                 title: l('CcicBasicOPNAC_DT'),
-                data: "oPNAC_DT"
+                data: "opnaC_DT",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicCLS_DT'),
-                data: "cLS_DT"
+                data: "clS_DT",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicLAST_CNMDT_PERI'),
-                data: "lAST_CNMDT_PERI"
+                data: "lasT_CNMDT_PERI",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicCSTST'),
-                data: "cSTST"
+                data: "cstst"
             },
             {
                 title: l('CcicBasicDSABL_REASN'),
-                data: "dSABL_REASN"
+                data: "dsabL_REASN"
             },
             {
                 title: l('CcicBasicDSABL_REASN_NOTE'),
-                data: "dSABL_REASN_NOTE"
+                data: "dsabL_REASN_NOTE"
             },
             {
                 title: l('CcicBasicPART_RL_TP_CODE'),
-                data: "pART_RL_TP_CODE"
+                data: "parT_RL_TP_CODE"
             },
             {
                 title: l('CcicBasicDEL_FLAG'),
-                data: "dEL_FLAG"
+                data: "deL_FLAG"
             },
             {
                 title: l('CcicBasicCRTR_TLR_REFNO'),
-                data: "cRTR_TLR_REFNO"
+                data: "crtR_TLR_REFNO"
             },
             {
                 title: l('CcicBasicCRT_TLR_ORG_REFNO'),
-                data: "cRT_TLR_ORG_REFNO"
+                data: "crT_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicBasicCRT_DTTM'),
-                data: "cRT_DTTM"
+                data: "crT_DTTM",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicCUR_ACDT_PERI'),
-                data: "cUR_ACDT_PERI"
+                data: "cuR_ACDT_PERI",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicLTST_MOD_TLR_REFNO'),
-                data: "lTST_MOD_TLR_REFNO"
+                data: "ltsT_MOD_TLR_REFNO"
             },
             {
                 title: l('CcicBasicMOD_TLR_ORG_REFNO'),
-                data: "mOD_TLR_ORG_REFNO"
+                data: "moD_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicBasicLAST_MNT_STS_CODE'),
-                data: "lAST_MNT_STS_CODE"
+                data: "lasT_MNT_STS_CODE"
             },
             {
                 title: l('CcicBasicLAST_MOD_DTTM'),
-                data: "lAST_MOD_DTTM"
+                data: "lasT_MOD_DTTM",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicBasicRCRD_VRSN_SN'),
-                data: "rCRD_VRSN_SN"
+                data: "rcrD_VRSN_SN"
             },
             {
                 title: l('CcicBasicRCRD_CLNUP_STSCD'),
-                data: "rCRD_CLNUP_STSCD"
+                data: "rcrD_CLNUP_STSCD"
             },
         ]
     }));

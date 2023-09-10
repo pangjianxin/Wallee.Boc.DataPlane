@@ -1,22 +1,10 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using FluentFTP;
-using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System.Globalization;
-using System.IO.Compression;
-using System.Text;
-using Volo.Abp;
-using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
-using Volo.Abp.EventBus.Local;
 using Volo.Abp.Timing;
 using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
-using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
@@ -28,13 +16,12 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicBasicJob(
-            IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
             ITDcmpWorkFlowRepository repository,
             ICcicBasicRepository ccicBasicRepository,
             TDcmpWorkFlowManager tDcmpWorkFlowManager,
-            IConfiguration config) : base(ftpOptions, tDcmpFileContainer, clock, repository, config)
+            IConfiguration config) : base(ftpOptions, clock, repository, config)
         {
             _ccicBasicRepository = ccicBasicRepository;
             _tDcmpWorkFlowManager = tDcmpWorkFlowManager;
@@ -76,9 +63,9 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(m => m.CSMGR_TLR_REFNO).Index(5);
             Map(m => m.OPNAC_ORG_REFNO).Index(6);
             Map(m => m.BLG_ORG_REFNO).Index(7);
-            Map(m => m.OPNAC_DT).Index(8).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
-            Map(m => m.CLS_DT).Index(9).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
-            Map(m => m.LAST_CNMDT_PERI).Index(10).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd"));
+            Map(m => m.OPNAC_DT).Index(8).Convert(it => DateTimeConverter(it.Row, 8, "yyyyMMdd"));
+            Map(m => m.CLS_DT).Index(9).Convert(it => DateTimeConverter(it.Row, 9, "yyyyMMdd"));
+            Map(m => m.LAST_CNMDT_PERI).Index(10).Convert(it => DateTimeConverter(it.Row, 10, "yyyyMMdd"));
             Map(m => m.CSTST).Index(11);
             Map(m => m.DSABL_REASN).Index(12);
             Map(m => m.DSABL_REASN_NOTE).Index(13);
@@ -91,7 +78,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(m => m.LTST_MOD_TLR_REFNO).Index(20);
             Map(m => m.MOD_TLR_ORG_REFNO).Index(21);
             Map(m => m.LAST_MNT_STS_CODE).Index(22);
-            Map(m => m.LAST_MOD_DTTM).Index(23).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd HH:mm:ss:ff")!.Value);
+            Map(m => m.LAST_MOD_DTTM).Index(23).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 23, "yyyyMMdd HH:mm:ss:ff")!.Value);
             Map(m => m.RCRD_VRSN_SN).Index(24);
             Map(m => m.RCRD_CLNUP_STSCD).Index(25);
         }

@@ -59,6 +59,15 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             Status = status;
             CompletedCount++;
+
+            if (Status == TDcmpStatus.已完成)
+            {
+                AddDistributedEvent(new TDcmpWorkFlowCompletedEto
+                {
+                    DataDate = DataDate,
+                    CronExpression = CronExpression
+                });
+            }
         }
         /// <summary>
         /// 设置备注/异常信息
@@ -67,19 +76,6 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         public void SetComment(string comment)
         {
             Comment = comment;
-        }
-        /// <summary>
-        /// 设置完成
-        /// </summary>
-        public void Complete()
-        {
-            Status = TDcmpStatus.已完成;
-            CompletedCount++;
-            AddDistributedEvent(new TDcmpWorkFlowCompletedEto
-            {
-                DataDate = DataDate,
-                CronExpression = CronExpression
-            });
         }
     }
 }

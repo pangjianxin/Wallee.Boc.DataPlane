@@ -7,7 +7,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicAddresses
     /// 对公地址信息
     /// a00
     /// </summary>
-    public class CcicAddress : AggregateRoot
+    public class CcicAddress : BasicAggregateRoot
     {
         /// <summary>
         /// 客户号

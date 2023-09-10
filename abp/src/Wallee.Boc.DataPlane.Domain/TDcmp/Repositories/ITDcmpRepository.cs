@@ -6,7 +6,7 @@ using Volo.Abp.Domain.Repositories;
 
 namespace Wallee.Boc.DataPlane.TDcmp.Repositories
 {
-    public interface ITDcmpRepository<TEntity> : IReadOnlyRepository<TEntity>, ITransientDependency where TEntity : AggregateRoot
+    public interface ITDcmpRepository<TEntity> : IReadOnlyRepository<TEntity>, ITransientDependency where TEntity : BasicAggregateRoot
     {
         Task UpsertAsync(IEnumerable<TEntity> entities);
     }

@@ -22,7 +22,13 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Localization\DataPlane\*.json" />
+    <Compile Remove="TDcmp\CcicAddresses\**" />
+    <Compile Remove="TDcmp\CcicBasics\**" />
     <Content Remove="Localization\DataPlane\*.json" />
+    <EmbeddedResource Remove="TDcmp\CcicAddresses\**" />
+    <EmbeddedResource Remove="TDcmp\CcicBasics\**" />
+    <None Remove="TDcmp\CcicAddresses\**" />
+    <None Remove="TDcmp\CcicBasics\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +36,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TDcmp\CcicBasics\" />
-    <Folder Include="TDcmp\CcicAddresses\" />
+    <Folder Include="Origins\" />
   </ItemGroup>
 
 </Project>

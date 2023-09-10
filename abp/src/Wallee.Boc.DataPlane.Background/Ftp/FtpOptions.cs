@@ -18,6 +18,7 @@
         /// ftp的文件存储基础路径
         /// </summary>
         public string FtpBasePath { get; set; } = default!;
+        public string Encoding { get; set; } = default!;
         /// <summary>
         /// 对公客户基础信息文件名
         /// </summary>

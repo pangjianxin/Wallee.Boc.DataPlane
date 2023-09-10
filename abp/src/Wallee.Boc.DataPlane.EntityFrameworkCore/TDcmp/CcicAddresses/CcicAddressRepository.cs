@@ -22,7 +22,7 @@ public class CcicAddressRepository : EfCoreRepository<DataPlaneDbContext, CcicAd
     public async Task UpsertAsync(IEnumerable<CcicAddress> list)
     {
         await (await GetDbSetAsync()).UpsertRange(list)
-            .On(it => new { it.CUSNO, it.LGPER_CODE })
+            .On(it => new { it.CUSNO, it.ADDR_TP, it.ADDR_SN, it.LGPER_CODE })
             .WhenMatched((origin, cur) => new CcicAddress
             {
                 CUSNO = cur.CUSNO,

@@ -60,6 +60,13 @@ public class DataPlaneMenuContributor : IMenuContributor
 
         var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list");
 
+        if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.TDcmp_WorkFlow, l["Menu:TDcmpWorkFlow"], "/TDcmp/WorkFlows/TDcmpWorkFlow", icon: "fas fa-list", order: 1)
+            );
+        }
+
         if (await context.IsGrantedAsync(DataPlanePermissions.CcicBasic.Default))
         {
             tDcmpMenu.AddItem(
@@ -74,14 +81,80 @@ public class DataPlaneMenuContributor : IMenuContributor
             );
         }
 
-        if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Default))
+
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicAntiMoneyLaundering.Default))
         {
             tDcmpMenu.AddItem(
-                new ApplicationMenuItem(DataPlaneMenus.TDcmp_WorkFlow, l["Menu:TDcmpWorkFlow"], "/TDcmp/WorkFlows/TDcmpWorkFlow", icon: "fas fa-list", order: 1)
+                new ApplicationMenuItem(DataPlaneMenus.CcicAntiMoneyLaundering, l["Menu:CcicAntiMoneyLaundering"], "/TDcmp/CcicAntiMoneyLaunderings/CcicAntiMoneyLaundering", icon: "fas fa-list", order: 4)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicCustomerTypeOrg.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicCustomerTypeOrg, l["Menu:CcicCustomerTypeOrg"], "/TDcmp/CcicCustomerTypeOrgs/CcicCustomerTypeOrg", icon: "fas fa-list", order: 5)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicGeneralOrg.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicGeneralOrg, l["Menu:CcicGeneralOrg"], "/TDcmp/CcicGeneralOrgs/CcicGeneralOrg", icon: "fas fa-list", order: 6)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicId.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicId, l["Menu:CcicId"], "/TDcmp/CcicIds/CcicId", icon: "fas fa-list", order: 7)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicLsolationList.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicLsolationList, l["Menu:CcicLsolationList"], "/TDcmp/CcicLsolationLists/CcicLsolationList", icon: "fas fa-list", order: 8)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicName.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicName, l["Menu:CcicName"], "/TDcmp/CcicNames/CcicName", icon: "fas fa-list", order: 9)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicPersonalRelation.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicPersonalRelation, l["Menu:CcicPersonalRelation"], "/TDcmp/CcicPersonalRelations/CcicPersonalRelation", icon: "fas fa-list", order: 10)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicPhone.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicPhone, l["Menu:CcicPhone"], "/TDcmp/CcicPhones/CcicPhone", icon: "fas fa-list", order: 11)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicPractice.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicPractice, l["Menu:CcicPractice"], "/TDcmp/CcicPractices/CcicPractice", icon: "fas fa-list", order: 12)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicRegister.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicRegister, l["Menu:CcicRegister"], "/TDcmp/CcicRegisters/CcicRegister", icon: "fas fa-list", order: 13)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicSignOrg.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicSignOrg, l["Menu:CcicSignOrg"], "/TDcmp/CcicSignOrgs/CcicSignOrg", icon: "fas fa-list", order: 14)
+            );
+        }
+        if (await context.IsGrantedAsync(DataPlanePermissions.CcicCustomerType.Default))
+        {
+            tDcmpMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.CcicCustomerType, l["Menu:CcicCustomerType"], "/TDcmp/CcicCustomerTypes/CcicCustomerType", icon: "fas fa-list", order: 15)
             );
         }
 
         context.Menu.AddItem(tDcmpMenu);
-
     }
 }

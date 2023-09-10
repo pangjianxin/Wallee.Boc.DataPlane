@@ -10,11 +10,9 @@ using System.IO.Compression;
 using System.Text;
 using Volo.Abp;
 using Volo.Abp.BackgroundJobs;
-using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.Background.Ftp;
-using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp;
 using Wallee.Boc.DataPlane.TDcmp.Repositories;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
@@ -26,18 +24,15 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         protected ITDcmpWorkFlowRepository Repository { get; }
         public IConfiguration Config { get; }
         protected FtpOptions FtpOptions { get; }
-        protected IBlobContainer<DataPlaneFileContainer> TDcmpFileContainer { get; }
         protected IClock Clock { get; }
 
         public TDcmpAsyncBackgroundJob(
             IOptions<FtpOptions> ftpOptions,
-            IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
             IClock clock,
             ITDcmpWorkFlowRepository repository,
             IConfiguration config)
         {
             FtpOptions = ftpOptions.Value;
-            TDcmpFileContainer = tDcmpFileContainer;
             Clock = clock;
             Repository = repository;
             Config = config;
@@ -74,11 +69,11 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             return memory;
         }
 
-        protected virtual async Task UpsertAsync<T>(Stream stream, ITDcmpRepository<T> tDcmpRepository, Type csvClassMap) where T : AggregateRoot
+        protected virtual async Task UpsertAsync<T>(Stream stream, ITDcmpRepository<T> tDcmpRepository, Type csvClassMap) where T : BasicAggregateRoot
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             using var gzStream = new GZipStream(stream, CompressionMode.Decompress);
-            using var streamReader = new StreamReader(gzStream, Encoding.GetEncoding("GB18030"));
+            using var streamReader = new StreamReader(gzStream, Encoding.GetEncoding(FtpOptions.Encoding));
 
             using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {

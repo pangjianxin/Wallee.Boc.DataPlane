@@ -38,7 +38,7 @@ $(function () {
                     items:
                         [
                             {
-                                text: "�鿴",
+                                text: "查看",
                                 visible: abp.auth.isGranted('DataPlane.CcicAddress'),
                                 action: function (data) {
                                     //data.record.cUSNO
@@ -49,51 +49,51 @@ $(function () {
             },
             {
                 title: l('CUSNO'),
-                data: "cUSNO"
+                data: "cusno"
             },
             {
                 title: l('CcicAddressADDR_TP'),
-                data: "aDDR_TP"
+                data: "addR_TP"
             },
             {
                 title: l('CcicAddressADDR_SN'),
-                data: "aDDR_SN"
+                data: "addR_SN"
             },
             {
                 title: l('LGPER_CODE'),
-                data: "lGPER_CODE"
+                data: "lgpeR_CODE"
             },
             {
                 title: l('CcicAddressADDR_LANG'),
-                data: "aDDR_LANG"
+                data: "addR_LANG"
             },
             {
                 title: l('CcicAddressCNRG'),
-                data: "cNRG"
+                data: "cnrg"
             },
             {
                 title: l('CcicAddressPRVC_MNCP'),
-                data: "pRVC_MNCP"
+                data: "prvC_MNCP"
             },
             {
                 title: l('CcicAddressCITY'),
-                data: "cITY"
+                data: "city"
             },
             {
                 title: l('CcicAddressCNTY'),
-                data: "cNTY"
+                data: "cnty"
             },
             {
                 title: l('CcicAddressADDR1'),
-                data: "aDDR1"
+                data: "addR1"
             },
             {
                 title: l('CcicAddressPSALC'),
-                data: "pSALC"
+                data: "psalc"
             },
             {
                 title: l('CcicAddressRTNPT_FLAG'),
-                data: "rTNPT_FLAG"
+                data: "rtnpT_FLAG"
             },
             {
                 title: l('CcicAddressPS_NAME'),
@@ -101,83 +101,95 @@ $(function () {
             },
             {
                 title: l('CcicAddressCTY_LNG_CODE'),
-                data: "cTY_LNG_CODE"
+                data: "ctY_LNG_CODE"
             },
             {
                 title: l('CcicAddressCTY_RGON_RSK_GRD_CODE'),
-                data: "cTY_RGON_RSK_GRD_CODE"
+                data: "ctY_RGON_RSK_GRD_CODE"
             },
             {
                 title: l('CcicAddressRLTV_UNNPY_URBN_CODE'),
-                data: "rLTV_UNNPY_URBN_CODE"
+                data: "rltV_UNNPY_URBN_CODE"
             },
             {
                 title: l('CcicAddressBKCD_URBN_CODE'),
-                data: "bKCD_URBN_CODE"
+                data: "bkcD_URBN_CODE"
             },
             {
                 title: l('CcicAddressREL_TP_CODE'),
-                data: "rEL_TP_CODE"
+                data: "reL_TP_CODE"
             },
             {
                 title: l('CcicAddressREL_STRT_DT'),
-                data: "rEL_STRT_DT"
+                data: "reL_STRT_DT",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicAddressREL_END_DT'),
-                data: "rEL_END_DT"
+                data: "reL_END_DT",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATETIME_SHORT);
+                }
             },
             {
                 title: l('CcicAddressREL_STRT_TIME'),
-                data: "rEL_STRT_TIME"
+                data: "reL_STRT_TIME",
             },
             {
                 title: l('CcicAddressREL_END_TIME'),
-                data: "rEL_END_TIME"
+                data: "reL_END_TIME"
             },
             {
                 title: l('CcicAddressREL_DES'),
-                data: "rEL_DES"
+                data: "reL_DES"
             },
             {
                 title: l('CcicAddressDEL_FLAG'),
-                data: "dEL_FLAG"
+                data: "deL_FLAG"
             },
             {
                 title: l('CcicAddressCRTR_TLR_REFNO'),
-                data: "cRTR_TLR_REFNO"
+                data: "crtR_TLR_REFNO"
             },
             {
                 title: l('CcicAddressCRT_TLR_ORG_REFNO'),
-                data: "cRT_TLR_ORG_REFNO"
+                data: "crT_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicAddressCRT_DTTM'),
-                data: "cRT_DTTM"
+                data: "crT_DTTM"
             },
             {
                 title: l('CcicAddressCUR_ACDT_PERI'),
-                data: "cUR_ACDT_PERI"
+                data: "cuR_ACDT_PERI"
             },
             {
                 title: l('CcicAddressLTST_MOD_TLR_REFNO'),
-                data: "lTST_MOD_TLR_REFNO"
+                data: "ltsT_MOD_TLR_REFNO"
             },
             {
                 title: l('CcicAddressMOD_TLR_ORG_REFNO'),
-                data: "mOD_TLR_ORG_REFNO"
+                data: "moD_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicAddressLAST_MNT_STS_CODE'),
-                data: "lAST_MNT_STS_CODE"
+                data: "lasT_MNT_STS_CODE"
             },
             {
                 title: l('CcicAddressLAST_MOD_DTTM'),
-                data: "lAST_MOD_DTTM"
+                data: "lasT_MOD_DTTM"
             },
             {
                 title: l('CcicAddressRCRD_VRSN_SN'),
-                data: "rCRD_VRSN_SN"
+                data: "rcrD_VRSN_SN"
             },
         ]
     }));

@@ -1,3 +1,15 @@
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
+using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
+using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
+using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
+using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
+using Wallee.Boc.DataPlane.TDcmp.CcicNames;
+using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
+using Wallee.Boc.DataPlane.TDcmp.CcicIds;
+using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +57,18 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CcicBasic, CcicBasicRepository>();
             options.AddRepository<CcicAddress, CcicAddressRepository>();
             options.AddRepository<TDcmpWorkFlow, TDcmpWorkFlowRepository>();
+            options.AddRepository<CcicAntiMoneyLaundering, CcicAntiMoneyLaunderingRepository>();
+            options.AddRepository<CcicCustomerTypeOrg, CcicCustomerTypeOrgRepository>();
+            options.AddRepository<CcicGeneralOrg, CcicGeneralOrgRepository>();
+            options.AddRepository<CcicId, CcicIdRepository>();
+            options.AddRepository<CcicLsolationList, CcicLsolationListRepository>();
+            options.AddRepository<CcicName, CcicNameRepository>();
+            options.AddRepository<CcicPersonalRelation, CcicPersonalRelationRepository>();
+            options.AddRepository<CcicPhone, CcicPhoneRepository>();
+            options.AddRepository<CcicPractice, CcicPracticeRepository>();
+            options.AddRepository<CcicRegister, CcicRegisterRepository>();
+            options.AddRepository<CcicSignOrg, CcicSignOrgRepository>();
+            options.AddRepository<CcicCustomerType, CcicCustomerTypeRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

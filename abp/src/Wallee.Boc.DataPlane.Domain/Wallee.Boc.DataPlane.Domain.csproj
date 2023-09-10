@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TDcmp\CcicAntiMoneyLaunderings\nj1eif02.qdu~" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Wallee.Boc.DataPlane.Domain.Shared\Wallee.Boc.DataPlane.Domain.Shared.csproj" />
   </ItemGroup>
 

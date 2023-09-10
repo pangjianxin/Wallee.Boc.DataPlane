@@ -1,15 +1,10 @@
-﻿using CsvHelper;
-using CsvHelper.Configuration;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System.Globalization;
-using Volo.Abp.BlobStoring;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
 using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
-using Wallee.Boc.DataPlane.Blobs;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
@@ -20,13 +15,13 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         private readonly ICcicAddressRepository _ccicAddressRepository;
         private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
-        public LoadCcicAddressJob(IBlobContainer<DataPlaneFileContainer> tDcmpFileContainer,
+        public LoadCcicAddressJob(
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
             ITDcmpWorkFlowRepository repository,
             ICcicAddressRepository ccicAddressRepository,
             TDcmpWorkFlowManager tDcmpWorkFlowManager,
-            IConfiguration config) : base(ftpOptions, tDcmpFileContainer, clock, repository, config)
+            IConfiguration config) : base(ftpOptions, clock, repository, config)
         {
             _ccicAddressRepository = ccicAddressRepository;
             _tDcmpWorkFlowManager = tDcmpWorkFlowManager;
