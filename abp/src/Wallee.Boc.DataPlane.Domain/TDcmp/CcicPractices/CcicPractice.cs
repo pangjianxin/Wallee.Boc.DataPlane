@@ -27,7 +27,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicPractices
         /// <summary>
         ///  经营情况统计年度. (日期型(4))
         /// </summary>
-        public DateTime? OPRT_INFO_STAT_YR { get; set; }
+        public string? OPRT_INFO_STAT_YR { get; set; }
 
         /// <summary>
         ///  经营情况统计期次. (数值型(2))

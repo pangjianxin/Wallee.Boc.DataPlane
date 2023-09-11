@@ -60,7 +60,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         public async Task<TDcmpWorkFlow> NotifyCcicAntiMoneyLaunderingCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
         {
             var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
-            await stateMachine.NotifyCcicAddressCompletedAsync();
+            await stateMachine.NotifyCcicAntiMoneyLaunderingCompletedAsync();
             return tDcmpWorkFlow;
         }
 

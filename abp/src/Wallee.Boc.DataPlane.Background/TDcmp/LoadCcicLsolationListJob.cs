@@ -28,9 +28,9 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             var workFlow = await Repository.GetAsync(args.WorkFlowId);
             try
             {
-                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicLsolationListFileName);
+                //using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicLsolationListFileName);
 
-                await UpsertAsync(stream, _ccicLsolationListRepository, typeof(CcicLsolationListMap));
+                //await UpsertAsync(stream, _ccicLsolationListRepository, typeof(CcicLsolationListMap));
 
                 await _tDcmpWorkFlowManager.NotifyCcicLsolationListCompletedAsync(workFlow);
 
@@ -56,8 +56,8 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.DEL_FLAG).Index(5);
             Map(it => it.CRTR_TLR_REFNO).Index(6);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(7);
-            Map(it => it.CRT_DTTM).Index(8).Convert(it => DateTimeConverter(it.Row, 8, "yyyyMMdd HH:mm:ss:ff")!.Value);
-            Map(it => it.CUR_ACDT_PERI).Index(9);
+            Map(it => it.CRT_DTTM).Index(8).Convert(it => DateTimeConverter(it.Row, 8, "yyyyMMdd")!.Value);
+            Map(it => it.CUR_ACDT_PERI).Index(9).Convert(it => DateTimeConverter(it.Row, 9, "yyyyMMdd")!.Value);
             Map(it => it.LTST_MOD_TLR_REFNO).Index(10);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(11);
             Map(it => it.LAST_MNT_STS_CODE).Index(12);

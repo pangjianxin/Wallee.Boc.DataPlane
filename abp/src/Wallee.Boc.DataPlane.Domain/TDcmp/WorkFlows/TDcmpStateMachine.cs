@@ -73,55 +73,52 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
                 .Permit(Trigger.加载反洗钱信息, TDcmpStatus.反洗钱信息);
 
             _stateMachine.Configure(TDcmpStatus.反洗钱信息)
-                .OnEntryFromAsync(Trigger.加载反洗钱信息, OnCcicAddressCompletedAsync, "第3步")
+                .OnEntryFromAsync(Trigger.加载反洗钱信息, OnCcicAntiMoneyLaunderingCompletedAsync, "第3步")
                 .Permit(Trigger.加载类别信息, TDcmpStatus.类别信息);
 
             _stateMachine.Configure(TDcmpStatus.类别信息)
-                .OnEntryFromAsync(Trigger.加载类别信息, OnCcicAntiMoneyLaunderingCompletedAsync, "第4步")
+                .OnEntryFromAsync(Trigger.加载类别信息, OnCcicCustomerTypeCompletedAsync, "第4步")
                 .Permit(Trigger.加载类别信息组织, TDcmpStatus.类别信息组织);
 
             _stateMachine.Configure(TDcmpStatus.类别信息组织)
-                .OnEntryFromAsync(Trigger.加载类别信息组织, OnCcicCustomerTypeCompletedAsync, "第5步")
+                .OnEntryFromAsync(Trigger.加载类别信息组织, OnCcicCustomerTypeOrgCompletedAsync, "第5步")
                 .Permit(Trigger.加载概况信息组织, TDcmpStatus.概况信息组织);
 
             _stateMachine.Configure(TDcmpStatus.概况信息组织)
-                .OnEntryFromAsync(Trigger.加载概况信息组织, OnCcicCustomerTypeOrgCompletedAsync, "第6步")
+                .OnEntryFromAsync(Trigger.加载概况信息组织, OnCcicGeneralOrgCompletedAsync, "第6步")
                 .Permit(Trigger.加载证件信息, TDcmpStatus.证件信息);
 
             _stateMachine.Configure(TDcmpStatus.证件信息)
-                .OnEntryFromAsync(Trigger.加载证件信息, OnCcicGeneralOrgCompletedAsync, "第7步")
+                .OnEntryFromAsync(Trigger.加载证件信息, OnCcicIdCompletedAsync, "第7步")
                 .Permit(Trigger.加载隔离清单信息, TDcmpStatus.隔离清单信息);
 
             _stateMachine.Configure(TDcmpStatus.隔离清单信息)
-                .OnEntryFromAsync(Trigger.加载隔离清单信息, OnCcicIdCompletedAsync, "第8步")
+                .OnEntryFromAsync(Trigger.加载隔离清单信息, OnCcicLsolationListCompletedAsync, "第8步")
                 .Permit(Trigger.加载名称信息, TDcmpStatus.名称信息);
 
             _stateMachine.Configure(TDcmpStatus.名称信息)
-                .OnEntryFromAsync(Trigger.加载名称信息, OnCcicLsolationListCompletedAsync, "第9步")
+                .OnEntryFromAsync(Trigger.加载名称信息, OnCcicNameCompletedAsync, "第9步")
                 .Permit(Trigger.加载人员关系信息, TDcmpStatus.人员关系信息);
 
             _stateMachine.Configure(TDcmpStatus.人员关系信息)
-                .OnEntryFromAsync(Trigger.加载人员关系信息, OnCcicNameCompletedAsync, "第10步")
+                .OnEntryFromAsync(Trigger.加载人员关系信息, OnCcicPersonalRelationCompletedAsync, "第10步")
                 .Permit(Trigger.加载电话信息, TDcmpStatus.电话信息);
 
             _stateMachine.Configure(TDcmpStatus.电话信息)
-                .OnEntryFromAsync(Trigger.加载电话信息, OnCcicPersonalRelationCompletedAsync, "第11步")
+                .OnEntryFromAsync(Trigger.加载电话信息, OnCcicPhoneCompletedAsync, "第11步")
                 .Permit(Trigger.加载运营信息, TDcmpStatus.运营信息);
 
             _stateMachine.Configure(TDcmpStatus.运营信息)
-                .OnEntryFromAsync(Trigger.加载运营信息, OnCcicPhoneCompletedAsync, "第12步")
+                .OnEntryFromAsync(Trigger.加载运营信息, OnCcicPracticeCompletedAsync, "第12步")
                 .Permit(Trigger.加载注册信息, TDcmpStatus.注册信息);
 
             _stateMachine.Configure(TDcmpStatus.注册信息)
-                .OnEntryFromAsync(Trigger.加载注册信息, OnCcicPracticeCompletedAsync, "第13步")
+                .OnEntryFromAsync(Trigger.加载注册信息, OnCcicRegisterCompletedAsync, "第13步")
                 .Permit(Trigger.加载重要标志信息组织, TDcmpStatus.重要标志信息组织);
 
             _stateMachine.Configure(TDcmpStatus.重要标志信息组织)
-                .OnEntryFromAsync(Trigger.加载重要标志信息组织, OnCcicRegisterCompletedAsync, "第14步")
+                .OnEntryFromAsync(Trigger.加载重要标志信息组织, OnCcicSignOrgCompletedAsync, "第14步")
                 .Permit(Trigger.已完成, TDcmpStatus.已完成);
-
-            _stateMachine.Configure(TDcmpStatus.已完成)
-                .OnEntryFromAsync(Trigger.已完成, OnCcicSignOrgCompletedAsync, "第15步");
         }
 
         public string GetDotGraph()

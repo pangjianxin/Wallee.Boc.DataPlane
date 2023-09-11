@@ -15,12 +15,11 @@
         }
 
         var refresh = function (filters) {
-            console.log(filters);
+           
         };
         var init = function (filters) {
             var tDcmpWorkFlowService = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
             tDcmpWorkFlowService.getExecuting().then(data => {
-                console.log(data);
                 $("#tdcmpCreationDate").append($(`<span>
                 <i class="fas fa-clock">&nbsp;创建日期</i>
                 ${luxon.DateTime.fromISO(data.dto.creationTime, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}
@@ -50,7 +49,7 @@
                 ${l('Enum:TDcmpStatus:' + data.dto.status)}
                 </span>
                 `));
-                console.log(data.dto.completedCount / data.dto.totalTaskCount);
+
                 $("#tdcmpProgress").append($(`<span>${Math.ceil(data.dto.completedCount / data.dto.totalTaskCount * 100)}%</span>`));
                 render(data.dotGraph)
                     .then(element => {

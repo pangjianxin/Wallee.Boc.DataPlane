@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 namespace Wallee.Boc.DataPlane.Migrations
 {
     [DbContext(typeof(DataPlaneDbContext))]
-    partial class DataPlaneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230911112012_ModDateTypeINTDcmpPractice")]
+    partial class ModDateTypeINTDcmpPractice
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

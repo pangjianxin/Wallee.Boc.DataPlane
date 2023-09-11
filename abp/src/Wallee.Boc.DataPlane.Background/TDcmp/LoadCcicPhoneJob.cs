@@ -70,7 +70,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.CRTR_TLR_REFNO).Index(17);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(18);
             Map(it => it.CRT_DTTM).Index(19).Convert(it => DateTimeConverter(it.Row, 19, "yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(20);
+            Map(it => it.CUR_ACDT_PERI).Index(20).Convert(it => DateTimeConverter(it.Row, 20, "yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(21);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(22);
             Map(it => it.LAST_MNT_STS_CODE).Index(23);

@@ -35,7 +35,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             {
                 using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicGeneralOrgFileName);
 
-                await UpsertAsync(stream, _ccicGeneralOrgRepository, typeof(CcicGeneralOrg));
+                await UpsertAsync(stream, _ccicGeneralOrgRepository, typeof(CcicGeneralOrgMap));
 
                 await _tDcmpWorkFlowManager.NotifyCcicGeneralOrgCompletedAsync(workFlow);
 
@@ -69,13 +69,13 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.BSC_DEP_ACCNO).Index(13);
             Map(it => it.BSC_DEP_ACC_ACOP_APVL_NO).Index(14);
             Map(it => it.BSC_DEP_ACC_DEPBK_NAME).Index(15);
-            Map(it => it.BSC_DEP_ACC_OPNAC_DT).Index(16);
+            Map(it => it.BSC_DEP_ACC_OPNAC_DT).Index(16).Convert(it => DateTimeConverter(it.Row, 16, "yyyyMMdd"));
             Map(it => it.ENTP_DEVE_STRTG).Index(17);
             Map(it => it.DEL_FLAG).Index(18);
             Map(it => it.CRTR_TLR_REFNO).Index(19);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(20);
             Map(it => it.CRT_DTTM).Index(21).Convert(it => DateTimeConverter(it.Row, 21, "yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(22);
+            Map(it => it.CUR_ACDT_PERI).Index(22).Convert(it => DateTimeConverter(it.Row, 22, "yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(23);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(24);
             Map(it => it.LAST_MNT_STS_CODE).Index(25);
