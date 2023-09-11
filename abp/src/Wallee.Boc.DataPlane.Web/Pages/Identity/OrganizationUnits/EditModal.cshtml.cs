@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Validation;
-using Wallee.Boc.DataPlane.OrganizationUnits;
-using Wallee.Boc.DataPlane.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits
 {

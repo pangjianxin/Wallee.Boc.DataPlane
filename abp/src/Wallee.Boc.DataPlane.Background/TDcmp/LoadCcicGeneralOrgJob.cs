@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
@@ -12,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicGeneralOrgJob : TDcmpAsyncBackgroundJob<LoadCcicGeneralOrgJobArgs>, ITransientDependency
     {
         private readonly ICcicGeneralOrgRepository _ccicGeneralOrgRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicGeneralOrgJob(
             IOptions<FtpOptions> ftpOptions,
@@ -23,12 +24,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicGeneralOrgRepository = ccicGeneralOrgRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicGeneralOrgJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicGeneralOrgJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicGeneralOrgFileName);
+
+                await UpsertAsync(stream, _ccicGeneralOrgRepository, typeof(CcicGeneralOrg));
+
+                await _tDcmpWorkFlowManager.NotifyCcicGeneralOrgCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 

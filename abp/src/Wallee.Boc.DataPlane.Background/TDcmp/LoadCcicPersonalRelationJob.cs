@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
@@ -18,7 +19,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicPersonalRelationJob : TDcmpAsyncBackgroundJob<LoadCcicPersonalRelationJobArgs>, ITransientDependency
     {
         private readonly ICcicPersonalRelationRepository _ccicPersonalRelationRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicPersonalRelationJob(IOptions<FtpOptions> ftpOptions, IClock clock,
             ITDcmpWorkFlowRepository repository, IConfiguration config,
@@ -26,12 +27,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicPersonalRelationRepository = ccicPersonalRelationRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicPersonalRelationJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicPersonalRelationJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicPersonalRelationFileName);
+
+                await UpsertAsync(stream, _ccicPersonalRelationRepository, typeof(CcicPersonalRelationMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicPersonalRelationCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 

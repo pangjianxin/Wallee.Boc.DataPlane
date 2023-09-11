@@ -228,7 +228,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes
         /// 记录版本序号
         /// 数值型(20)
         /// </summary>
-        public decimal? RCRD_VRSN_SN { get; set; }
+        public string? RCRD_VRSN_SN { get; set; }
 
         /// <summary>
         /// 记录清理状态代码

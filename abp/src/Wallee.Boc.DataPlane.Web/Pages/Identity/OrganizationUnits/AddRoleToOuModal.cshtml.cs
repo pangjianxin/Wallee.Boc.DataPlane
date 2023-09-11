@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Wallee.Boc.DataPlane.OrganizationUnits;
-using Wallee.Boc.DataPlane.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits
 {

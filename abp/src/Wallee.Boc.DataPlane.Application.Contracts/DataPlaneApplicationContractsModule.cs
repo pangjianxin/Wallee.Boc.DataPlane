@@ -9,7 +9,7 @@ using Volo.Abp.PermissionManagement;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.Threading;
-using Wallee.Boc.DataPlane.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane;
 

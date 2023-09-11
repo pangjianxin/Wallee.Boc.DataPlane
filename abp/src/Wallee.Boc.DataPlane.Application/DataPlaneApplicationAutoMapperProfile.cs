@@ -2,7 +2,7 @@ using AutoMapper;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Identity;
 using Wallee.Boc.DataPlane.BackgroundJobs;
-using Wallee.Boc.DataPlane.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;

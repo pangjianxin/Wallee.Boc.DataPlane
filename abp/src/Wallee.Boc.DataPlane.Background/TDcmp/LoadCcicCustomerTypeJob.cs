@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
@@ -12,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicCustomerTypeJob : TDcmpAsyncBackgroundJob<LoadCcicCustomerTypeJobArgs>, ITransientDependency
     {
         private readonly ICcicCustomerTypeRepository _ccicCustomerTypeRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicCustomerTypeJob(
             IOptions<FtpOptions> ftpOptions,
@@ -23,12 +24,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicCustomerTypeRepository = ccicCustomerTypeRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
-
-        public override Task ExecuteAsync(LoadCcicCustomerTypeJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicCustomerTypeJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicCustomerTypeFileName);
+
+                await UpsertAsync(stream, _ccicCustomerTypeRepository, typeof(CcicCustomerTypeMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicCustomerTypeCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 ﻿$(function () {
     var l = abp.localization.getResource('DataPlane');
-    var ouService = wallee.boc.dataPlane.controllers.organizationUnit;
+    var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
     var createModal = new abp.ModalManager(abp.appPath + 'Identity/OrganizationUnits/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/EditModal");
     var addRoleToOuModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/AddRoleToOuModal");

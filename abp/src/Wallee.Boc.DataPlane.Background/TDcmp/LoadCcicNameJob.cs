@@ -1,15 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
@@ -18,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicNameJob : TDcmpAsyncBackgroundJob<LoadCcicNameJobArgs>, ITransientDependency
     {
         private readonly ICcicNameRepository _ccicNameRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicNameJob(IOptions<FtpOptions> ftpOptions, IClock clock,
             ITDcmpWorkFlowRepository repository, IConfiguration config,
@@ -26,12 +21,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicNameRepository = ccicNameRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicNameJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicNameJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicNameFileName);
+
+                await UpsertAsync(stream, _ccicNameRepository, typeof(CcicNameMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicNameCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 

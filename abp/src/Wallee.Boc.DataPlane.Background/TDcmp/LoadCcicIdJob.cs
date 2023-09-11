@@ -2,8 +2,10 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
+using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
@@ -12,7 +14,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicIdJob : TDcmpAsyncBackgroundJob<LoadCcicIdJobArgs>, ITransientDependency
     {
         private readonly ICcicIdRepository _ccicIdRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicIdJob(IOptions<FtpOptions> ftpOptions, IClock clock, ITDcmpWorkFlowRepository repository,
             IConfiguration config,
@@ -20,12 +22,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicIdRepository = ccicIdRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicIdJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicIdJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicIdFileName);
+
+                await UpsertAsync(stream, _ccicIdRepository, typeof(CcicIdMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicIdCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 ﻿$(function () {
-    var ouService = wallee.boc.dataPlane.controllers.organizationUnit;
+    var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
 
     var inputAction = function (requestData, dataTableSettings) {
         console.log(requestData);

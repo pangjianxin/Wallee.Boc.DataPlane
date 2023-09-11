@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
@@ -12,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicAntiMoneyLaunderingJob : TDcmpAsyncBackgroundJob<LoadCcicAntiMoneyLaunderingJobArgs>, ITransientDependency
     {
         private readonly ICcicAntiMoneyLaunderingRepository _ccicAntiMoneyLaunderingRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicAntiMoneyLaunderingJob(
             IOptions<FtpOptions> ftpOptions,
@@ -20,15 +21,32 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             ITDcmpWorkFlowRepository repository,
             IConfiguration config,
             ICcicAntiMoneyLaunderingRepository ccicAntiMoneyLaunderingRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            TDcmpWorkFlowManager tDcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicAntiMoneyLaunderingRepository = ccicAntiMoneyLaunderingRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = tDcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicAntiMoneyLaunderingJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicAntiMoneyLaunderingJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicAntiMoneyLaunderingFileName);
+
+                await UpsertAsync(stream, _ccicAntiMoneyLaunderingRepository, typeof(CcicAntiMoneyLaunderingMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicAntiMoneyLaunderingCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
     internal class CcicAntiMoneyLaunderingMap : ClassMapBase<CcicAntiMoneyLaundering>

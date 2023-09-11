@@ -52,7 +52,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicRegisters
         /// <summary>
         ///  经营期限. (数值型(3))
         /// </summary>
-        public decimal? OPRT_MATU { get; set; }
+        public int? OPRT_MATU { get; set; }
 
         /// <summary>
         ///  法人标志. (字符型(1))

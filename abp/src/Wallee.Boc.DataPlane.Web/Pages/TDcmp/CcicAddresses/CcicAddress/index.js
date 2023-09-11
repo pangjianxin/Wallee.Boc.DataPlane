@@ -21,7 +21,7 @@ $(function () {
 
     var l = abp.localization.getResource('DataPlane');
 
-    var service = wallee.boc.dataPlane.controllers.tDcmp.ccicAddresses.ccicAddress;
+    var service = wallee.boc.dataPlane.tDcmp.ccicAddresses.ccicAddress;
 
     var dataTable = $('#CcicAddressTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,

@@ -5,9 +5,20 @@ using Stateless.Reflection;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp.BackgroundJobs;
-using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
+using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
+using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicIds;
+using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
+using Wallee.Boc.DataPlane.TDcmp.CcicNames;
+using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
+using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
+using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
+using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
+using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 
 namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
 {
@@ -54,12 +65,63 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
                 .Permit(Trigger.加载基础信息, TDcmpStatus.基础信息);
 
             _stateMachine.Configure(TDcmpStatus.基础信息)
-                .OnEntryFromAsync(Trigger.加载基础信息, OnCcicBasicCompletedAsync, "第一步")
+                .OnEntryFromAsync(Trigger.加载基础信息, OnCcicBasicCompletedAsync, "第1步")
                 .Permit(Trigger.加载地址信息, TDcmpStatus.地址信息);
 
             _stateMachine.Configure(TDcmpStatus.地址信息)
-                .OnEntryFromAsync(Trigger.加载地址信息, OnCcicAddressCompletedAsync, "第二步")
+                .OnEntryFromAsync(Trigger.加载地址信息, OnCcicAddressCompletedAsync, "第2步")
+                .Permit(Trigger.加载反洗钱信息, TDcmpStatus.反洗钱信息);
+
+            _stateMachine.Configure(TDcmpStatus.反洗钱信息)
+                .OnEntryFromAsync(Trigger.加载反洗钱信息, OnCcicAddressCompletedAsync, "第3步")
+                .Permit(Trigger.加载类别信息, TDcmpStatus.类别信息);
+
+            _stateMachine.Configure(TDcmpStatus.类别信息)
+                .OnEntryFromAsync(Trigger.加载类别信息, OnCcicAntiMoneyLaunderingCompletedAsync, "第4步")
+                .Permit(Trigger.加载类别信息组织, TDcmpStatus.类别信息组织);
+
+            _stateMachine.Configure(TDcmpStatus.类别信息组织)
+                .OnEntryFromAsync(Trigger.加载类别信息组织, OnCcicCustomerTypeCompletedAsync, "第5步")
+                .Permit(Trigger.加载概况信息组织, TDcmpStatus.概况信息组织);
+
+            _stateMachine.Configure(TDcmpStatus.概况信息组织)
+                .OnEntryFromAsync(Trigger.加载概况信息组织, OnCcicCustomerTypeOrgCompletedAsync, "第6步")
+                .Permit(Trigger.加载证件信息, TDcmpStatus.证件信息);
+
+            _stateMachine.Configure(TDcmpStatus.证件信息)
+                .OnEntryFromAsync(Trigger.加载证件信息, OnCcicGeneralOrgCompletedAsync, "第7步")
+                .Permit(Trigger.加载隔离清单信息, TDcmpStatus.隔离清单信息);
+
+            _stateMachine.Configure(TDcmpStatus.隔离清单信息)
+                .OnEntryFromAsync(Trigger.加载隔离清单信息, OnCcicIdCompletedAsync, "第8步")
+                .Permit(Trigger.加载名称信息, TDcmpStatus.名称信息);
+
+            _stateMachine.Configure(TDcmpStatus.名称信息)
+                .OnEntryFromAsync(Trigger.加载名称信息, OnCcicLsolationListCompletedAsync, "第9步")
+                .Permit(Trigger.加载人员关系信息, TDcmpStatus.人员关系信息);
+
+            _stateMachine.Configure(TDcmpStatus.人员关系信息)
+                .OnEntryFromAsync(Trigger.加载人员关系信息, OnCcicNameCompletedAsync, "第10步")
+                .Permit(Trigger.加载电话信息, TDcmpStatus.电话信息);
+
+            _stateMachine.Configure(TDcmpStatus.电话信息)
+                .OnEntryFromAsync(Trigger.加载电话信息, OnCcicPersonalRelationCompletedAsync, "第11步")
+                .Permit(Trigger.加载运营信息, TDcmpStatus.运营信息);
+
+            _stateMachine.Configure(TDcmpStatus.运营信息)
+                .OnEntryFromAsync(Trigger.加载运营信息, OnCcicPhoneCompletedAsync, "第12步")
+                .Permit(Trigger.加载注册信息, TDcmpStatus.注册信息);
+
+            _stateMachine.Configure(TDcmpStatus.注册信息)
+                .OnEntryFromAsync(Trigger.加载注册信息, OnCcicPracticeCompletedAsync, "第13步")
+                .Permit(Trigger.加载重要标志信息组织, TDcmpStatus.重要标志信息组织);
+
+            _stateMachine.Configure(TDcmpStatus.重要标志信息组织)
+                .OnEntryFromAsync(Trigger.加载重要标志信息组织, OnCcicRegisterCompletedAsync, "第14步")
                 .Permit(Trigger.已完成, TDcmpStatus.已完成);
+
+            _stateMachine.Configure(TDcmpStatus.已完成)
+                .OnEntryFromAsync(Trigger.已完成, OnCcicSignOrgCompletedAsync, "第15步");
         }
 
         public string GetDotGraph()
@@ -68,19 +130,79 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             return UmlDotGraph.Format(info);
         }
 
-        public async Task NotifyTDcmpWorkFlowInitialized()
+        internal async Task NotifyTDcmpWorkFlowInitialized()
         {
             await _stateMachine.ActivateAsync();
         }
 
-        public async Task NotifyCcicBasicCompletedAsync()
+        internal async Task NotifyCcicBasicCompletedAsync()
         {
             await _stateMachine.FireAsync(Trigger.加载基础信息);
         }
 
-        public async Task NotifyCcicAddressCompletedAsync()
+        internal async Task NotifyCcicAddressCompletedAsync()
         {
             await _stateMachine.FireAsync(Trigger.加载地址信息);
+        }
+
+        internal async Task NotifyCcicAntiMoneyLaunderingCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载反洗钱信息);
+        }
+
+        internal async Task NotifyCcicCustomerTypeCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载类别信息);
+        }
+
+        internal async Task NotifyCcicCustomerTypeOrgCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载类别信息组织);
+        }
+
+        internal async Task NotifyCcicGeneralOrgCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载概况信息组织);
+        }
+
+        internal async Task NotifyCcicIdCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载证件信息);
+        }
+
+        internal async Task NotifyCcicLsolationListCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载隔离清单信息);
+        }
+
+        internal async Task NotifyCcicNameCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载名称信息);
+        }
+
+        internal async Task NotifyCcicPersonalRelationCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载人员关系信息);
+        }
+
+        internal async Task NotifyCcicPhoneCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载电话信息);
+        }
+
+        internal async Task NotifyCcicPracticeCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载运营信息);
+        }
+
+        internal async Task NotifyCcicRegisterCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载注册信息);
+        }
+
+        internal async Task NotifyCcicSignOrgCompletedAsync()
+        {
+            await _stateMachine.FireAsync(Trigger.加载重要标志信息组织);
         }
 
         /// <summary>
@@ -99,7 +221,10 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             BackgroundJobPriority.Normal,
             delay: timeSpan);
         }
-
+        /// <summary>
+        /// 第二步，加载地址信息
+        /// </summary>
+        /// <returns></returns>
         private async Task OnCcicBasicCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicAddressJobArgs()
@@ -110,8 +235,167 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             BackgroundJobPriority.Normal,
             TimeSpan.FromSeconds(5));
         }
-
-        private Task OnCcicAddressCompletedAsync()
+        /// <summary>
+        /// 第三步，加载反洗钱信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicAddressCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicAntiMoneyLaunderingJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+            TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第四步，加载客户类别
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicAntiMoneyLaunderingCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicCustomerTypeJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+            TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第五步，加载类别组织信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicCustomerTypeCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicCustomerTypeOrgJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+           TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第六步，记载对公概况组织信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicCustomerTypeOrgCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicGeneralOrgJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+           TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第七步，加载证件信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicGeneralOrgCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicIdJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+               TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第八步，加载隔离清单信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicIdCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicLsolationListJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+               TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第九步，加载对公名称信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicLsolationListCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicNameJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                           TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十步，加载人员关系信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicNameCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicPersonalRelationJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                         TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十一步，加载对公电话信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicPersonalRelationCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicPhoneJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                       TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十二步，加载对公运营信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicPhoneCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicPracticeJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                      TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十三步，加载对公注册信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicPracticeCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicRegisterJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                     TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十四步，加载重要标志信息
+        /// </summary>
+        /// <returns></returns>
+        private async Task OnCcicRegisterCompletedAsync()
+        {
+            await _backgroundJobManager.EnqueueAsync(new LoadCcicSignOrgJobArgs
+            {
+                WorkFlowId = _tDcmp.Id,
+                DataDate = _tDcmp.DataDate
+            }, BackgroundJobPriority.Normal,
+                                TimeSpan.FromSeconds(5));
+        }
+        /// <summary>
+        /// 第十五步，整个流程结束
+        /// </summary>
+        /// <returns></returns>
+        private Task OnCcicSignOrgCompletedAsync()
         {
             _tDcmp.SetComment($"文件处理完毕");
             _stateMachine.Fire(Trigger.已完成);

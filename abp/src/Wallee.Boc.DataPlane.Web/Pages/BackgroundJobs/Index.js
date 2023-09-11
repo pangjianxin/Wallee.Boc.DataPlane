@@ -11,7 +11,7 @@ $(function () {
         };
     };
 
-    var _backgroundJobAppService = wallee.boc.dataPlane.controllers.backgroundJob;
+    var _backgroundJobAppService = wallee.boc.dataPlane.backgroundJobs.backgroundJob;
 
     var dataTable = $('#backgroundJobsTable').DataTable(
         abp.libs.datatables.normalizeConfiguration({

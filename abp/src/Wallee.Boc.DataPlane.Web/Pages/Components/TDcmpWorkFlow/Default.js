@@ -18,7 +18,7 @@
             console.log(filters);
         };
         var init = function (filters) {
-            var tDcmpWorkFlowService = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
+            var tDcmpWorkFlowService = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
             tDcmpWorkFlowService.getExecuting().then(data => {
                 console.log(data);
                 $("#tdcmpCreationDate").append($(`<span>

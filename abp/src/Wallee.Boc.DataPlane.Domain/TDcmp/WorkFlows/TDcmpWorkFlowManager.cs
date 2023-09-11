@@ -56,6 +56,91 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             return tDcmpWorkFlow;
         }
 
+
+        public async Task<TDcmpWorkFlow> NotifyCcicAntiMoneyLaunderingCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicAddressCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicCustomerTypeCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicCustomerTypeCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicCustomerTypeOrgCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicCustomerTypeOrgCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicGeneralOrgCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicGeneralOrgCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicIdCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicIdCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicLsolationListCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicLsolationListCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicNameCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicNameCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicPersonalRelationCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicPersonalRelationCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicPhoneCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicPhoneCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicPracticeCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicPracticeCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicRegisterCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicRegisterCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
+        public async Task<TDcmpWorkFlow> NotifyCcicSignOrgCompletedAsync(TDcmpWorkFlow tDcmpWorkFlow)
+        {
+            var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);
+            await stateMachine.NotifyCcicSignOrgCompletedAsync();
+            return tDcmpWorkFlow;
+        }
+
         public Task<string> GetDotGraphAsync(TDcmpWorkFlow tDcmpWorkFlow)
         {
             var stateMachine = new TDcmpStateMachine(tDcmpWorkFlow, _backgroundJobManager, Clock.Now);

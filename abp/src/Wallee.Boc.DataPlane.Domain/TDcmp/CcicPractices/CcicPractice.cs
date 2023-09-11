@@ -32,7 +32,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicPractices
         /// <summary>
         ///  经营情况统计期次. (数值型(2))
         /// </summary>
-        public decimal? OPRT_INFO_STAT_INST { get; set; }
+        public int? OPRT_INFO_STAT_INST { get; set; }
 
         /// <summary>
         ///  企业成长阶段代码. (字符型(1))
@@ -106,7 +106,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicPractices
         /// <summary>
         ///  从业人数. (数值型(7))
         /// </summary>
-        public decimal? CRER_PNUM { get; set; }
+        public int? CRER_PNUM { get; set; }
         /// <summary>
         ///  公司员工平均年龄. (数值型(5,2))
         /// </summary>

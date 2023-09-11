@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.CsvHelper;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
@@ -12,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
     public class LoadCcicCustomerTypeOrgJob : TDcmpAsyncBackgroundJob<LoadCcicCustomerTypeOrgJobArgs>, ITransientDependency
     {
         private readonly ICcicCustomerTypeOrgRepository _ccicCustomerTypeOrgRepository;
-        private readonly TDcmpWorkFlowManager _dcmpWorkFlowManager;
+        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicCustomerTypeOrgJob(
             IOptions<FtpOptions> ftpOptions,
@@ -23,12 +24,28 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicCustomerTypeOrgRepository = ccicCustomerTypeOrgRepository;
-            _dcmpWorkFlowManager = dcmpWorkFlowManager;
+            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
         }
 
-        public override Task ExecuteAsync(LoadCcicCustomerTypeOrgJobArgs args)
+        [UnitOfWork]
+        public override async Task ExecuteAsync(LoadCcicCustomerTypeOrgJobArgs args)
         {
-            throw new NotImplementedException();
+            var workFlow = await Repository.GetAsync(args.WorkFlowId);
+            try
+            {
+                using var stream = await GetStreamFromFtp(workFlow, FtpOptions.CcicCustomerTypeOrgFileName);
+
+                await UpsertAsync(stream, _ccicCustomerTypeOrgRepository, typeof(CcicCustomerTypeOrgMap));
+
+                await _tDcmpWorkFlowManager.NotifyCcicCustomerTypeOrgCompletedAsync(workFlow);
+
+                await Repository.UpdateAsync(workFlow);
+            }
+            catch (Exception ex)
+            {
+                await WriteExceptionAsync(workFlow, ex);
+                throw;
+            }
         }
     }
 
@@ -61,12 +78,12 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.DEL_FLAG).Index(22);
             Map(it => it.CRTR_TLR_REFNO).Index(23);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(24);
-            Map(it => it.CRT_DTTM).Index(25).Convert(it => DateTimeConverter(it.Row, 25, "yyyyMMdd HH:mm:ss:ff")); 
+            Map(it => it.CRT_DTTM).Index(25).Convert(it => DateTimeConverter(it.Row, 25, "yyyyMMdd HH:mm:ss:ff"));
             Map(it => it.CUR_ACDT_PERI).Index(26);
             Map(it => it.LTST_MOD_TLR_REFNO).Index(27);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(28);
             Map(it => it.LAST_MNT_STS_CODE).Index(29);
-            Map(it => it.LAST_MOD_DTTM).Index(30).Convert(it => DateTimeConverter(it.Row, 30, "yyyyMMdd HH:mm:ss:ff")); 
+            Map(it => it.LAST_MOD_DTTM).Index(30).Convert(it => DateTimeConverter(it.Row, 30, "yyyyMMdd HH:mm:ss:ff"));
             Map(it => it.RCRD_VRSN_SN).Index(31);
             Map(it => it.RCRD_CLNUP_STSCD).Index(32);
         }

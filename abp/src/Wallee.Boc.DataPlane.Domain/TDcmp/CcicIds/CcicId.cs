@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicIds
@@ -147,7 +143,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicIds
         /// <summary>
         ///  记录版本序号. (数值型(20))
         /// </summary>
-        public decimal? RCRD_VRSN_SN { get; set; }
+        public string? RCRD_VRSN_SN { get; set; }
 
         /// <summary>
         ///  记录清理状态代码. (字符型(1))

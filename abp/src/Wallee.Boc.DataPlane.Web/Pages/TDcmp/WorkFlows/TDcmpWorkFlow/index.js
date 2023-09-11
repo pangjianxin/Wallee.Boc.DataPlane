@@ -2,7 +2,7 @@ $(function () {
 
     var l = abp.localization.getResource('DataPlane');
 
-    var service = wallee.boc.dataPlane.controllers.tDcmp.workFlows.tDcmpWorkFlow;
+    var service = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
     var createModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/EditModal');
 
