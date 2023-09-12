@@ -18,7 +18,6 @@ public class DataPlaneMenus
     public const string CcicCustomerTypeOrg = Prefix + ".CcicCustomerTypeOrg";
     public const string CcicGeneralOrg = Prefix + ".CcicGeneralOrg";
     public const string CcicId = Prefix + ".CcicId";
-    public const string CcicLsolationList = Prefix + ".CcicLsolationList";
     public const string CcicName = Prefix + ".CcicName";
     public const string CcicPersonalRelation = Prefix + ".CcicPersonalRelation";
     public const string CcicPhone = Prefix + ".CcicPhone";

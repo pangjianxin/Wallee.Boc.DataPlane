@@ -8,5 +8,7 @@ public class DataPlaneSettingDefinitionProvider : SettingDefinitionProvider
     {
         //Define your own settings here. Example:
         //context.Add(new SettingDefinition(DataPlaneSettings.MySetting1));
+
+        context.Add(new SettingDefinition(DataPlaneSettings.TDcmpWorkFlowCronExpression));
     }
 }

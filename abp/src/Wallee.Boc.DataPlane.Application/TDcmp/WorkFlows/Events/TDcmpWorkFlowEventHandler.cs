@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EventBus.Distributed;
+using Volo.Abp.Settings;
 using Volo.Abp.Uow;
 
 namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows.Events
@@ -18,7 +19,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows.Events
         [UnitOfWork]
         public async Task HandleEventAsync(TDcmpWorkFlowCompletedEto eventData)
         {
-            await _tDcmpWorkFlowManager.CreateAsync(eventData.DataDate.AddDays(1).Date, eventData.CronExpression);
+            await _tDcmpWorkFlowManager.CreateAsync(eventData.DataDate.AddDays(1).Date);
         }
 
     }

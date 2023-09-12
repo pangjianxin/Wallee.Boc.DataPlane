@@ -48,10 +48,6 @@
         /// </summary>
         public string CcicIdFileName { get; set; } = default!;
         /// <summary>
-        /// 对公隔离清单文件名称
-        /// </summary>
-        public string CcicLsolationListFileName { get; set; } = default!;
-        /// <summary>
         /// 对公客户名称文件名称
         /// </summary>
         public string CcicNameFileName { get; set; } = default!;

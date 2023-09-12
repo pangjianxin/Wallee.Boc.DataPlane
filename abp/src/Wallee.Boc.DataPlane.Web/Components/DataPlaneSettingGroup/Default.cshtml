@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@using Wallee.Boc.DataPlane.Localization;
+@using static Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup.DataPlaneSettingGroupViewComponent;
+@inject IHtmlLocalizer<DataPlaneResource> L
+@model UpdateDataPlaneSettingsViewModel
+
+<abp-script src="/Components/DataPlaneSettingGroup/Default.js"></abp-script>
+
+<form id="DataPlaneSettingsForm" method="post">
+    <abp-row>
+        <abp-column size-md="_12">
+            <div>
+                <abp-input asp-for="TDcmpWorkFlowCronExpression"></abp-input>
+            </div>
+            <hr class="my-4" />
+            <div class="d-flex flex-row justify-content-end">
+                <abp-button button-type="Primary" type="submit">
+                    <i class="fa fa-save"></i> @L["Save"]
+                </abp-button>
+            </div>
+        </abp-column>
+    </abp-row>
+</form>

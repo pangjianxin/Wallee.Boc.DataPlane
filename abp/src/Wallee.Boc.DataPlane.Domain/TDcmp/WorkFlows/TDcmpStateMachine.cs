@@ -12,7 +12,6 @@ using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
 using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
 using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
 using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
@@ -34,31 +33,40 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             加载类别信息组织 = 6,
             加载概况信息组织 = 7,
             加载证件信息 = 8,
-            加载隔离清单信息 = 9,
-            加载名称信息 = 10,
-            加载人员关系信息 = 11,
-            加载电话信息 = 12,
-            加载运营信息 = 13,
-            加载注册信息 = 14,
-            加载重要标志信息组织 = 15,
+            加载名称信息 = 9,
+            加载人员关系信息 = 10,
+            加载电话信息 = 11,
+            加载运营信息 = 12,
+            加载注册信息 = 13,
+            加载重要标志信息组织 = 14,
             已完成 = 99
         }
 
         private StateMachine<TDcmpStatus, Trigger> _stateMachine;
 
-        private readonly TDcmpWorkFlow _tDcmp;
-        private readonly DateTime _now;
+        private readonly TDcmpWorkFlow _tDcmpWorkFlow;
+
         private readonly IBackgroundJobManager _backgroundJobManager;
 
-        public TDcmpStateMachine(TDcmpWorkFlow tDcmp, IBackgroundJobManager backgroundJobManager, DateTime now)
+        public string? Cron { get; private set; }
+        public DateTime Now { get; private set; }
+
+        public void SetCron(string cron)
         {
-            _tDcmp = tDcmp;
+            Cron = cron;
+        }
+
+        public void SetNow(DateTime now)
+        {
+            Now = now;
+        }
+        public TDcmpStateMachine(TDcmpWorkFlow tDcmpWorkFlow, IBackgroundJobManager backgroundJobManager)
+        {
+            _tDcmpWorkFlow = tDcmpWorkFlow;
 
             _backgroundJobManager = backgroundJobManager;
 
-            _now = now;
-
-            _stateMachine = new StateMachine<TDcmpStatus, Trigger>(() => _tDcmp.Status, _tDcmp.SetStatus);
+            _stateMachine = new StateMachine<TDcmpStatus, Trigger>(() => _tDcmpWorkFlow.Status, _tDcmpWorkFlow.SetStatus);
 
             _stateMachine.Configure(TDcmpStatus.初始化)
                 .OnActivateAsync(OnStateMachineInitializedAsync, "数据加工开始")
@@ -90,34 +98,30 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
 
             _stateMachine.Configure(TDcmpStatus.证件信息)
                 .OnEntryFromAsync(Trigger.加载证件信息, OnCcicIdCompletedAsync, "第7步")
-                .Permit(Trigger.加载隔离清单信息, TDcmpStatus.隔离清单信息);
-
-            _stateMachine.Configure(TDcmpStatus.隔离清单信息)
-                .OnEntryFromAsync(Trigger.加载隔离清单信息, OnCcicLsolationListCompletedAsync, "第8步")
                 .Permit(Trigger.加载名称信息, TDcmpStatus.名称信息);
-
+                
             _stateMachine.Configure(TDcmpStatus.名称信息)
-                .OnEntryFromAsync(Trigger.加载名称信息, OnCcicNameCompletedAsync, "第9步")
+                .OnEntryFromAsync(Trigger.加载名称信息, OnCcicNameCompletedAsync, "第8步")
                 .Permit(Trigger.加载人员关系信息, TDcmpStatus.人员关系信息);
 
             _stateMachine.Configure(TDcmpStatus.人员关系信息)
-                .OnEntryFromAsync(Trigger.加载人员关系信息, OnCcicPersonalRelationCompletedAsync, "第10步")
+                .OnEntryFromAsync(Trigger.加载人员关系信息, OnCcicPersonalRelationCompletedAsync, "第9步")
                 .Permit(Trigger.加载电话信息, TDcmpStatus.电话信息);
 
             _stateMachine.Configure(TDcmpStatus.电话信息)
-                .OnEntryFromAsync(Trigger.加载电话信息, OnCcicPhoneCompletedAsync, "第11步")
+                .OnEntryFromAsync(Trigger.加载电话信息, OnCcicPhoneCompletedAsync, "第10步")
                 .Permit(Trigger.加载运营信息, TDcmpStatus.运营信息);
 
             _stateMachine.Configure(TDcmpStatus.运营信息)
-                .OnEntryFromAsync(Trigger.加载运营信息, OnCcicPracticeCompletedAsync, "第12步")
+                .OnEntryFromAsync(Trigger.加载运营信息, OnCcicPracticeCompletedAsync, "第11步")
                 .Permit(Trigger.加载注册信息, TDcmpStatus.注册信息);
 
             _stateMachine.Configure(TDcmpStatus.注册信息)
-                .OnEntryFromAsync(Trigger.加载注册信息, OnCcicRegisterCompletedAsync, "第13步")
+                .OnEntryFromAsync(Trigger.加载注册信息, OnCcicRegisterCompletedAsync, "第12步")
                 .Permit(Trigger.加载重要标志信息组织, TDcmpStatus.重要标志信息组织);
 
             _stateMachine.Configure(TDcmpStatus.重要标志信息组织)
-                .OnEntryFromAsync(Trigger.加载重要标志信息组织, OnCcicSignOrgCompletedAsync, "第14步")
+                .OnEntryFromAsync(Trigger.加载重要标志信息组织, OnCcicSignOrgCompletedAsync, "第13步")
                 .Permit(Trigger.已完成, TDcmpStatus.已完成);
         }
 
@@ -127,8 +131,10 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             return UmlDotGraph.Format(info);
         }
 
-        internal async Task NotifyTDcmpWorkFlowInitialized()
+        internal async Task NotifyTDcmpWorkFlowInitialized(DateTime now, string cron)
         {
+            SetNow(now);
+            SetCron(cron);
             await _stateMachine.ActivateAsync();
         }
 
@@ -167,11 +173,6 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
             await _stateMachine.FireAsync(Trigger.加载证件信息);
         }
 
-        internal async Task NotifyCcicLsolationListCompletedAsync()
-        {
-            await _stateMachine.FireAsync(Trigger.加载隔离清单信息);
-        }
-
         internal async Task NotifyCcicNameCompletedAsync()
         {
             await _stateMachine.FireAsync(Trigger.加载名称信息);
@@ -208,12 +209,12 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         /// <returns></returns>
         private async Task OnStateMachineInitializedAsync()
         {
-            var timeSpan = CalculateOccurrence(_now);
+            var timeSpan = CalculateOccurrence();
 
             await _backgroundJobManager.EnqueueAsync(new LoadCcicBasicJobArgs()
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             },
             BackgroundJobPriority.Normal,
             delay: timeSpan);
@@ -226,8 +227,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicAddressJobArgs()
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             },
             BackgroundJobPriority.Normal,
             TimeSpan.FromSeconds(5));
@@ -240,8 +241,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicAntiMoneyLaunderingJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
             TimeSpan.FromSeconds(5));
         }
@@ -253,8 +254,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicCustomerTypeJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
             TimeSpan.FromSeconds(5));
         }
@@ -266,8 +267,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicCustomerTypeOrgJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
            TimeSpan.FromSeconds(5));
         }
@@ -279,8 +280,8 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicGeneralOrgJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
            TimeSpan.FromSeconds(5));
         }
@@ -292,127 +293,115 @@ namespace Wallee.Boc.DataPlane.TDcmp.WorkFlows
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicIdJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                TimeSpan.FromSeconds(5));
         }
+
         /// <summary>
-        /// 第八步，加载隔离清单信息
+        /// 第8步，加载对公名称信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicIdCompletedAsync()
         {
-            await _backgroundJobManager.EnqueueAsync(new LoadCcicLsolationListJobArgs
-            {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
-            }, BackgroundJobPriority.Normal,
-               TimeSpan.FromSeconds(5));
-        }
-        /// <summary>
-        /// 第九步，加载对公名称信息
-        /// </summary>
-        /// <returns></returns>
-        private async Task OnCcicLsolationListCompletedAsync()
-        {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicNameJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                            TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十步，加载人员关系信息
+        /// 第9步，加载人员关系信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicNameCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicPersonalRelationJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                          TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十一步，加载对公电话信息
+        /// 第10步，加载对公电话信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicPersonalRelationCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicPhoneJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                        TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十二步，加载对公运营信息
+        /// 第11步，加载对公运营信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicPhoneCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicPracticeJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                       TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十三步，加载对公注册信息
+        /// 第12步，加载对公注册信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicPracticeCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicRegisterJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                      TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十四步，加载重要标志信息
+        /// 第13步，加载重要标志信息
         /// </summary>
         /// <returns></returns>
         private async Task OnCcicRegisterCompletedAsync()
         {
             await _backgroundJobManager.EnqueueAsync(new LoadCcicSignOrgJobArgs
             {
-                WorkFlowId = _tDcmp.Id,
-                DataDate = _tDcmp.DataDate
+                WorkFlowId = _tDcmpWorkFlow.Id,
+                DataDate = _tDcmpWorkFlow.DataDate
             }, BackgroundJobPriority.Normal,
                                 TimeSpan.FromSeconds(5));
         }
         /// <summary>
-        /// 第十五步，整个流程结束
+        /// 第14步，整个流程结束
         /// </summary>
         /// <returns></returns>
         private Task OnCcicSignOrgCompletedAsync()
         {
-            _tDcmp.SetComment($"文件处理完毕");
+            _tDcmpWorkFlow.SetComment($"文件处理完毕");
             _stateMachine.Fire(Trigger.已完成);
             return Task.CompletedTask;
         }
 
 
-        protected TimeSpan CalculateOccurrence(DateTime now)
+        protected TimeSpan CalculateOccurrence()
         {
-            var nextFileDateTime = _tDcmp.DataDate.AddDays(1);
+            var nextFileDateTime = _tDcmpWorkFlow.DataDate.AddDays(1);
 
             var delay = TimeSpan.FromSeconds(5);
 
-            if (nextFileDateTime.Date >= now.Date)
+            if (nextFileDateTime.Date >= Now.Date)
             {
-                var nextTryTimeCron = CronExpression.Parse(_tDcmp.CronExpression);
+                var nextTryTimeCron = CronExpression.Parse(Cron);
 
                 var nextTryTime = nextTryTimeCron.GetNextOccurrence((DateTimeOffset)nextFileDateTime.AddDays(1), TimeZoneInfo.Local)!.Value;
 
-                delay = nextTryTime - now;
+                delay = nextTryTime - Now;
             }
 
             return delay;

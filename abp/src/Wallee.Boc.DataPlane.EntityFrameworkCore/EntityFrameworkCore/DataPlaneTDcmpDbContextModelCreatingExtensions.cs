@@ -7,7 +7,6 @@ using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
 using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
 using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
 using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
@@ -70,7 +69,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.ConfigureByConvention();
                 b.HasKey(it => it.Id);
                 b.Property(it => it.Comment).IsRequired(false).HasMaxLength(int.MaxValue);
-                b.Property(it => it.CronExpression).IsRequired().HasMaxLength(100);
                 b.Ignore(it => it.TotalTaskCount);
                 /* Configure more properties here */
             });
@@ -134,21 +132,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.CUSNO,
                     e.CRDT_TP,
                     e.CRDT_SN,
-                    e.LGPER_CODE,
-                });
-
-                /* Configure more properties here */
-            });
-
-
-            builder.Entity<CcicLsolationList>(b =>
-            {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicLsolationLists", DataPlaneConsts.DbSchema, table => table.HasComment("对公隔离清单信息    a82"));
-                b.ConfigureByConvention();
-
-                b.HasKey(e => new
-                {
-                    e.CUSNO,
                     e.LGPER_CODE,
                 });
 

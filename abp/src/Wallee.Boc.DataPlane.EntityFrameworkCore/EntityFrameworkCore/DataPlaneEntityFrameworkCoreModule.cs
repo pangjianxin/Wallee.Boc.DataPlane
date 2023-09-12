@@ -1,17 +1,3 @@
-using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
-using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
-using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
-using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
-using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
-using Wallee.Boc.DataPlane.TDcmp.CcicNames;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
-using Wallee.Boc.DataPlane.TDcmp.CcicIds;
-using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
-using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
-using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
-using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -25,6 +11,19 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
+using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
+using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
+using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicIds;
+using Wallee.Boc.DataPlane.TDcmp.CcicNames;
+using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
+using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
+using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
+using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
+using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -61,7 +60,6 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CcicCustomerTypeOrg, CcicCustomerTypeOrgRepository>();
             options.AddRepository<CcicGeneralOrg, CcicGeneralOrgRepository>();
             options.AddRepository<CcicId, CcicIdRepository>();
-            options.AddRepository<CcicLsolationList, CcicLsolationListRepository>();
             options.AddRepository<CcicName, CcicNameRepository>();
             options.AddRepository<CcicPersonalRelation, CcicPersonalRelationRepository>();
             options.AddRepository<CcicPhone, CcicPhoneRepository>();

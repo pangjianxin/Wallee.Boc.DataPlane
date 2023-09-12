@@ -20,19 +20,19 @@ $(function () {
            
             {
                 title: l('CcicPhoneCUSNO'),
-                data: "cUSNO"
+                data: "cusno"
             },
             {
                 title: l('CcicPhoneUNIT_TEL_TP'),
-                data: "uNIT_TEL_TP"
+                data: "uniT_TEL_TP"
             },
             {
                 title: l('CcicPhoneCNTEL_SN'),
-                data: "cNTEL_SN"
+                data: "cnteL_SN"
             },
             {
-                title: l('CcicPhoneLGPER_CODE'),
-                data: "lGPER_CODE"
+                title: l('LGPER_CODE'),
+                data: "lgpeR_CODE"
             },
             {
                 title: l('CcicPhoneIC'),
@@ -40,91 +40,91 @@ $(function () {
             },
             {
                 title: l('CcicPhoneDMST_ARCD'),
-                data: "dMST_ARCD"
+                data: "dmsT_ARCD"
             },
             {
                 title: l('CcicPhoneEXN_NO'),
-                data: "eXN_NO"
+                data: "exN_NO"
             },
             {
                 title: l('CcicPhoneTEL_NO'),
-                data: "tEL_NO"
+                data: "teL_NO"
             },
             {
                 title: l('CcicPhoneADDR_TP'),
-                data: "aDDR_TP"
+                data: "addR_TP"
             },
             {
                 title: l('CcicPhoneELC_ADTP'),
-                data: "eLC_ADTP"
+                data: "elC_ADTP"
             },
             {
                 title: l('CcicPhoneREL_TP_CODE'),
-                data: "rEL_TP_CODE"
+                data: "reL_TP_CODE"
             },
             {
                 title: l('CcicPhoneREL_STRT_DT'),
-                data: "rEL_STRT_DT"
+                data: "reL_STRT_DT"
             },
             {
                 title: l('CcicPhoneREL_END_DT'),
-                data: "rEL_END_DT"
+                data: "reL_END_DT"
             },
             {
                 title: l('CcicPhoneREL_STRT_TIME'),
-                data: "rEL_STRT_TIME"
+                data: "reL_STRT_TIME"
             },
             {
                 title: l('CcicPhoneREL_END_TIME'),
-                data: "rEL_END_TIME"
+                data: "reL_END_TIME"
             },
             {
                 title: l('CcicPhoneREL_DES'),
-                data: "rEL_DES"
+                data: "reL_DES"
             },
             {
                 title: l('CcicPhoneDEL_FLAG'),
-                data: "dEL_FLAG"
+                data: "deL_FLAG"
             },
             {
                 title: l('CcicPhoneCRTR_TLR_REFNO'),
-                data: "cRTR_TLR_REFNO"
+                data: "crtR_TLR_REFNO"
             },
             {
                 title: l('CcicPhoneCRT_TLR_ORG_REFNO'),
-                data: "cRT_TLR_ORG_REFNO"
+                data: "crT_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicPhoneCRT_DTTM'),
-                data: "cRT_DTTM"
+                data: "crT_DTTM"
             },
             {
                 title: l('CcicPhoneCUR_ACDT_PERI'),
-                data: "cUR_ACDT_PERI"
+                data: "cuR_ACDT_PERI"
             },
             {
                 title: l('CcicPhoneLTST_MOD_TLR_REFNO'),
-                data: "lTST_MOD_TLR_REFNO"
+                data: "ltsT_MOD_TLR_REFNO"
             },
             {
                 title: l('CcicPhoneMOD_TLR_ORG_REFNO'),
-                data: "mOD_TLR_ORG_REFNO"
+                data: "moD_TLR_ORG_REFNO"
             },
             {
                 title: l('CcicPhoneLAST_MNT_STS_CODE'),
-                data: "lAST_MNT_STS_CODE"
+                data: "lasT_MNT_STS_CODE"
             },
             {
                 title: l('CcicPhoneLAST_MOD_DTTM'),
-                data: "lAST_MOD_DTTM"
+                data: "lasT_MOD_DTTM"
             },
             {
                 title: l('CcicPhoneRCRD_VRSN_SN'),
-                data: "rCRD_VRSN_SN"
+                data: "rcrD_VRSN_SN"
             },
             {
                 title: l('CcicPhoneRCRD_CLNUP_STSCD'),
-                data: "rCRD_CLNUP_STSCD"
+                data: "rcrD_CLNUP_STSCD"
             },
         ]
     }));

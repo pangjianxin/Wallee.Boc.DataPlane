@@ -48,17 +48,19 @@ $(function () {
                 title: l('TDcmpWorkFlowStatus'),
                 data: "status",
                 render: function (data) {
-                    let color = data === 1 ? "success" : "danger";
-                    return `<span class='badge bg-${color}'>${l('Enum:TDcmpStatus:' + data)}</span>`;
+                    return `<span class='badge bg-success'>${l('Enum:TDcmpStatus:' + data)}</span>`;
                 }
-            },
-            {
-                title: "Cron表达式",
-                data: "cronExpression"
             },
             {
                 title: l('TDcmpWorkFlowDataDate'),
                 data: "dataDate",
+                render: function (data) {
+                    return luxon.DateTime.fromISO(data, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT);
+                }
+            },
+            {
+                title: "创建日期",
+                data: "creationTime",
                 render: function (data) {
                     return luxon.DateTime.fromISO(data, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT);
                 }

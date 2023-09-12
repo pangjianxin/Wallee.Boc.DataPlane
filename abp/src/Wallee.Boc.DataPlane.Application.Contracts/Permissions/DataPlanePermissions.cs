@@ -3,7 +3,10 @@ namespace Wallee.Boc.DataPlane.Permissions;
 public static class DataPlanePermissions
 {
     public const string GroupName = "DataPlane";
-
+    public static class Settings
+    {
+        public const string Default = GroupName + ".Settings";
+    }
     public static class BackgroundJobs
     {
         public const string Default = GroupName + ".BackgroundJobs";
@@ -88,16 +91,7 @@ public static class DataPlanePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-    /// <summary>
-    /// 对公隔离清单信息    a82
-    /// </summary>
-    public class CcicLsolationList
-    {
-        public const string Default = GroupName + ".CcicLsolationList";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
+
     /// <summary>
     /// 对公名称信息    a22
     /// </summary>

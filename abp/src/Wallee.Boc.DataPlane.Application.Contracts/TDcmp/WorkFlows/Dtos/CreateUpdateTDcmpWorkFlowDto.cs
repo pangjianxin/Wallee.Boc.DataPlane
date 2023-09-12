@@ -9,5 +9,4 @@ public class CreateUpdateTDcmpWorkFlowDto
     /// 数据日期
     /// </summary>
     public DateTime DataDate { get; set; }
-    public string CronExpression { get; set; } = default!;
 }

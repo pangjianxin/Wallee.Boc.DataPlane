@@ -27,6 +27,9 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         organizationUnits.AddChild(DataPlanePermissions.OrganizationUnits.ManageRoles, L("Permission:OrganizationUnits:ManageRoles"));
         organizationUnits.AddChild(DataPlanePermissions.OrganizationUnits.ManageUsers, L("Permission:OrganizationUnits:ManageUsers"));
 
+        //系统设置
+        dataPlaneGroup.AddPermission(DataPlanePermissions.Settings.Default, L("Permission:Settings"));
+
         var ccicBasicPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.CcicBasic.Default, L("Permission:CcicBasic"));
         ccicBasicPermission.AddChild(DataPlanePermissions.CcicBasic.Create, L("Permission:Create"));
         ccicBasicPermission.AddChild(DataPlanePermissions.CcicBasic.Update, L("Permission:Update"));
@@ -61,11 +64,6 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         ccicIdPermission.AddChild(DataPlanePermissions.CcicId.Create, L("Permission:Create"));
         ccicIdPermission.AddChild(DataPlanePermissions.CcicId.Update, L("Permission:Update"));
         ccicIdPermission.AddChild(DataPlanePermissions.CcicId.Delete, L("Permission:Delete"));
-
-        var ccicLsolationListPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.CcicLsolationList.Default, L("Permission:CcicLsolationList"));
-        ccicLsolationListPermission.AddChild(DataPlanePermissions.CcicLsolationList.Create, L("Permission:Create"));
-        ccicLsolationListPermission.AddChild(DataPlanePermissions.CcicLsolationList.Update, L("Permission:Update"));
-        ccicLsolationListPermission.AddChild(DataPlanePermissions.CcicLsolationList.Delete, L("Permission:Delete"));
 
         var ccicNamePermission = dataPlaneGroup.AddPermission(DataPlanePermissions.CcicName.Default, L("Permission:CcicName"));
         ccicNamePermission.AddChild(DataPlanePermissions.CcicName.Create, L("Permission:Create"));

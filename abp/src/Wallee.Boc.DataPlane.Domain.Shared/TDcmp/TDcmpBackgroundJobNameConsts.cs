@@ -9,7 +9,6 @@
         public const string LoadCcicCustomerType = "TDCMP-对公客户类别信息";
         public const string LoadCcicGeneralOrg = "TDCMP-对公概况-组织";
         public const string LoadCcicId = "TDCMP-对公证件信息";
-        public const string LoadCcicLsolationList = "TDCMP-对公隔离清单信息";
         public const string LoadCcicName = "TDCMP-对公名称信息";
         public const string LoadCcicPersonalRelation = "TDCMP-对公人员关系";
         public const string LoadCcicPhone = "TDCMP-对公电话信息";

@@ -41,6 +41,9 @@ using Wallee.Boc.DataPlane.Web.Menus;
 using Volo.Abp.Timing;
 using System;
 using Wallee.Boc.DataPlane.Minio;
+using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
+using Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup;
+using Wallee.Boc.DataPlane.Web.Settings;
 
 namespace Wallee.Boc.DataPlane.Web;
 
@@ -103,6 +106,7 @@ public class DataPlaneWebModule : AbpModule
         ConfigureNavigationServices();
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
+        ConfigureSettingManagementPageOptions();
     }
 
     public override void PostConfigureServices(ServiceConfigurationContext context)
@@ -122,6 +126,14 @@ public class DataPlaneWebModule : AbpModule
     private void ConfigureAuthentication(ServiceConfigurationContext context)
     {
         context.Services.ForwardIdentityAuthenticationForBearer(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme);
+    }
+
+    private void ConfigureSettingManagementPageOptions()
+    {
+        Configure<SettingManagementPageOptions>(options =>
+        {
+            options.Contributors.Add(new DataPlaneSettingPageContributor());
+        });
     }
 
     private void ConfigureUrls(IConfiguration configuration)

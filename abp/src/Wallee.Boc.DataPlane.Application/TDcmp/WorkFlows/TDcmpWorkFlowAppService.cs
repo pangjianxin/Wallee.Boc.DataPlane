@@ -32,7 +32,7 @@ public class TDcmpWorkFlowAppService : CrudAppService<TDcmpWorkFlow, TDcmpWorkFl
 
     public override async Task<TDcmpWorkFlowDto> CreateAsync(CreateUpdateTDcmpWorkFlowDto input)
     {
-        var workFlow = await _tDcmpWorkFlowManager.CreateAsync(input.DataDate, input.CronExpression);
+        var workFlow = await _tDcmpWorkFlowManager.CreateAsync(input.DataDate);
 
         return await MapToGetOutputDtoAsync(workFlow);
     }

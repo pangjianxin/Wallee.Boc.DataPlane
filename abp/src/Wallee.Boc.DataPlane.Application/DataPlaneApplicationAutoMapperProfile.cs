@@ -17,8 +17,6 @@ using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds.Dtos;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
@@ -53,7 +51,6 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<CcicCustomerTypeOrg, CcicCustomerTypeOrgDto>();
         CreateMap<CcicGeneralOrg, CcicGeneralOrgDto>();
         CreateMap<CcicId, CcicIdDto>();
-        CreateMap<CcicLsolationList, CcicLsolationListDto>();
         CreateMap<CcicName, CcicNameDto>();
         CreateMap<CcicPersonalRelation, CcicPersonalRelationDto>();
         CreateMap<CcicPhone, CcicPhoneDto>();

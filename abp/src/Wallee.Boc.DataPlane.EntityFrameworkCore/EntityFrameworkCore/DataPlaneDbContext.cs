@@ -12,22 +12,20 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
-using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
+using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
+using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
 using Wallee.Boc.DataPlane.TDcmp.CcicGeneralOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
-using Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames;
 using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
 using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
+using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -93,10 +91,6 @@ public class DataPlaneDbContext :
     /// 对公证件信息    a20
     /// </summary>
     public DbSet<CcicId> CcicIds { get; set; }
-    /// <summary>
-    /// 对公隔离清单信息    a82
-    /// </summary>
-    public DbSet<CcicLsolationList> CcicLsolationLists { get; set; }
     /// <summary>
     /// 对公名称信息    a22
     /// </summary>

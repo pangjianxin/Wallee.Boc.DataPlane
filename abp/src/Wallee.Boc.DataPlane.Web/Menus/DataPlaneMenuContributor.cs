@@ -106,12 +106,6 @@ public class DataPlaneMenuContributor : IMenuContributor
                 new ApplicationMenuItem(DataPlaneMenus.CcicId, l["Menu:CcicId"], "/TDcmp/CcicIds/CcicId", icon: "fas fa-list", order: 7)
             );
         }
-        if (await context.IsGrantedAsync(DataPlanePermissions.CcicLsolationList.Default))
-        {
-            tDcmpMenu.AddItem(
-                new ApplicationMenuItem(DataPlaneMenus.CcicLsolationList, l["Menu:CcicLsolationList"], "/TDcmp/CcicLsolationLists/CcicLsolationList", icon: "fas fa-list", order: 8)
-            );
-        }
         if (await context.IsGrantedAsync(DataPlanePermissions.CcicName.Default))
         {
             tDcmpMenu.AddItem(
