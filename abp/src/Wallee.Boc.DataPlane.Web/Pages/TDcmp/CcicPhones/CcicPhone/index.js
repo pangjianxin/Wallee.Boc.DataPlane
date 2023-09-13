@@ -36,7 +36,7 @@ $(function () {
             },
             {
                 title: l('CcicPhoneIC'),
-                data: "iC"
+                data: "ic"
             },
             {
                 title: l('CcicPhoneDMST_ARCD'),

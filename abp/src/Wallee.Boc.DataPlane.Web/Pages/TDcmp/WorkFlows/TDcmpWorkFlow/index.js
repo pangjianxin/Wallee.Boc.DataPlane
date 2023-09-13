@@ -48,7 +48,8 @@ $(function () {
                 title: l('TDcmpWorkFlowStatus'),
                 data: "status",
                 render: function (data) {
-                    return `<span class='badge bg-success'>${l('Enum:TDcmpStatus:' + data)}</span>`;
+                    let color = data === 99 ? "success" : "warning";
+                    return `<span class='badge bg-${color}'>${l('Enum:TDcmpStatus:' + data)}</span>`;
                 }
             },
             {

@@ -36,7 +36,7 @@ $(function () {
             },
             {
                 title: l('CcicGeneralOrgFNDS_SRC_INF'),
-                data: "fnsS_SRC_INF"
+                data: "fndS_SRC_INF"
             },
             {
                 title: l('CcicGeneralOrgWLTH_SRC_OVSEA'),

@@ -24,11 +24,11 @@ $(function () {
             },
             {
                 title: l('CcicIdCRDT_TP'),
-                data: "cRDT_TP"
+                data: "crdT_TP"
             },
             {
                 title: l('CcicIdCRDT_SN'),
-                data: "cRDT_SN"
+                data: "crdT_SN"
             },
             {
                 title: l('LGPER_CODE'),
