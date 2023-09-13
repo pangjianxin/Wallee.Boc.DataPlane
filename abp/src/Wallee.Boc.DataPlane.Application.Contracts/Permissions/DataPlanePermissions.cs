@@ -3,10 +3,12 @@ namespace Wallee.Boc.DataPlane.Permissions;
 public static class DataPlanePermissions
 {
     public const string GroupName = "DataPlane";
+
     public static class Settings
     {
         public const string Default = GroupName + ".Settings";
     }
+
     public static class BackgroundJobs
     {
         public const string Default = GroupName + ".BackgroundJobs";
@@ -24,23 +26,25 @@ public static class DataPlanePermissions
         public const string ManageRoles = Default + ".ManageRoles";
         public const string ManageUsers = Default + ".ManageUsers";
     }
-    /// <summary>
-    /// 对公客户基础信息
-    /// </summary>
-    public class CcicBasic
+
+    public class TDcmpReports
     {
-        public const string Default = GroupName + ".CcicBasic";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
+        public const string Default = GroupName + ".TDcmpReports";
+        public const string CcicBasic = Default + ".CcicBasic";
+        public const string CcicAddress = Default + ".CcicAddress";
+        public const string CcicAntiMoneyLaundering = Default + ".CcicAntiMoneyLaundering";
+        public const string CcicCustomerTypeOrg = Default + ".CcicCustomerTypeOrg";
+        public const string CcicGeneralOrg = Default + ".CcicGeneralOrg";
+        public const string CcicId = Default + ".CcicId";
+        public const string CcicName = Default + ".CcicName";
+        public const string CcicPersonalRelation = Default + ".CcicPersonalRelation";
+        public const string CcicPhone = Default + ".CcicPhone";
+        public const string CcicPractice = Default + ".CcicPractice";
+        public const string CcicRegister = Default + ".CcicRegister";
+        public const string CcicSignOrg = Default + ".CcicSignOrg";
+        public const string CcicCustomerType = Default + ".CcicCustomerType";
     }
-    public class CcicAddress
-    {
-        public const string Default = GroupName + ".CcicAddress";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
+
     /// <summary>
     /// 信息管理平台工作流
     /// </summary>
@@ -51,115 +55,11 @@ public static class DataPlanePermissions
         public const string Create = Default + ".Create";
         public const string Delete = Default + ".Delete";
     }
-    /// <summary>
-    /// 对公反洗钱信息    a02
-    /// </summary>
-    public class CcicAntiMoneyLaundering
-    {
-        public const string Default = GroupName + ".CcicAntiMoneyLaundering";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公客户类别信息-组织    a09
-    /// </summary>
-    public class CcicCustomerTypeOrg
-    {
-        public const string Default = GroupName + ".CcicCustomerTypeOrg";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公概况-组织    a18
-    /// </summary>
-    public class CcicGeneralOrg
-    {
-        public const string Default = GroupName + ".CcicGeneralOrg";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公证件信息    a20
-    /// </summary>
-    public class CcicId
-    {
-        public const string Default = GroupName + ".CcicId";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
 
-    /// <summary>
-    /// 对公名称信息    a22
-    /// </summary>
-    public class CcicName
+    public class Dictionaries
     {
-        public const string Default = GroupName + ".CcicName";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公人员关系    a24
-    /// </summary>
-    public class CcicPersonalRelation
-    {
-        public const string Default = GroupName + ".CcicPersonalRelation";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公名称信息    a22
-    /// </summary>
-    public class CcicPhone
-    {
-        public const string Default = GroupName + ".CcicPhone";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公运营信息    a26
-    /// </summary>
-    public class CcicPractice
-    {
-        public const string Default = GroupName + ".CcicPractice";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公注册信息    a28
-    /// </summary>
-    public class CcicRegister
-    {
-        public const string Default = GroupName + ".CcicRegister";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公重要标志信息-组织    a35
-    /// </summary>
-    public class CcicSignOrg
-    {
-        public const string Default = GroupName + ".CcicSignOrg";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
-    }
-    /// <summary>
-    /// 对公客户类别信息    a08
-    /// </summary>
-    public class CcicCustomerType
-    {
-        public const string Default = GroupName + ".CcicCustomerType";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
+        public const string Default = GroupName + ".Dictionaries";
+        public const string OrganizationUnitCoordinate = Default + ".OrganizationUnitCoordinate";
+
     }
 }

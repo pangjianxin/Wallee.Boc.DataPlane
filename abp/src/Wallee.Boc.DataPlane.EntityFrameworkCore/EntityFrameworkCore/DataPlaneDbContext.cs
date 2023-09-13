@@ -12,6 +12,7 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -119,6 +120,10 @@ public class DataPlaneDbContext :
     /// 对公客户类别信息    a08
     /// </summary>
     public DbSet<CcicCustomerType> CcicCustomerTypes { get; set; }
+    /// <summary>
+    /// 字典-机构坐标
+    /// </summary>
+    public DbSet<OrganizationUnitCoordinate> OrganizationUnitCoordinates { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
@@ -141,5 +146,6 @@ public class DataPlaneDbContext :
         builder.ConfigureBackgroundJobs();
         builder.ConfigureTenantManagement();
         builder.ConfigureTDcmp();
+        builder.ConfigureDataPlane();
     }
 }

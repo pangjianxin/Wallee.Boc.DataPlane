@@ -11,18 +11,21 @@ public class DataPlaneMenus
 
     //Add your menu items here...
     public const string TDcmp = Prefix + ".TDcmp";
-    public const string TDcmp_CcicBasic = Prefix + ".CcicBasic";
-    public const string TDcmp_CcicAddress = Prefix + ".CcicAddress";
-    public const string TDcmp_WorkFlow = Prefix + ".TDcmpWorkFlow";
-    public const string CcicAntiMoneyLaundering = Prefix + ".CcicAntiMoneyLaundering";
-    public const string CcicCustomerTypeOrg = Prefix + ".CcicCustomerTypeOrg";
-    public const string CcicGeneralOrg = Prefix + ".CcicGeneralOrg";
-    public const string CcicId = Prefix + ".CcicId";
-    public const string CcicName = Prefix + ".CcicName";
-    public const string CcicPersonalRelation = Prefix + ".CcicPersonalRelation";
-    public const string CcicPhone = Prefix + ".CcicPhone";
-    public const string CcicPractice = Prefix + ".CcicPractice";
-    public const string CcicRegister = Prefix + ".CcicRegister";
-    public const string CcicSignOrg = Prefix + ".CcicSignOrg";
-    public const string CcicCustomerType = Prefix + ".CcicCustomerType";
+    public const string TDcmp_CcicBasic = TDcmp + ".CcicBasic";
+    public const string TDcmp_CcicAddress = TDcmp + ".CcicAddress";
+    public const string TDcmp_WorkFlow = TDcmp + ".TDcmpWorkFlow";
+    public const string CcicAntiMoneyLaundering = TDcmp + ".CcicAntiMoneyLaundering";
+    public const string CcicCustomerTypeOrg = TDcmp + ".CcicCustomerTypeOrg";
+    public const string CcicGeneralOrg = TDcmp + ".CcicGeneralOrg";
+    public const string CcicId = TDcmp + ".CcicId";
+    public const string CcicName = TDcmp + ".CcicName";
+    public const string CcicPersonalRelation = TDcmp + ".CcicPersonalRelation";
+    public const string CcicPhone = TDcmp + ".CcicPhone";
+    public const string CcicPractice = TDcmp + ".CcicPractice";
+    public const string CcicRegister = TDcmp + ".CcicRegister";
+    public const string CcicSignOrg = TDcmp + ".CcicSignOrg";
+    public const string CcicCustomerType = TDcmp + ".CcicCustomerType";
+
+    public const string Dictionaries = Prefix + ".Dictionaries";
+    public const string OrganizationUnitCoordinate = Dictionaries + ".OrganizationUnitCoordinate";
 }

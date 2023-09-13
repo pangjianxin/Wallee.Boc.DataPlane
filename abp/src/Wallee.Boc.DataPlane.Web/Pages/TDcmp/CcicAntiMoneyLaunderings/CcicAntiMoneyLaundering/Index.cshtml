@@ -31,15 +31,6 @@
             <abp-column size-md="_6">
                 <abp-card-title>@L["CcicAntiMoneyLaundering"]</abp-card-title>
             </abp-column>
-            <abp-column size-md="_6" class="text-end">
-			    @if (await Authorization.IsGrantedAsync(DataPlanePermissions.CcicAntiMoneyLaundering.Create))
-                {
-                <abp-button id="NewCcicAntiMoneyLaunderingButton"
-                            text="@L["CreateCcicAntiMoneyLaundering"].Value"
-                            icon="plus"
-                            button-type="Primary" />
-                }
-            </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>

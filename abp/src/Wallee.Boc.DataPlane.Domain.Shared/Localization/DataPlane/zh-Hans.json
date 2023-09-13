@@ -98,7 +98,6 @@
     "CcicAddressLAST_MNT_STS_CODE": "最后维护状态代码",
     "CcicAddressLAST_MOD_DTTM": "最后修改日期时间",
     "CcicAddressRCRD_VRSN_SN": "记录版本序号",
-
     "Permission:TDcmpWorkFlow": "信息管理组件工作流",
     "Menu:TDcmpWorkFlow": "信息组件工作流",
     "TDcmpWorkFlow": "信息组件工作流",
@@ -109,7 +108,6 @@
     "EditTDcmpWorkFlow": "EditTDcmpWorkFlow",
     "TDcmpWorkFlowDeletionConfirmationMessage": "Are you sure to delete the tDcmpWorkFlow {0}?",
     "SuccessfullyDeleted": "Successfully deleted",
-
     "Permission:CcicAntiMoneyLaundering": "对公反洗钱信息",
     "Menu:CcicAntiMoneyLaundering": "对公反洗钱信息",
     "CcicAntiMoneyLaundering": "对公反洗钱信息",
@@ -138,7 +136,6 @@
     "CcicAntiMoneyLaunderingLAST_MOD_DTTM": "CcicAntiMoneyLaunderingLAST_MOD_DTTM",
     "CcicAntiMoneyLaunderingRCRD_VRSN_SN": "CcicAntiMoneyLaunderingRCRD_VRSN_SN",
     "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD": "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD",
-
     "Permission:CcicCustomerTypeOrg": "对公类别组织信息",
     "Menu:CcicCustomerTypeOrg": "对公类别组织信息",
     "CcicCustomerTypeOrg": "对公类别组织信息",
@@ -173,7 +170,6 @@
     "CcicCustomerTypeOrgLAST_MOD_DTTM": "CcicCustomerTypeOrgLAST_MOD_DTTM",
     "CcicCustomerTypeOrgRCRD_VRSN_SN": "CcicCustomerTypeOrgRCRD_VRSN_SN",
     "CcicCustomerTypeOrgRCRD_CLNUP_STSCD": "CcicCustomerTypeOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicGeneralOrg": "对公概况组织信息",
     "Menu:CcicGeneralOrg": "对公概况组织信息",
     "CcicGeneralOrg": "对公概况组织信息",
@@ -204,7 +200,6 @@
     "CcicGeneralOrgLAST_MOD_DTTM": "CcicGeneralOrgLAST_MOD_DTTM",
     "CcicGeneralOrgRCRD_VRSN_SN": "CcicGeneralOrgRCRD_VRSN_SN",
     "CcicGeneralOrgRCRD_CLNUP_STSCD": "CcicGeneralOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicId": "对公证件信息",
     "Menu:CcicId": "对公证件信息",
     "CcicId": "对公证件信息",
@@ -237,7 +232,6 @@
     "CreateCcicId": "CreateCcicId",
     "EditCcicId": "EditCcicId",
     "CcicIdDeletionConfirmationMessage": "Are you sure to delete the ccicId {0}?",
-
     "Permission:CcicName": "对公名称信息",
     "Menu:CcicName": "对公名称信息",
     "CcicName": "对公名称信息",
@@ -272,7 +266,6 @@
     "CcicNameLAST_MOD_DTTM": "CcicNameLAST_MOD_DTTM",
     "CcicNameRCRD_VRSN_SN": "CcicNameRCRD_VRSN_SN",
     "CcicNameRCRD_CLNUP_STSCD": "CcicNameRCRD_CLNUP_STSCD",
-
     "Permission:CcicPersonalRelation": "对公人员关系信息",
     "Menu:CcicPersonalRelation": "对公人员关系信息",
     "CcicPersonalRelation": "对公人员关系信息",
@@ -294,7 +287,6 @@
     "CcicPersonalRelationLAST_MOD_DTTM": "CcicPersonalRelationLAST_MOD_DTTM",
     "CcicPersonalRelationRCRD_VRSN_SN": "CcicPersonalRelationRCRD_VRSN_SN",
     "CcicPersonalRelationRCRD_CLNUP_STSCD": "CcicPersonalRelationRCRD_CLNUP_STSCD",
-
     "Permission:CcicPhone": "对公电话信息",
     "Menu:CcicPhone": "对公电话信息",
     "CcicPhone": "对公电话信息",
@@ -323,7 +315,6 @@
     "CcicPhoneLAST_MOD_DTTM": "CcicPhoneLAST_MOD_DTTM",
     "CcicPhoneRCRD_VRSN_SN": "CcicPhoneRCRD_VRSN_SN",
     "CcicPhoneRCRD_CLNUP_STSCD": "CcicPhoneRCRD_CLNUP_STSCD",
-
     "Permission:CcicPractice": "对公运营信息",
     "Menu:CcicPractice": "对公运营信息",
     "CcicPractice": "对公运营信息",
@@ -363,7 +354,6 @@
     "CcicPracticeLAST_MOD_DTTM": "CcicPracticeLAST_MOD_DTTM",
     "CcicPracticeRCRD_VRSN_SN": "CcicPracticeRCRD_VRSN_SN",
     "CcicPracticeRCRD_CLNUP_STSCD": "CcicPracticeRCRD_CLNUP_STSCD",
-
     "Permission:CcicRegister": "对公注册信息",
     "Menu:CcicRegister": "对公注册信息",
     "CcicRegister": "对公注册信息",
@@ -411,7 +401,6 @@
     "CcicRegisterLAST_MOD_DTTM": "CcicRegisterLAST_MOD_DTTM",
     "CcicRegisterRCRD_VRSN_SN": "CcicRegisterRCRD_VRSN_SN",
     "CcicRegisterRCRD_CLNUP_STSCD": "CcicRegisterRCRD_CLNUP_STSCD",
-
     "Permission:CcicSignOrg": "对公重要标志信息",
     "Menu:CcicSignOrg": "对公重要标志信息",
     "CcicSignOrg": "对公重要标志信息",
@@ -444,7 +433,6 @@
     "CcicSignOrgLAST_MOD_DTTM": "CcicSignOrgLAST_MOD_DTTM",
     "CcicSignOrgRCRD_VRSN_SN": "CcicSignOrgRCRD_VRSN_SN",
     "CcicSignOrgRCRD_CLNUP_STSCD": "CcicSignOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicCustomerType": "对公类别信息",
     "Menu:CcicCustomerType": "对公类别信息",
     "CcicCustomerType": "对公类别信息",
@@ -483,6 +471,18 @@
     "CcicCustomerTypeLAST_MNT_STS_CODE": "CcicCustomerTypeLAST_MNT_STS_CODE",
     "CcicCustomerTypeLAST_MOD_DTTM": "CcicCustomerTypeLAST_MOD_DTTM",
     "CcicCustomerTypeRCRD_VRSN_SN": "CcicCustomerTypeRCRD_VRSN_SN",
-    "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD"
+    "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD",
+
+    "Menu:Dictionaries": "字典",
+    "Permission:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
+    "Menu:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
+    "OrganizationUnitCoordinate": "机构坐标",
+    "OrganizationUnitCoordinateOrgName": "机构名称",
+    "OrganizationUnitCoordinateOrgNo": "机构号",
+    "OrganizationUnitCoordinateLatitude": "纬度",
+    "OrganizationUnitCoordinateLongitude": "经度",
+    "CreateOrganizationUnitCoordinate": "添加记录",
+    "EditOrganizationUnitCoordinate": "编辑记录",
+    "OrganizationUnitCoordinateDeletionConfirmationMessage": "确定删除该记录 {0}?"
   }
 }

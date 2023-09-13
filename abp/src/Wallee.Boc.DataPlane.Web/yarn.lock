@@ -639,6 +639,31 @@ datatables.net-bs5@^1.11.4:
     datatables.net ">=1.13.4"
     jquery ">=1.7"
 
+datatables.net-bs@>=1.13.4:
+  version "1.13.6"
+  resolved "https://registry.npmmirror.com/datatables.net-bs/-/datatables.net-bs-1.13.6.tgz#d30f9da4a1304e34076521b77605cce993d6bedf"
+  integrity sha512-ohESuDtcrrNH56vGTErMUQklkzOVvKC5wyuaDApMruYc542IvESfalMOWKOChcAhGkhyXP9P9ZEr0AaDqQ7+Qw==
+  dependencies:
+    datatables.net ">=1.13.4"
+    jquery ">=1.7"
+
+datatables.net-buttons-bs@^2.4.1:
+  version "2.4.2"
+  resolved "https://registry.npmmirror.com/datatables.net-buttons-bs/-/datatables.net-buttons-bs-2.4.2.tgz#b231c779e571b6e70b8322c6f44579c9835f71e0"
+  integrity sha512-C05bt3LUgxBoPzQrn10kTl7Q9Qoy5rxrREzbykEoNQhyu0tlaYYT8mrA7PTe/xUIog6h82zQaFQGjAodrUQI7g==
+  dependencies:
+    datatables.net-bs ">=1.13.4"
+    datatables.net-buttons ">=2.3.6"
+    jquery ">=1.7"
+
+datatables.net-buttons@>=2.3.6:
+  version "2.4.2"
+  resolved "https://registry.npmmirror.com/datatables.net-buttons/-/datatables.net-buttons-2.4.2.tgz#ceb7204697a1a7932c6dd4e476fd9c9bed81a610"
+  integrity sha512-ps88Wk6yju8hPyqIPhHZ9xhL+pAfgoiI1nZsyPswvqk84kzcqgj1nmulSSLMYNwFG8awsU8C94gF+Pf+JhDh7g==
+  dependencies:
+    datatables.net ">=1.13.4"
+    jquery ">=1.7"
+
 datatables.net@>=1.13.4, datatables.net@^1.11.4:
   version "1.13.6"
   resolved "https://registry.npmmirror.com/datatables.net/-/datatables.net-1.13.6.tgz#6e282adbbb2732e8df495611b8bb54e19f7a943e"
@@ -727,6 +752,14 @@ each-props@^1.3.2:
   dependencies:
     is-plain-object "^2.0.1"
     object.defaults "^1.1.0"
+
+echarts@^5.4.0:
+  version "5.4.3"
+  resolved "https://registry.npmmirror.com/echarts/-/echarts-5.4.3.tgz#f5522ef24419164903eedcfd2b506c6fc91fb20c"
+  integrity sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==
+  dependencies:
+    tslib "2.3.0"
+    zrender "5.4.4"
 
 end-of-stream@^1.0.0, end-of-stream@^1.1.0:
   version "1.4.4"
@@ -2361,6 +2394,11 @@ toastr@^2.1.4:
   dependencies:
     jquery ">=1.12.0"
 
+tslib@2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmmirror.com/tslib/-/tslib-2.3.0.tgz#803b8cdab3e12ba581a4ca41c8839bbb0dacb09e"
+  integrity sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==
+
 type@^1.0.1:
   version "1.2.0"
   resolved "https://registry.npmmirror.com/type/-/type-1.2.0.tgz#848dd7698dafa3e54a6c479e759c4bc3f18847a0"
@@ -2577,3 +2615,10 @@ yargs@^7.1.0:
     which-module "^1.0.0"
     y18n "^3.2.1"
     yargs-parser "^5.0.1"
+
+zrender@5.4.4:
+  version "5.4.4"
+  resolved "https://registry.npmmirror.com/zrender/-/zrender-5.4.4.tgz#8854f1d95ecc82cf8912f5a11f86657cb8c9e261"
+  integrity sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==
+  dependencies:
+    tslib "2.3.0"

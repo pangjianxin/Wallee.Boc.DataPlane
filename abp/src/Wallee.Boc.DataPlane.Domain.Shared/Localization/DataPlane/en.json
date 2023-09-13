@@ -85,7 +85,6 @@
     "TDcmpWorkFlowStatus": "TDcmpWorkFlowStatus",
     "TDcmpWorkFlowDataDate": "TDcmpWorkFlowDataDate",
     "TDcmpWorkFlowComment": "TDcmpWorkFlowComment",
-
     "SuccessfullyDeleted": "Successfully deleted",
     "Enum:TDcmpStatus:1": "初始化",
     "Enum:TDcmpStatus:2": "基础信息",
@@ -120,7 +119,6 @@
     "CcicAntiMoneyLaunderingLAST_MOD_DTTM": "CcicAntiMoneyLaunderingLAST_MOD_DTTM",
     "CcicAntiMoneyLaunderingRCRD_VRSN_SN": "CcicAntiMoneyLaunderingRCRD_VRSN_SN",
     "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD": "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD",
-
     "Permission:CcicCustomerTypeOrg": "CcicCustomerTypeOrg",
     "Menu:CcicCustomerTypeOrg": "MenuCcicCustomerTypeOrg",
     "CcicCustomerTypeOrg": "CcicCustomerTypeOrg",
@@ -157,7 +155,6 @@
     "CcicCustomerTypeOrgLAST_MOD_DTTM": "CcicCustomerTypeOrgLAST_MOD_DTTM",
     "CcicCustomerTypeOrgRCRD_VRSN_SN": "CcicCustomerTypeOrgRCRD_VRSN_SN",
     "CcicCustomerTypeOrgRCRD_CLNUP_STSCD": "CcicCustomerTypeOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicGeneralOrg": "CcicGeneralOrg",
     "Menu:CcicGeneralOrg": "MenuCcicGeneralOrg",
     "CcicGeneralOrg": "CcicGeneralOrg",
@@ -190,7 +187,6 @@
     "CcicGeneralOrgLAST_MOD_DTTM": "CcicGeneralOrgLAST_MOD_DTTM",
     "CcicGeneralOrgRCRD_VRSN_SN": "CcicGeneralOrgRCRD_VRSN_SN",
     "CcicGeneralOrgRCRD_CLNUP_STSCD": "CcicGeneralOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicId": "CcicId",
     "Menu:CcicId": "MenuCcicId",
     "CcicId": "CcicId",
@@ -222,8 +218,6 @@
     "CcicIdLAST_MOD_DTTM": "CcicIdLAST_MOD_DTTM",
     "CcicIdRCRD_VRSN_SN": "CcicIdRCRD_VRSN_SN",
     "CcicIdRCRD_CLNUP_STSCD": "CcicIdRCRD_CLNUP_STSCD",
-
-   
     "Permission:CcicName": "CcicName",
     "Menu:CcicName": "MenuCcicName",
     "CcicName": "CcicName",
@@ -260,7 +254,6 @@
     "CcicNameLAST_MOD_DTTM": "CcicNameLAST_MOD_DTTM",
     "CcicNameRCRD_VRSN_SN": "CcicNameRCRD_VRSN_SN",
     "CcicNameRCRD_CLNUP_STSCD": "CcicNameRCRD_CLNUP_STSCD",
-
     "Permission:CcicPersonalRelation": "CcicPersonalRelation",
     "Menu:CcicPersonalRelation": "MenuCcicPersonalRelation",
     "CcicPersonalRelation": "CcicPersonalRelation",
@@ -284,7 +277,6 @@
     "CcicPersonalRelationLAST_MOD_DTTM": "CcicPersonalRelationLAST_MOD_DTTM",
     "CcicPersonalRelationRCRD_VRSN_SN": "CcicPersonalRelationRCRD_VRSN_SN",
     "CcicPersonalRelationRCRD_CLNUP_STSCD": "CcicPersonalRelationRCRD_CLNUP_STSCD",
-
     "Permission:CcicPhone": "CcicPhone",
     "Menu:CcicPhone": "MenuCcicPhone",
     "CcicPhone": "CcicPhone",
@@ -315,7 +307,6 @@
     "CcicPhoneLAST_MOD_DTTM": "CcicPhoneLAST_MOD_DTTM",
     "CcicPhoneRCRD_VRSN_SN": "CcicPhoneRCRD_VRSN_SN",
     "CcicPhoneRCRD_CLNUP_STSCD": "CcicPhoneRCRD_CLNUP_STSCD",
-
     "Permission:CcicPractice": "CcicPractice",
     "Menu:CcicPractice": "MenuCcicPractice",
     "CcicPractice": "CcicPractice",
@@ -357,7 +348,6 @@
     "CcicPracticeLAST_MOD_DTTM": "CcicPracticeLAST_MOD_DTTM",
     "CcicPracticeRCRD_VRSN_SN": "CcicPracticeRCRD_VRSN_SN",
     "CcicPracticeRCRD_CLNUP_STSCD": "CcicPracticeRCRD_CLNUP_STSCD",
-
     "Permission:CcicRegister": "CcicRegister",
     "Menu:CcicRegister": "MenuCcicRegister",
     "CcicRegister": "CcicRegister",
@@ -407,7 +397,6 @@
     "CcicRegisterLAST_MOD_DTTM": "CcicRegisterLAST_MOD_DTTM",
     "CcicRegisterRCRD_VRSN_SN": "CcicRegisterRCRD_VRSN_SN",
     "CcicRegisterRCRD_CLNUP_STSCD": "CcicRegisterRCRD_CLNUP_STSCD",
-
     "Permission:CcicSignOrg": "CcicSignOrg",
     "Menu:CcicSignOrg": "MenuCcicSignOrg",
     "CcicSignOrg": "CcicSignOrg",
@@ -442,7 +431,6 @@
     "CcicSignOrgLAST_MOD_DTTM": "CcicSignOrgLAST_MOD_DTTM",
     "CcicSignOrgRCRD_VRSN_SN": "CcicSignOrgRCRD_VRSN_SN",
     "CcicSignOrgRCRD_CLNUP_STSCD": "CcicSignOrgRCRD_CLNUP_STSCD",
-
     "Permission:CcicCustomerType": "CcicCustomerType",
     "Menu:CcicCustomerType": "MenuCcicCustomerType",
     "CcicCustomerType": "CcicCustomerType",
@@ -483,6 +471,16 @@
     "CcicCustomerTypeLAST_MNT_STS_CODE": "CcicCustomerTypeLAST_MNT_STS_CODE",
     "CcicCustomerTypeLAST_MOD_DTTM": "CcicCustomerTypeLAST_MOD_DTTM",
     "CcicCustomerTypeRCRD_VRSN_SN": "CcicCustomerTypeRCRD_VRSN_SN",
-    "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD"
+    "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD",
+    "Permission:OrganizationUnitCoordinate": "OrganizationUnitCoordinate",
+    "Menu:OrganizationUnitCoordinate": "MenuOrganizationUnitCoordinate",
+    "OrganizationUnitCoordinate": "OrganizationUnitCoordinate",
+    "OrganizationUnitCoordinateOrgName": "OrganizationUnitCoordinateOrgName",
+    "OrganizationUnitCoordinateOrgNo": "OrganizationUnitCoordinateOrgNo",
+    "OrganizationUnitCoordinateLatitude": "OrganizationUnitCoordinateLatitude",
+    "OrganizationUnitCoordinateLongitude": "OrganizationUnitCoordinateLongitude",
+    "CreateOrganizationUnitCoordinate": "CreateOrganizationUnitCoordinate",
+    "EditOrganizationUnitCoordinate": "EditOrganizationUnitCoordinate",
+    "OrganizationUnitCoordinateDeletionConfirmationMessage": "Are you sure to delete the organizationUnitCoordinate {0}?"
   }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -257,6 +258,19 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.Property(it => it.AVY_SCOR).HasColumnType("decimal(5,2)");
                 b.Property(it => it.CUS_LYLT).HasColumnType("decimal(6,2)");
+            });
+        }
+
+        public static void ConfigureDataPlane(this ModelBuilder builder)
+        {
+            builder.Entity<OrganizationUnitCoordinate>(b =>
+            {
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "OrganizationUnitCoordinates", DataPlaneConsts.DbSchema);
+                b.ConfigureByConvention();
+
+                b.Property(it => it.OrgName).IsRequired().HasMaxLength(128);
+                b.Property(it => it.OrgNo).IsRequired().HasMaxLength(32);
+                /* Configure more properties here */
             });
         }
     }

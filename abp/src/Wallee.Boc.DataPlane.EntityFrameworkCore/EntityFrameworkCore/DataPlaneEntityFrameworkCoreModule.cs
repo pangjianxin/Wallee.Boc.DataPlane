@@ -1,3 +1,4 @@
+using Wallee.Boc.DataPlane.Dictionaries;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -67,6 +68,7 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CcicRegister, CcicRegisterRepository>();
             options.AddRepository<CcicSignOrg, CcicSignOrgRepository>();
             options.AddRepository<CcicCustomerType, CcicCustomerTypeRepository>();
+            options.AddRepository<OrganizationUnitCoordinate, OrganizationUnitCoordinateRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

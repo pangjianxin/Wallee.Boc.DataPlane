@@ -30,6 +30,7 @@
     <None Include="Pages\Identity\OrganizationUnits\CreateModal.cshtml" />
     <None Include="Pages\Identity\OrganizationUnits\EditModal.cshtml" />
     <None Include="Pages\Identity\OrganizationUnits\Index.cshtml" />
+    <None Include="wwwroot\Themes\LeptonXLite\Global\side-menu\css\font.woff2" />
   </ItemGroup>
 
   <ItemGroup>

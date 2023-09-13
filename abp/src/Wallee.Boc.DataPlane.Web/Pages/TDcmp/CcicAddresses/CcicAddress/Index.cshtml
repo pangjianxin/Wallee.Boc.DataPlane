@@ -31,27 +31,9 @@
             <abp-column size-md="_6">
                 <abp-card-title>@L["CcicAddress"]</abp-card-title>
             </abp-column>
-            <abp-column size-md="_6" class="text-end">
-                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.CcicAddress.Create))
-                {
-                    <abp-button id="NewCcicAddressButton"
-                                text="@L["CreateCcicAddress"].Value"
-                                icon="plus"
-                                button-type="Primary" />
-                }
-            </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-row class="mb-3">
-            <a abp-collapse-id="CcicAddressCollapse" class="text-secondary">@L["TableFilter"] </a>
-        </abp-row>
-       @*  <abp-dynamic-form id="CcicAddressFilter" required-symbols="false" column-size="_3"> *@
-            <abp-collapse-body id="CcicAddressCollapse">
-               
-            </abp-collapse-body>
-       @*  </abp-dynamic-form> *@
-        <hr />
         <abp-table striped-rows="true" id="CcicAddressTable" class="nowrap" />
     </abp-card-body>
 </abp-card>

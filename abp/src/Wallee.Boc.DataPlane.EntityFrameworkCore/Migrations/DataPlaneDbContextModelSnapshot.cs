@@ -1688,6 +1688,42 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
+            modelBuilder.Entity("Wallee.Boc.DataPlane.Dictionaries.OrganizationUnitCoordinate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("OrgName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("OrgNo")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppOrganizationUnitCoordinates", (string)null);
+                });
+
             modelBuilder.Entity("Wallee.Boc.DataPlane.TDcmp.CcicAddresses.CcicAddress", b =>
                 {
                     b.Property<string>("CUSNO")
@@ -2397,69 +2433,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AppCcicIds", null, t =>
                         {
                             t.HasComment("对公证件信息    a20");
-                        });
-                });
-
-            modelBuilder.Entity("Wallee.Boc.DataPlane.TDcmp.CcicLsolationLists.CcicLsolationList", b =>
-                {
-                    b.Property<string>("CUSNO")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("LGPER_CODE")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CRTR_TLR_REFNO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CRT_DTTM")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CRT_TLR_ORG_REFNO")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CUR_ACDT_PERI")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DEL_FLAG")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LAST_MNT_STS_CODE")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LAST_MOD_DTTM")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LTST_MOD_TLR_REFNO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MOD_TLR_ORG_REFNO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QUARN_REASN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QUARN_STS")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("QUARN_TP")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RCRD_CLNUP_STSCD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RCRD_VRSN_SN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("CUSNO", "LGPER_CODE");
-
-                    b.ToTable("AppCcicLsolationLists", null, t =>
-                        {
-                            t.HasComment("对公隔离清单信息    a82");
                         });
                 });
 

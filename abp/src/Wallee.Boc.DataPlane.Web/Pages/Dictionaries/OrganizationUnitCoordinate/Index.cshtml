@@ -1,0 +1,48 @@
+@page
+@using Wallee.Boc.DataPlane.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrganizationUnitCoordinate
+@using Wallee.Boc.DataPlane.Localization
+@using Wallee.Boc.DataPlane.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DataPlaneResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["OrganizationUnitCoordinate"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:OrganizationUnitCoordinate"].Value);
+    PageLayout.Content.MenuItemName = DataPlaneMenus.OrganizationUnitCoordinate;
+}
+
+@section scripts
+{
+    <abp-script src="/Pages/Dictionaries/OrganizationUnitCoordinate/index.js" />
+}
+@section styles
+{
+    <abp-style src="/Pages/Dictionaries/OrganizationUnitCoordinate/index.css"/>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["OrganizationUnitCoordinate"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+			    @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate))
+                {
+                <abp-button id="NewOrganizationUnitCoordinateButton"
+                            text="@L["CreateOrganizationUnitCoordinate"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="OrganizationUnitCoordinateTable" class="nowrap"/>
+    </abp-card-body>
+</abp-card>
