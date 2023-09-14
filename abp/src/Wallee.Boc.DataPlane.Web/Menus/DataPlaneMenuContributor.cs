@@ -58,6 +58,8 @@ public class DataPlaneMenuContributor : IMenuContributor
             identity.AddItem(new ApplicationMenuItem(DataPlaneMenus.OrganizationUnit, l["Menu:OrganizationUnit"], "/Identity/OrganizationUnits"));
         }
 
+        context.Menu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Dashboard, l["Menu:Dashboard"], "/Dashboard", icon: "fas fa-tachometer-alt"));
+
         var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list");
 
         if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Default))

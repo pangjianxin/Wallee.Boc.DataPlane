@@ -28,4 +28,5 @@ public class DataPlaneMenus
 
     public const string Dictionaries = Prefix + ".Dictionaries";
     public const string OrganizationUnitCoordinate = Dictionaries + ".OrganizationUnitCoordinate";
+    public const string Dashboard = Prefix + ".Dashboard";
 }

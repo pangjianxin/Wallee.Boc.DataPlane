@@ -1,5 +1,6 @@
 ﻿using Volo.Abp.Account;
 using Volo.Abp.BackgroundJobs;
+using Volo.Abp.Caching;
 using Volo.Abp.FeatureManagement;
 using Volo.Abp.Identity;
 using Volo.Abp.Modularity;
@@ -22,7 +23,8 @@ namespace Wallee.Boc.DataPlane;
     typeof(AbpSettingManagementApplicationContractsModule),
     typeof(AbpTenantManagementApplicationContractsModule),
     typeof(AbpObjectExtendingModule),
-    typeof(AbpBackgroundJobsAbstractionsModule)
+    typeof(AbpBackgroundJobsAbstractionsModule),
+    typeof(AbpCachingModule)
 )]
 public class DataPlaneApplicationContractsModule : AbpModule
 {

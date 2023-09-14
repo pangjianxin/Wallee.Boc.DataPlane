@@ -1,0 +1,128 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming;
+@inject ITheme Theme
+@model Wallee.Boc.DataPlane.Web.Pages.Dashboard.IndexModel
+
+@{
+    Layout = Theme.GetEmptyLayout();
+    ViewBag.FluidLayout = true;
+}
+
+
+@section scripts {
+    <abp-script-bundle>
+        <abp-script src="/Pages/Dashboard/Index.js" />
+        <abp-script src="/libs/echarts/js/echarts.min.js"></abp-script>
+    </abp-script-bundle>
+}
+
+@section styles{
+    <abp-style src="/Pages/Dashboard/Index.css"></abp-style>
+}
+
+<div class="head">
+    <h1>内蒙古自治区全辖金融机构报送情况</h1>
+    <div class="weather">
+        @*<img src="/Pages/Dashboard/images/weather.png"><span>多云转小雨</span>*@
+        <span id="showTime"></span>
+        <a href="/">
+            <span class="fas fa-sign-out-alt">&nbsp;退出</span>
+        </a>
+    </div>
+</div>
+
+<div class="loading">
+    <div class="loadbox"> <img src="/dashboard/images/loading.gif"> 页面加载中... </div>
+</div>
+
+<div class="mainbox">
+    <ul class="clearfix">
+        <li>
+            <div class="boxall" style="height: 3.2rem">
+                <div class="alltitle">信用乡镇建档统计</div>
+                <div class="allnav" id="creditTownWidget">
+                    @* @await Component.InvokeAsync("CreditTownChart") *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+            <div class="boxall" style="height: 3.2rem">
+                <div class="alltitle">农牧户建档统计</div>
+                <div class="allnav" id="herdsmanChartWidget">
+                    @* @await Component.InvokeAsync("HerdsmanChart") *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+            <div class="boxall" style="height: 3.2rem">
+                <div class="alltitle">农牧户贷款信息统计</div>
+                <div class="allnav" id="herdsmanLoanInfoWidget">
+                    @* @await Component.InvokeAsync("HerdsmanLoanInfoChart") *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+        </li>
+        <li>
+            <div class="bar">
+                <div class="barbox">
+                    <ul class="clearfix">
+                        <li class="pulll_left counter" id="creditTownSummaryTotal">1</li>
+                        <li class="pulll_left counter" id="creditVillageSummaryTotal">2</li>
+                    </ul>
+                </div>
+                <div class="barbox2">
+                    <ul class="clearfix">
+                        <li class="pulll_left">信用乡镇建档总数 </li>
+                        <li class="pulll_left">信用村建档总数</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="map">
+                <div class="map1"><img src="/dashboard/images/lbx.png" /></div>
+                <div class="map2"><img src="/dashboard/images/jt.png" /></div>
+                <div class="map3"><img src="/dashboard/images/map.png" /></div>
+                <div class="map4" id="mapChartWidgets">
+                    @* @await Component.InvokeAsync("OrganizationUnitMap") *@
+                </div>
+            </div>
+            <div class="bar">
+                <div class="barbox2">
+                    <ul class="clearfix">
+                        <li class="pulll_left">农牧户建档总数</li>
+                        <li class="pulll_left">新型农业主体建档总数</li>
+                    </ul>
+                </div>
+                <div class="barbox">
+                    <ul class="clearfix">
+                        <li class="pulll_left counter" id="herdsmanSummaryTotal">3</li>
+                        <li class="pulll_left counter" id="newAgriMngEntitySummaryTotal">4</li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="boxall" style="height: 3.4rem">
+                <div class="alltitle">信用村建档统计</div>
+                <div class="allnav" id="creditVillageWidget">
+                    @* @await Component.InvokeAsync("CreditVillageChart") *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+
+            <div class="boxall" style="height: 3.2rem">
+                <div class="alltitle">新型农业主体建档统计</div>
+                <div class="allnav" id="newAgriMngEntityWidget">
+                    @* @await Component.InvokeAsync("NewAgriMngEntityChart") *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+
+            <div class="boxall" style="height: 3rem">
+                <div class="alltitle">新型农业主体贷款统计</div>
+                <div class="allnav" id="newAgriMngEntityLoanInfoChartWidget">
+                    @* @await Component.InvokeAsync("NewAgriMngEntityLoanInfoChart"); *@
+                </div>
+                <div class="boxfoot"></div>
+            </div>
+        </li>
+    </ul>
+</div>
+<div class="back"></div>
