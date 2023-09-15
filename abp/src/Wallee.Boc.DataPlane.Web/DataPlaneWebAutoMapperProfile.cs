@@ -4,6 +4,8 @@ using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
 using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
 using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrganizationUnitCoordinate.ViewModels;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
+using Wallee.Boc.DataPlane.Web.Pages.Reports.ConvertCusOrgUnits.ConvertedCusOrgUnit.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.TDcmp.WorkFlows.TDcmpWorkFlow.ViewModels;
 
 namespace Wallee.Boc.DataPlane.Web;
@@ -20,5 +22,7 @@ public class DataPlaneWebAutoMapperProfile : Profile
         CreateMap<CreateEditTDcmpWorkFlowViewModel, CreateUpdateTDcmpWorkFlowDto>();
         CreateMap<OrganizationUnitCoordinateDto, CreateEditOrganizationUnitCoordinateViewModel>();
         CreateMap<CreateEditOrganizationUnitCoordinateViewModel, CreateUpdateOrganizationUnitCoordinateDto>();
+        CreateMap<ConvertedCusOrgUnitDto, CreateEditConvertedCusOrgUnitViewModel>();
+        CreateMap<CreateEditConvertedCusOrgUnitViewModel, CreateUpdateConvertedCusOrgUnitDto>();
     }
 }

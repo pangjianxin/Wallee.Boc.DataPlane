@@ -473,7 +473,6 @@
     "CcicCustomerTypeLAST_MOD_DTTM": "CcicCustomerTypeLAST_MOD_DTTM",
     "CcicCustomerTypeRCRD_VRSN_SN": "CcicCustomerTypeRCRD_VRSN_SN",
     "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD",
-
     "Menu:Dictionaries": "字典",
     "Permission:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
     "Menu:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
@@ -484,6 +483,21 @@
     "OrganizationUnitCoordinateLongitude": "经度",
     "CreateOrganizationUnitCoordinate": "添加记录",
     "EditOrganizationUnitCoordinate": "编辑记录",
-    "OrganizationUnitCoordinateDeletionConfirmationMessage": "确定删除该记录 {0}?"
+    "OrganizationUnitCoordinateDeletionConfirmationMessage": "确定删除该记录 {0}?",
+    "Permission:ConvertedCusOrgUnit": "折效客户机构情况",
+    "Menu:ConvertedCusOrgUnit": "折效客户机构情况",
+    "ConvertedCusOrgUnit": "折效客户机构情况",
+    "ConvertedCusOrgUnitLabel": "机构名称",
+    "ConvertedCusOrgUnitUpOrgidt": "上级机构号",
+    "ConvertedCusOrgUnitOrgidt": "机构号",
+    "ConvertedCusOrgUnitFirstLevel": "2千-20万区间",
+    "ConvertedCusOrgUnitSecondLevel": "20万-50万区间",
+    "ConvertedCusOrgUnitThirdLevel": "50万-500万区间",
+    "ConvertedCusOrgUnitFourthLevel": "500万-2000万区间",
+    "ConvertedCusOrgUnitFifthLevel": "2000万-1亿区间",
+    "ConvertedCusOrgUnitSixthLevel": "1亿+",
+    "CreateConvertedCusOrgUnit": "添加记录",
+    "EditConvertedCusOrgUnit": "编辑记录",
+    "ConvertedCusOrgUnitDeletionConfirmationMessage": "确认删除该条折效记录{0}?"
   }
 }

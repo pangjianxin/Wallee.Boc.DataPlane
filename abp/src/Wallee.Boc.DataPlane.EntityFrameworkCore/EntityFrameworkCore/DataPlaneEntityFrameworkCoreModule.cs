@@ -1,3 +1,4 @@
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Wallee.Boc.DataPlane.Dictionaries;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -69,6 +70,7 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CcicSignOrg, CcicSignOrgRepository>();
             options.AddRepository<CcicCustomerType, CcicCustomerTypeRepository>();
             options.AddRepository<OrganizationUnitCoordinate, OrganizationUnitCoordinateRepository>();
+            options.AddRepository<ConvertedCusOrgUnit, ConvertedCusOrgUnitRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

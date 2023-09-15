@@ -7,7 +7,7 @@ using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 
 namespace Wallee.Boc.DataPlane.Dictionaries;
 
-[RemoteService(Name = "Default")]
+[RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
 [Route("/api/app/dictionaries/organization-unit-coordinate")]
 public class OrganizationUnitCoordinateController : DataPlaneController, IOrganizationUnitCoordinateAppService
 {

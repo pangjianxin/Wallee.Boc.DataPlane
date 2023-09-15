@@ -172,5 +172,11 @@ public class DataPlaneMenuContributor : IMenuContributor
         }
 
         context.Menu.AddItem(dictionariesMenu);
+        if (await context.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Default))
+        {
+            context.Menu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.ConvertedCusOrgUnit, l["Menu:ConvertedCusOrgUnit"], "/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit")
+            );
+        }
     }
 }

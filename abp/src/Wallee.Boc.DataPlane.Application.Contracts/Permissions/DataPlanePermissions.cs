@@ -62,4 +62,14 @@ public static class DataPlanePermissions
         public const string OrganizationUnitCoordinate = Default + ".OrganizationUnitCoordinate";
 
     }
+    /// <summary>
+    /// 折效客户机构分布情况
+    /// </summary>
+    public class ConvertedCusOrgUnit
+    {
+        public const string Default = GroupName + ".ConvertedCusOrgUnit";
+        public const string Update = Default + ".Update";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+    }
 }

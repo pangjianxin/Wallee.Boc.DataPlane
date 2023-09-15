@@ -32,6 +32,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.Dictionaries.Dtos;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
 
 namespace Wallee.Boc.DataPlane;
@@ -62,5 +64,7 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<CcicCustomerType, CcicCustomerTypeDto>();
         CreateMap<OrganizationUnitCoordinate, OrganizationUnitCoordinateDto>();
         CreateMap<CreateUpdateOrganizationUnitCoordinateDto, OrganizationUnitCoordinate>(MemberList.Source);
+        CreateMap<ConvertedCusOrgUnit, ConvertedCusOrgUnitDto>();
+        CreateMap<CreateUpdateConvertedCusOrgUnitDto, ConvertedCusOrgUnit>(MemberList.Source);
     }
 }

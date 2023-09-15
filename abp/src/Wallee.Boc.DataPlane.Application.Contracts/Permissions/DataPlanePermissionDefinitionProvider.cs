@@ -55,6 +55,11 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         //字典
         var organizationUnitCoordinatePermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dictionaries.Default, L("Permission:Dictionaries"));
         organizationUnitCoordinatePermission.AddChild(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate, L("Permission:Dictionaries:OrganizationUnitCoordinates"));
+
+        var convertedCusOrgUnitPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.ConvertedCusOrgUnit.Default, L("Permission:ConvertedCusOrgUnit"));
+        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Create, L("Permission:Create"));
+        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Update, L("Permission:Update"));
+        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Delete, L("Permission:Delete"));
     }
 
     private static LocalizableString L(string name)

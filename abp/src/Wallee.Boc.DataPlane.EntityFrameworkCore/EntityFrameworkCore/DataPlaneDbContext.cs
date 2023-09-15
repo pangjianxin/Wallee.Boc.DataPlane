@@ -27,6 +27,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -124,6 +126,10 @@ public class DataPlaneDbContext :
     /// 字典-机构坐标
     /// </summary>
     public DbSet<OrganizationUnitCoordinate> OrganizationUnitCoordinates { get; set; }
+    /// <summary>
+    /// 折效客户机构分布情况
+    /// </summary>
+    public DbSet<ConvertedCusOrgUnit> ConvertedCusOrgUnits { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
@@ -147,5 +153,15 @@ public class DataPlaneDbContext :
         builder.ConfigureTenantManagement();
         builder.ConfigureTDcmp();
         builder.ConfigureDataPlane();
+
+
+        builder.Entity<ConvertedCusOrgUnit>(b =>
+        {
+            b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCusOrgUnits", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户机构分布情况"));
+            b.ConfigureByConvention(); 
+            
+
+            /* Configure more properties here */
+        });
     }
 }

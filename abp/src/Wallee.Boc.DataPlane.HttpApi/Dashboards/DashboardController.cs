@@ -17,5 +17,12 @@ namespace Wallee.Boc.DataPlane.Dashboards
         {
             _dashboardAppService = dashboardAppService;
         }
+
+        [HttpGet]
+        [Route("converted-cus-org-unit-info")]
+        public Task GetConvertedCusOrgUnitInfoAsync(DateTime dataDate)
+        {
+            return _dashboardAppService.GetConvertedCusOrgUnitInfoAsync(dataDate);
+        }
     }
 }

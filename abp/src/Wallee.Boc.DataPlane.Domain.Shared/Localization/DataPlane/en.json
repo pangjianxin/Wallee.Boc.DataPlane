@@ -481,6 +481,21 @@
     "OrganizationUnitCoordinateLongitude": "OrganizationUnitCoordinateLongitude",
     "CreateOrganizationUnitCoordinate": "CreateOrganizationUnitCoordinate",
     "EditOrganizationUnitCoordinate": "EditOrganizationUnitCoordinate",
-    "OrganizationUnitCoordinateDeletionConfirmationMessage": "Are you sure to delete the organizationUnitCoordinate {0}?"
+    "OrganizationUnitCoordinateDeletionConfirmationMessage": "Are you sure to delete the organizationUnitCoordinate {0}?",
+    "Permission:ConvertedCusOrgUnit": "ConvertedCusOrgUnit",
+    "Menu:ConvertedCusOrgUnit": "MenuConvertedCusOrgUnit",
+    "ConvertedCusOrgUnit": "ConvertedCusOrgUnit",
+    "ConvertedCusOrgUnitLabel": "ConvertedCusOrgUnitLabel",
+    "ConvertedCusOrgUnitUpOrgidt": "ConvertedCusOrgUnitUpOrgidt",
+    "ConvertedCusOrgUnitOrgidt": "ConvertedCusOrgUnitOrgidt",
+    "ConvertedCusOrgUnitFirstLevel": "ConvertedCusOrgUnitFirstLevel",
+    "ConvertedCusOrgUnitSecondLevel": "ConvertedCusOrgUnitSecondLevel",
+    "ConvertedCusOrgUnitThirdLevel": "ConvertedCusOrgUnitThirdLevel",
+    "ConvertedCusOrgUnitFourthLevel": "ConvertedCusOrgUnitFourthLevel",
+    "ConvertedCusOrgUnitFifthLevel": "ConvertedCusOrgUnitFifthLevel",
+    "ConvertedCusOrgUnitSixthLevel": "ConvertedCusOrgUnitSixthLevel",
+    "CreateConvertedCusOrgUnit": "CreateConvertedCusOrgUnit",
+    "EditConvertedCusOrgUnit": "EditConvertedCusOrgUnit",
+    "ConvertedCusOrgUnitDeletionConfirmationMessage": "Are you sure to delete the convertedCusOrgUnit {0}?"
   }
 }
