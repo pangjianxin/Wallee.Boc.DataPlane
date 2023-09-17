@@ -2,8 +2,6 @@
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
 
     var inputAction = function (requestData, dataTableSettings) {
-        console.log(requestData);
-        console.log(dataTableSettings);
         return {
             filter: "",
         };
