@@ -13,16 +13,16 @@
 @{
     PageLayout.Content.Title = L["ConvertedCusOrgUnit"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:ConvertedCusOrgUnit"].Value);
-    PageLayout.Content.MenuItemName = DataPlaneMenus.ConvertedCusOrgUnit;
+    PageLayout.Content.MenuItemName = DataPlaneMenus.Reports_ConvertedCusOrgUnit;
 }
 
 @section scripts
-{
+    {
     <abp-script src="/Pages/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/index.js" />
 }
 @section styles
-{
-    <abp-style src="/Pages/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/index.css"/>
+    {
+    <abp-style src="/Pages/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/index.css" />
 }
 
 <abp-card>
@@ -32,17 +32,21 @@
                 <abp-card-title>@L["ConvertedCusOrgUnit"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-			    @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Create))
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Create))
                 {
-                <abp-button id="NewConvertedCusOrgUnitButton"
-                            text="@L["CreateConvertedCusOrgUnit"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                    <abp-button id="NewConvertedCusOrgUnitByFileButton"
+                                text="上传文件"
+                                icon="upload"
+                                button-type="Warning" />
+                    <abp-button id="NewConvertedCusOrgUnitButton"
+                                text="@L["CreateConvertedCusOrgUnit"].Value"
+                                icon="plus"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-table striped-rows="true" id="ConvertedCusOrgUnitTable" class="nowrap"/>
+        <abp-table striped-rows="true" id="ConvertedCusOrgUnitTable" class="nowrap" />
     </abp-card-body>
 </abp-card>

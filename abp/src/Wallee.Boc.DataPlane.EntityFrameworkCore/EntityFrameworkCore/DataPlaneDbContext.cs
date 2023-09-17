@@ -153,15 +153,5 @@ public class DataPlaneDbContext :
         builder.ConfigureTenantManagement();
         builder.ConfigureTDcmp();
         builder.ConfigureDataPlane();
-
-
-        builder.Entity<ConvertedCusOrgUnit>(b =>
-        {
-            b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCusOrgUnits", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户机构分布情况"));
-            b.ConfigureByConvention(); 
-            
-
-            /* Configure more properties here */
-        });
     }
 }

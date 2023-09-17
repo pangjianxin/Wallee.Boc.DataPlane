@@ -30,6 +30,13 @@ namespace Wallee.Boc.DataPlane.Reports
             return _convertedCusOrgUnitAppService.CreateAsync(input);
         }
 
+        [HttpPost]
+        [Route("create-by-file")]
+        public async Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input)
+        {
+            await _convertedCusOrgUnitAppService.CreateByFileAsync(input);
+        }
+
         [HttpDelete]
         public async Task DeleteAsync(Guid id)
         {

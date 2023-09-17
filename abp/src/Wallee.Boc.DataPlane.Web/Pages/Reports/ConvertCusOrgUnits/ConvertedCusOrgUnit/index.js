@@ -1,7 +1,7 @@
 $(function () {
     var l = abp.localization.getResource('DataPlane');
 
-    var service = wallee.boc.dataPlane.reports.convertCusOrgUnits.convertedCusOrgUnit;
+    var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
     var createModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateModal');
     var editModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/EditModal');
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -270,6 +271,20 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.Property(it => it.OrgName).IsRequired().HasMaxLength(128);
                 b.Property(it => it.OrgNo).IsRequired().HasMaxLength(32);
+                /* Configure more properties here */
+            });
+
+            builder.Entity<ConvertedCusOrgUnit>(b =>
+            {
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCusOrgUnits", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户机构分布情况"));
+                b.ConfigureByConvention();
+
+                b.Property(it => it.FirstLevel).HasColumnType("decimal(18,2)");
+                b.Property(it => it.SecondLevel).HasColumnType("decimal(18,2)");
+                b.Property(it => it.ThirdLevel).HasColumnType("decimal(18,2)");
+                b.Property(it => it.FourthLevel).HasColumnType("decimal(18,2)");
+                b.Property(it => it.FifthLevel).HasColumnType("decimal(18,2)");
+                b.Property(it => it.SixthLevel).HasColumnType("decimal(18,2)");
                 /* Configure more properties here */
             });
         }

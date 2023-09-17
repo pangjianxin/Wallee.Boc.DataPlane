@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -23,26 +24,24 @@ using Volo.Abp.Autofac;
 using Volo.Abp.AutoMapper;
 using Volo.Abp.Identity.Web;
 using Volo.Abp.Modularity;
-using Volo.Abp.ObjectExtending.Modularity;
 using Volo.Abp.ObjectExtending;
+using Volo.Abp.ObjectExtending.Modularity;
 using Volo.Abp.SettingManagement.Web;
+using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
 using Volo.Abp.Swashbuckle;
 using Volo.Abp.TenantManagement.Web;
 using Volo.Abp.Threading;
+using Volo.Abp.Timing;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.VirtualFileSystem;
 using Wallee.Boc.DataPlane.Background;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Localization;
-using Wallee.Boc.DataPlane.MultiTenancy;
+using Wallee.Boc.DataPlane.Minio;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
 using Wallee.Boc.DataPlane.Web.Extensions;
 using Wallee.Boc.DataPlane.Web.Menus;
-using Volo.Abp.Timing;
-using System;
-using Wallee.Boc.DataPlane.Minio;
-using Volo.Abp.SettingManagement.Web.Pages.SettingManagement;
-using Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup;
 using Wallee.Boc.DataPlane.Web.Settings;
 
 namespace Wallee.Boc.DataPlane.Web;
@@ -216,6 +215,7 @@ public class DataPlaneWebModule : AbpModule
         Configure<AbpAspNetCoreMvcOptions>(options =>
         {
             //options.ConventionalControllers.Create(typeof(DataPlaneApplicationModule).Assembly);
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateConvertedCusOrgUnitByFileDto));
         });
     }
 

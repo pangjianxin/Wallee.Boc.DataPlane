@@ -172,11 +172,16 @@ public class DataPlaneMenuContributor : IMenuContributor
         }
 
         context.Menu.AddItem(dictionariesMenu);
+
+        var reportsMenu = new ApplicationMenuItem(DataPlaneMenus.Reports, l["Menu:Reports"], icon: "fas fa-newspaper");
+
         if (await context.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Default))
         {
-            context.Menu.AddItem(
-                new ApplicationMenuItem(DataPlaneMenus.ConvertedCusOrgUnit, l["Menu:ConvertedCusOrgUnit"], "/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit")
+            reportsMenu.AddItem(
+                new ApplicationMenuItem(DataPlaneMenus.Reports_ConvertedCusOrgUnit, l["Menu:ConvertedCusOrgUnit"], "/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit", icon: "fas fa-newspaper")
             );
         }
+
+        context.Menu.AddItem(reportsMenu);
     }
 }
