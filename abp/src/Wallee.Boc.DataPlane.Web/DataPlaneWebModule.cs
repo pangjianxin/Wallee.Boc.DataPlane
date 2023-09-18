@@ -169,6 +169,15 @@ public class DataPlaneWebModule : AbpModule
             });
 
             options.ScriptBundles.Configure(
+                 LeptonXLiteThemeBundles.Scripts.Global,
+                 bundle =>
+                 {
+                     bundle.AddFiles("/libs/echarts/js/echarts.min.js");
+                 }
+             );
+
+
+            options.ScriptBundles.Configure(
                 typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName,
                bundle =>
                {

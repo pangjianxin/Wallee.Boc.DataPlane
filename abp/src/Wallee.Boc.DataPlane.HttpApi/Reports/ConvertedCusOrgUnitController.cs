@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -25,27 +21,15 @@ namespace Wallee.Boc.DataPlane.Reports
         }
 
         [HttpPost]
-        public Task<ConvertedCusOrgUnitDto> CreateAsync(CreateUpdateConvertedCusOrgUnitDto input)
-        {
-            return _convertedCusOrgUnitAppService.CreateAsync(input);
-        }
-
-        [HttpPost]
         [Route("create-by-file")]
         public async Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input)
         {
             await _convertedCusOrgUnitAppService.CreateByFileAsync(input);
         }
 
-        [HttpDelete]
-        public async Task DeleteAsync(Guid id)
-        {
-            await _convertedCusOrgUnitAppService.DeleteAsync(id);
-        }
-
         [HttpGet]
-        [Route("{id}")]
-        public async Task<ConvertedCusOrgUnitDto> GetAsync(Guid id)
+        [Route("{DataDate}/{Orgidt}")]
+        public async Task<ConvertedCusOrgUnitDto> GetAsync(ConvertedCusOrgUnitKey id)
         {
             return await _convertedCusOrgUnitAppService.GetAsync(id);
         }
@@ -55,13 +39,6 @@ namespace Wallee.Boc.DataPlane.Reports
         public async Task<PagedResultDto<ConvertedCusOrgUnitDto>> GetListAsync(ConvertedCusOrgUnitGetListInput input)
         {
             return await _convertedCusOrgUnitAppService.GetListAsync(input);
-        }
-
-        [HttpPut]
-        [Route("{id}")]
-        public async Task<ConvertedCusOrgUnitDto> UpdateAsync(Guid id, CreateUpdateConvertedCusOrgUnitDto input)
-        {
-            return await _convertedCusOrgUnitAppService.UpdateAsync(id, input);
         }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Wallee.Boc.DataPlane.Dashboard;
+using Wallee.Boc.DataPlane.Dashboard.Dtos;
 
 namespace Wallee.Boc.DataPlane.Dashboards
 {
@@ -17,12 +18,18 @@ namespace Wallee.Boc.DataPlane.Dashboards
         {
             _dashboardAppService = dashboardAppService;
         }
+        [HttpGet]
+        [Route("converted-cus-org-unit-detail")]
+        public async Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(DateTime? dataDate)
+        {
+            return await _dashboardAppService.GetConvertedCusOrgUnitDetailsAsync(dataDate);
+        }
 
         [HttpGet]
-        [Route("converted-cus-org-unit-info")]
-        public Task GetConvertedCusOrgUnitInfoAsync(DateTime dataDate)
+        [Route("converted-cus-org-unit-summary")]
+        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(DateTime? dataDate)
         {
-            return _dashboardAppService.GetConvertedCusOrgUnitInfoAsync(dataDate);
+            return await _dashboardAppService.GetConvertedCusOrgUnitSummaryAsync(dataDate);
         }
     }
 }

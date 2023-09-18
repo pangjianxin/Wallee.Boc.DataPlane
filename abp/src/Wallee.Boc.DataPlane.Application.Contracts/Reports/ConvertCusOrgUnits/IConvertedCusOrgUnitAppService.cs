@@ -10,12 +10,10 @@ namespace Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 /// 折效客户机构分布情况
 /// </summary>
 public interface IConvertedCusOrgUnitAppService :
-    ICrudAppService<
-                ConvertedCusOrgUnitDto,
-        Guid,
-        ConvertedCusOrgUnitGetListInput,
-        CreateUpdateConvertedCusOrgUnitDto,
-        CreateUpdateConvertedCusOrgUnitDto>
+    IReadOnlyAppService<
+        ConvertedCusOrgUnitDto,
+        ConvertedCusOrgUnitKey,
+        ConvertedCusOrgUnitGetListInput>
 {
     Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input);
 }

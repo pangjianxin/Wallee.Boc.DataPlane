@@ -1,8 +1,9 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
+using System;
 using System.Globalization;
 
-namespace Wallee.Boc.DataPlane.Background.CsvHelper
+namespace Wallee.Boc.DataPlane.CsvHelper
 {
     public abstract class ClassMapBase<T> : ClassMap<T> where T : class
     {

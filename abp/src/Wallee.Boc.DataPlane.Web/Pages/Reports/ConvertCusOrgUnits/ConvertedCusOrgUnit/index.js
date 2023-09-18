@@ -2,8 +2,7 @@ $(function () {
     var l = abp.localization.getResource('DataPlane');
 
     var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
-    var createModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/EditModal');
+    var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
 
     var dataTable = $('#ConvertedCusOrgUnitTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -48,6 +47,16 @@ $(function () {
                 data: "label"
             },
             {
+                title: l('ConvertedCusOrgUnitDataDate'),
+                data: "dataDate",
+                render: function (data) {
+                    return luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toLocaleString(luxon.DateTime.DATE_SHORT);
+                }
+            },
+            {
                 title: l('ConvertedCusOrgUnitUpOrgidt'),
                 data: "upOrgidt"
             },
@@ -82,16 +91,11 @@ $(function () {
         ]
     }));
 
-    createModal.onResult(function () {
+    createByFileModal.onResult(function () {
         dataTable.ajax.reload();
     });
 
-    editModal.onResult(function () {
-        dataTable.ajax.reload();
-    });
-
-    $('#NewConvertedCusOrgUnitButton').click(function (e) {
-        e.preventDefault();
-        createModal.open();
-    });
+    $("#NewConvertedCusOrgUnitByFileButton").on("click", function () {
+        createByFileModal.open();
+    })
 });

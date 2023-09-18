@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits
@@ -6,47 +7,27 @@ namespace Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits
     /// <summary>
     /// 折效客户机构分布情况
     /// </summary>
-    public class ConvertedCusOrgUnit : AuditedAggregateRoot<Guid>
+    public class ConvertedCusOrgUnit : AuditedAggregateRoot
     {
-        public string Label { get; private set; } = default!;
-        public string UpOrgidt { get; private set; } = default!;
-        public string Orgidt { get; private set; } = default!;
-        public decimal FirstLevel { get; private set; }
-        public decimal SecondLevel { get; private set; }
-        public decimal ThirdLevel { get; private set; }
-        public decimal FourthLevel { get; private set; }
-        public decimal FifthLevel { get; private set; }
-        public decimal SixthLevel { get; private set; }
-        public DateTime DataDate { get; private set; }
+        public DateTime DataDate { get; set; }
+        public string Orgidt { get; set; } = default!;
+        public string Label { get; set; } = default!;
+        public string UpOrgidt { get; set; } = default!;
+        public decimal FirstLevel { get; set; }
+        public decimal SecondLevel { get; set; }
+        public decimal ThirdLevel { get; set; }
+        public decimal FourthLevel { get; set; }
+        public decimal FifthLevel { get; set; }
+        public decimal SixthLevel { get; set; }
 
-        protected ConvertedCusOrgUnit()
+
+        public ConvertedCusOrgUnit()
         {
         }
 
-        public ConvertedCusOrgUnit(
-            Guid id,
-            string label,
-            string upOrgidt,
-            string orgidt,
-            DateTime dataDate,
-            decimal firstLevel,
-            decimal secondLevel,
-            decimal thirdLevel,
-            decimal fourthLevel,
-            decimal fifthLevel,
-            decimal sixthLevel
-        ) : base(id)
+        public override object[] GetKeys()
         {
-            Label = label;
-            UpOrgidt = upOrgidt;
-            Orgidt = orgidt;
-            DataDate = dataDate;
-            FirstLevel = firstLevel;
-            SecondLevel = secondLevel;
-            ThirdLevel = thirdLevel;
-            FourthLevel = fourthLevel;
-            FifthLevel = fifthLevel;
-            SixthLevel = sixthLevel;
+            return new object[] { DataDate, Orgidt };
         }
     }
 }

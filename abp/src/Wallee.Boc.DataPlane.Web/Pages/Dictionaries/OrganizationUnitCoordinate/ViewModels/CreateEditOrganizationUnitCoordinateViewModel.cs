@@ -9,10 +9,10 @@ public class CreateEditOrganizationUnitCoordinateViewModel
 
     [Display(Name = "机构号")]
     public string OrgNo { get; set; } = default!;
+    [Display(Name = "经度")]
+    public double Longitude { get; set; }
 
     [Display(Name = "纬度")]
     public double Latitude { get; set; }
-
-    [Display(Name = "经度")]
-    public double Longitude { get; set; }
+    
 }

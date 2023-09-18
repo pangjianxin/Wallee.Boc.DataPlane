@@ -28,9 +28,9 @@
         t = setTimeout(time, 1000);
     }
 
-    //地图
-    var innerMongoliaMap = new abp.WidgetManager({
-        wrapper: '#mapChartWidgets',
+    ////地图
+    var organizationUnitMapWidget = new abp.WidgetManager({
+        wrapper: '#organizationUnitMapWidget',
         filterCallback: function () {
             return {
                 'startDate': '2021-01-18',
@@ -38,84 +38,123 @@
             }
         }
     });
-    innerMongoliaMap.init();
+    organizationUnitMapWidget.init();
 
-    //信用乡镇
-    var creditTownWidget = new abp.WidgetManager({
-        wrapper: '#creditTownWidget',
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+    _dashboardService.getConvertedCusOrgUnitSummary(null).then(data => {
+        //2000-20万日均客户
+        var convertedCusFstRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusFstRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.firstLevel
+                        }
+                    })
+                }
             }
-        }
-    });
+        });
 
-    creditTownWidget.init();
+        convertedCusFstRangeWidget.init();
 
-    //信用村
-    var creditVillageWidget = new abp.WidgetManager({
-        wrapper: '#creditVillageWidget',
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+        //20-50万日均客户
+        var convertedCusSndRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusSndRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.secondLevel
+                        }
+                    })
+                }
             }
-        }
-    });
+        });
 
-    creditVillageWidget.init();
+        convertedCusSndRangeWidget.init();
 
-    //农牧户
-    var herdsmanChartWidget = new abp.WidgetManager({
-        wrapper: '#herdsmanChartWidget',
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+        //50-500万日均客户
+        var convertedCusThdRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusThdRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.thirdLevel
+                        }
+                    })
+                }
             }
-        }
-    });
-    herdsmanChartWidget.init();
+        });
 
-    //新型农业经营主体
-    var newAgriMngEntityWidget = new abp.WidgetManager({
-        wrapper: '#newAgriMngEntityWidget',
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+        convertedCusThdRangeWidget.init();
+
+        //500-2000万日均客户
+        var convertedCusFourthRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusFourthRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.fourthLevel
+                        }
+                    })
+                }
             }
-        }
-    });
-    newAgriMngEntityWidget.init();
+        });
 
-    var herdsmanLoanInfoWidget = new abp.WidgetManager({
-        wrapper: "#herdsmanLoanInfoWidget",
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+        convertedCusFourthRangeWidget.init();
+
+        //2000万-1亿日均客户存款
+        convertedCusFifthRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusFifthRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.fifthLevel
+                        }
+                    })
+                }
             }
-        }
-    });
-    herdsmanLoanInfoWidget.init();
+        });
 
-    var newAgriMngEntityLoanInfoChartWidget = new abp.WidgetManager({
-        wrapper: "#newAgriMngEntityLoanInfoChartWidget",
-        filterCallback: function () {
-            return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+        convertedCusFifthRangeWidget.init();
+
+        //1亿以上日均客户存款
+        convertedCusSixthRangeWidget = new abp.WidgetManager({
+            wrapper: '#convertedCusSixthRangeWidget',
+            filterCallback: function () {
+                return {
+                    items: data.items.map(it => {
+                        return {
+                            label: it.label,
+                            upOrgidt: it.upOrgidt,
+                            value: it.sixthLevel
+                        }
+                    })
+                }
             }
-        }
-    });
-    newAgriMngEntityLoanInfoChartWidget.init();
+        });
 
-    _dashboardService.getComprehensiveSummary().then(function (res) {
-        $("#creditTownSummaryTotal").text(res.creditTown.toString().padStart(5, "0"));
-        $("#creditVillageSummaryTotal").text(res.creditVillage.toString().padStart(5, "0"));
-        $("#herdsmanSummaryTotal").text(res.herdsman.toString().padStart(5, "0"));
-        $("#newAgriMngEntitySummaryTotal").text(res.newAgriMngEntity.toString().padStart(5, "0"));
-    });
+        convertedCusSixthRangeWidget.init();
+    })
+
+
+    //_dashboardService.getComprehensiveSummary().then(function (res) {
+    //    $("#creditTownSummaryTotal").text(res.creditTown.toString().padStart(5, "0"));
+    //    $("#creditVillageSummaryTotal").text(res.creditVillage.toString().padStart(5, "0"));
+    //    $("#herdsmanSummaryTotal").text(res.herdsman.toString().padStart(5, "0"));
+    //    $("#newAgriMngEntitySummaryTotal").text(res.newAgriMngEntity.toString().padStart(5, "0"));
+    //});
 });

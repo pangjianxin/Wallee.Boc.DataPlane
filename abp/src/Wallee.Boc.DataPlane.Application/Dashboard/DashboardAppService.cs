@@ -1,27 +1,106 @@
-﻿using System;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.VisualBasic;
+using Nito.AsyncEx;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Caching;
 using Wallee.Boc.DataPlane.Dashboard.Dtos;
+using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 
 namespace Wallee.Boc.DataPlane.Dashboard
 {
     public class DashboardAppService : DataPlaneAppService, IDashboardAppService
     {
         private readonly IBackgroundJobManager _backgroundJobManager;
-        private readonly IDistributedCache<ConvertedCusOrgUnitInfoCache> _convertedCusOrgUnitInfoCache;
+        private readonly IDistributedCache<ConvertedCusOrgUnitSummary> _convertedCusOrgUnitSummaryCache;
+        private readonly IDistributedCache<ConvertedCusOrgUnitDetail> _convertedCusOrgUnitDetailCache;
+        private readonly IConvertedCusOrgUnitRepository _convertedCusOrgUnitRepository;
+        private readonly IOrganizationUnitCoordinateRepository _organizationUnitCoordinateRepository;
 
         public DashboardAppService(
             IBackgroundJobManager backgroundJobManager,
-            IDistributedCache<ConvertedCusOrgUnitInfoCache> convertedCusOrgUnitInfoCache)
+            IDistributedCache<ConvertedCusOrgUnitSummary> convertedCusOrgUnitSummaryCache,
+            IDistributedCache<ConvertedCusOrgUnitDetail> convertedCusOrgUnitDetailCache,
+            IConvertedCusOrgUnitRepository convertedCusOrgUnitRepository,
+            IOrganizationUnitCoordinateRepository organizationUnitCoordinateRepository)
         {
             _backgroundJobManager = backgroundJobManager;
-            _convertedCusOrgUnitInfoCache = convertedCusOrgUnitInfoCache;
+            _convertedCusOrgUnitSummaryCache = convertedCusOrgUnitSummaryCache;
+            _convertedCusOrgUnitDetailCache = convertedCusOrgUnitDetailCache;
+            _convertedCusOrgUnitRepository = convertedCusOrgUnitRepository;
+            _organizationUnitCoordinateRepository = organizationUnitCoordinateRepository;
         }
 
-        public Task GetConvertedCusOrgUnitInfoAsync(DateTime dataDate)
+        public async Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(DateTime? dataDate)
         {
-            throw new NotImplementedException();
+            var cacheName = $"{dataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitDetail)}";
+            return await _convertedCusOrgUnitDetailCache.GetOrAddAsync(
+                cacheName,
+                () => GetDetailsFromDataBaseAsync(dataDate),
+                () => new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = Clock.Now.AddHours(20)
+                });
+
+            async Task<ConvertedCusOrgUnitDetail> GetDetailsFromDataBaseAsync(DateTime? dataDate)
+            {
+                var currentDataDate = dataDate ?? await _convertedCusOrgUnitRepository.GetCurrentDataDate();
+                var query = from a in (await _convertedCusOrgUnitRepository.GetQueryableAsync())
+                            join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync())
+                            on a.Orgidt equals b.OrgNo
+                            where a.DataDate == currentDataDate
+                            select new ConvertedCusOrgUnitDetailItem
+                            {
+                                DataDate = a.DataDate,
+                                OrgName = b.OrgName,
+                                Orgidt = a.Orgidt,
+                                Value = a.FirstLevel * 0.1M + a.SecondLevel + a.ThirdLevel * 2.5M + a.FourthLevel * 25 + a.FifthLevel * 50 + a.SixthLevel * 125,
+                                Lng = b.Longitude,
+                                Lat = b.Latitude,
+                            };
+
+                return new ConvertedCusOrgUnitDetail { Items = await AsyncExecuter.ToListAsync(query) };
+            }
+        }
+
+        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(DateTime? dataDate)
+        {
+            var cacheName = $"{dataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitSummary)}";
+            return await _convertedCusOrgUnitSummaryCache.GetOrAddAsync(
+                cacheName,
+                () => GetSummaryFromDataBaseAsync(dataDate),
+                () => new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpiration = Clock.Now.AddHours(20)
+                });
+
+            async Task<ConvertedCusOrgUnitSummary> GetSummaryFromDataBaseAsync(DateTime? dataDate)
+            {
+                var currentDataDate = dataDate.HasValue ? dataDate.Value : await _convertedCusOrgUnitRepository.GetCurrentDataDate();
+
+                var list = await _convertedCusOrgUnitRepository.GetListAsync(it => it.DataDate == currentDataDate);
+
+                var grouped = list.GroupBy(it => new { it.UpOrgidt, it.Label, it.DataDate });
+
+                var items = grouped.Select(it => new ConvertedCusOrgUnitSummaryItem
+                {
+                    UpOrgidt = it.Key.UpOrgidt,
+                    Label = it.Key.Label,
+                    DataDate = it.Key.DataDate,
+                    FirstLevel = it.Sum(it => it.FirstLevel),
+                    SecondLevel = it.Sum(it => it.SecondLevel),
+                    ThirdLevel = it.Sum(it => it.ThirdLevel),
+                    FourthLevel = it.Sum(it => it.FourthLevel),
+                    FifthLevel = it.Sum(it => it.FifthLevel),
+                    SixthLevel = it.Sum(it => it.SixthLevel)
+                }).ToList();
+
+                return new ConvertedCusOrgUnitSummary { Items = items };
+            }
         }
     }
 }

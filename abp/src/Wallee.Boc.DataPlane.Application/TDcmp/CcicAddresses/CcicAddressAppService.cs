@@ -37,8 +37,6 @@ public class CcicAddressAppService : AbstractKeyReadOnlyAppService<CcicAddress, 
     protected override async Task<IQueryable<CcicAddress>> CreateFilteredQueryAsync(CcicAddressGetListInput input)
     {
         // TODO: AbpHelper generated
-        return (await base.CreateFilteredQueryAsync(input))
-            .ApplyFilter(input)
-            ;
+        return (await base.CreateFilteredQueryAsync(input)).ApplyFilter(input);
     }
 }

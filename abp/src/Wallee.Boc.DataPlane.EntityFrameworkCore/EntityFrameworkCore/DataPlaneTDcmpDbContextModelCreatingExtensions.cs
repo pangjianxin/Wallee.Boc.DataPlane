@@ -277,8 +277,12 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
             builder.Entity<ConvertedCusOrgUnit>(b =>
             {
                 b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCusOrgUnits", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户机构分布情况"));
+
                 b.ConfigureByConvention();
 
+                b.HasKey(it => new { it.DataDate, it.Orgidt });
+                b.Property(it => it.DataDate).HasColumnOrder(0).IsRequired();
+                b.Property(it => it.Orgidt).HasColumnOrder(1).HasMaxLength(8).IsRequired();
                 b.Property(it => it.FirstLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.SecondLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.ThirdLevel).HasColumnType("decimal(18,2)");

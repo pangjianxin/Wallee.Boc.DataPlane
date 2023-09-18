@@ -1726,8 +1726,14 @@ namespace Wallee.Boc.DataPlane.Migrations
 
             modelBuilder.Entity("Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.ConvertedCusOrgUnit", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("DataDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnOrder(0);
+
+                    b.Property<string>("Orgidt")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)")
+                        .HasColumnOrder(1);
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -1742,9 +1748,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<Guid?>("CreatorId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("CreatorId");
-
-                    b.Property<DateTime>("DataDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
@@ -1771,10 +1774,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<string>("Orgidt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("SecondLevel")
                         .HasColumnType("decimal(18,2)");
 
@@ -1788,7 +1787,7 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("DataDate", "Orgidt");
 
                     b.ToTable("AppConvertedCusOrgUnits", null, t =>
                         {
