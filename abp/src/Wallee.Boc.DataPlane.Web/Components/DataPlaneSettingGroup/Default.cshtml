@@ -9,9 +9,16 @@
 <form id="DataPlaneSettingsForm" method="post">
     <abp-row>
         <abp-column size-md="_12">
-            <div>
-                <abp-input asp-for="TDcmpWorkFlowCronExpression"></abp-input>
-            </div>
+            <h4>信息组件模块任务工作流</h4>
+            <abp-input asp-for="TDcmpWorkFlowCronExpression"></abp-input>
+            <hr class="my-4" />
+            <h4>对公折效客户折算率</h4>
+            <abp-input asp-for="ConvertedCusOrgUnitFirstLevel"></abp-input>
+            <abp-input asp-for="ConvertedCusOrgUnitSecondLevel"></abp-input>
+            <abp-input asp-for="ConvertedCusOrgUnitThirdLevel"></abp-input>
+            <abp-input asp-for="ConvertedCusOrgUnitFourthLevel"></abp-input>
+            <abp-input asp-for="ConvertedCusOrgUnitFifthLevel"></abp-input>
+            <abp-input asp-for="ConvertedCusOrgUnitSixthLevel"></abp-input>
             <hr class="my-4" />
             <div class="d-flex flex-row justify-content-end">
                 <abp-button button-type="Primary" type="submit">

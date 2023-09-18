@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic;
 using Nito.AsyncEx;
 using System;
@@ -20,23 +21,28 @@ namespace Wallee.Boc.DataPlane.Dashboard
         private readonly IDistributedCache<ConvertedCusOrgUnitDetail> _convertedCusOrgUnitDetailCache;
         private readonly IConvertedCusOrgUnitRepository _convertedCusOrgUnitRepository;
         private readonly IOrganizationUnitCoordinateRepository _organizationUnitCoordinateRepository;
+        private readonly IOptions<ConvertedCusOrgUnitCoefficientOptions> _coefficientOptions;
 
         public DashboardAppService(
             IBackgroundJobManager backgroundJobManager,
             IDistributedCache<ConvertedCusOrgUnitSummary> convertedCusOrgUnitSummaryCache,
             IDistributedCache<ConvertedCusOrgUnitDetail> convertedCusOrgUnitDetailCache,
             IConvertedCusOrgUnitRepository convertedCusOrgUnitRepository,
-            IOrganizationUnitCoordinateRepository organizationUnitCoordinateRepository)
+            IOrganizationUnitCoordinateRepository organizationUnitCoordinateRepository,
+            IOptions<ConvertedCusOrgUnitCoefficientOptions> coefficientOptions)
         {
             _backgroundJobManager = backgroundJobManager;
             _convertedCusOrgUnitSummaryCache = convertedCusOrgUnitSummaryCache;
             _convertedCusOrgUnitDetailCache = convertedCusOrgUnitDetailCache;
             _convertedCusOrgUnitRepository = convertedCusOrgUnitRepository;
             _organizationUnitCoordinateRepository = organizationUnitCoordinateRepository;
+            _coefficientOptions = coefficientOptions;
         }
 
         public async Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(DateTime? dataDate)
         {
+            await _coefficientOptions.SetAsync();
+            var coefficient = _coefficientOptions.Value;
             var cacheName = $"{dataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitDetail)}";
             return await _convertedCusOrgUnitDetailCache.GetOrAddAsync(
                 cacheName,
@@ -58,7 +64,13 @@ namespace Wallee.Boc.DataPlane.Dashboard
                                 DataDate = a.DataDate,
                                 OrgName = b.OrgName,
                                 Orgidt = a.Orgidt,
-                                Value = a.FirstLevel * 0.1M + a.SecondLevel + a.ThirdLevel * 2.5M + a.FourthLevel * 25 + a.FifthLevel * 50 + a.SixthLevel * 125,
+                                Value =
+                                a.FirstLevel * coefficient.FirstLevel
+                                + a.SecondLevel * coefficient.SecondLevel
+                                + a.ThirdLevel * coefficient.ThirdLevel
+                                + a.FourthLevel * coefficient.FourthLevel
+                                + a.FifthLevel * coefficient.FifthLevel
+                                + a.SixthLevel * coefficient.SixthLevel,
                                 Lng = b.Longitude,
                                 Lat = b.Latitude,
                             };

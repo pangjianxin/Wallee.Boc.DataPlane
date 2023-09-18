@@ -10,5 +10,11 @@ public class DataPlaneSettingDefinitionProvider : SettingDefinitionProvider
         //context.Add(new SettingDefinition(DataPlaneSettings.MySetting1));
 
         context.Add(new SettingDefinition(DataPlaneSettings.TDcmpWorkFlowCronExpression));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitFirstLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitSecondLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitThirdLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitFourthLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitFifthLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitSixthLevel));
     }
 }

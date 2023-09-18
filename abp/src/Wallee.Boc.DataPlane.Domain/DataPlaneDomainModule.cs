@@ -15,6 +15,7 @@ using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Wallee.Boc.DataPlane.MultiTenancy;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 
 namespace Wallee.Boc.DataPlane;
 
@@ -46,6 +47,8 @@ public class DataPlaneDomainModule : AbpModule
         {
             options.IsEnabled = MultiTenancyConsts.IsEnabled;
         });
+
+        context.Services.AddAbpDynamicOptions<ConvertedCusOrgUnitCoefficientOptions, ConvertedCusOrgUnitCoefficientOptionsManager>();
 
 #if DEBUG
         context.Services.Replace(ServiceDescriptor.Singleton<IEmailSender, NullEmailSender>());

@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using Volo.Abp.Domain.Entities.Auditing;
 
 namespace Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits

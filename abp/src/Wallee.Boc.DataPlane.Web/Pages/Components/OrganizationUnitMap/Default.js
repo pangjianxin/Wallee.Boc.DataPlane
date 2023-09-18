@@ -160,6 +160,7 @@
                 }
             });
             _dashboardService.getConvertedCusOrgUnitDetails(null).then(data => {
+                console.log(data);
                 option && myChart.setOption({
                     dataset: {
                         dimension: ['orgName', 'orgidt', 'lng', 'lat', 'value'],
