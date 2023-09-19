@@ -2,6 +2,7 @@ using System;
 using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
 using Volo.Abp.Application.Services;
 using System.Threading.Tasks;
+using Volo.Abp.Content;
 
 namespace Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 
@@ -16,4 +17,6 @@ public interface IConvertedCusOrgUnitAppService :
         ConvertedCusOrgUnitGetListInput>
 {
     Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input);
+    Task<IRemoteStreamContent> DownloadFileAsync(DateTime dataDate);
+    Task<bool> DataExistedAsync(DateTime dataDate);
 }

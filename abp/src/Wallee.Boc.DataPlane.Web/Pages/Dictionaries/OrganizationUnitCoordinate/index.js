@@ -62,6 +62,10 @@ $(function () {
                 title: l('OrganizationUnitCoordinateLongitude'),
                 data: "longitude"
             },
+            {
+                title: "行政区划",
+                data: "regionCode"
+            },
         ]
     }));
 
@@ -73,7 +77,7 @@ $(function () {
         dataTable.ajax.reload();
     });
 
-    $('#NewOrganizationUnitCoordinateButton').click(function (e) {
+    $('#NewOrganizationUnitCoordinateButton').on("click", function (e) {
         e.preventDefault();
         createModal.open();
     });

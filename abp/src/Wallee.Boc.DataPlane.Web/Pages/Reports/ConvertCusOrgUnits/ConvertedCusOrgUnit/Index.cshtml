@@ -35,9 +35,16 @@
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Create))
                 {
                     <abp-button id="NewConvertedCusOrgUnitByFileButton"
-                                text="上传文件"
-                                icon="upload"
-                                button-type="Warning" />
+                            text="上传文件"
+                            icon="upload"
+                            button-type="Warning" />
+                }
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Default))
+                {
+                    <abp-button id="DownloadFileButton"
+                            text="下载报表"
+                            icon="download"
+                            button-type="Warning" />
                 }
             </abp-column>
         </abp-row>

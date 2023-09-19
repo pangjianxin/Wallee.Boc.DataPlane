@@ -3,6 +3,7 @@ $(function () {
 
     var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
     var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
+    var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
 
     var dataTable = $('#ConvertedCusOrgUnitTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -97,5 +98,13 @@ $(function () {
 
     $("#NewConvertedCusOrgUnitByFileButton").on("click", function () {
         createByFileModal.open();
-    })
+    });
+
+    $("#DownloadFileButton").on("click", function () {
+        downloadFileModal.open();
+    });
+
+    downloadFileModal.onResult(function (event, response) {
+        window.open(`/api/app/converted-cus-org-unit/download/${response.responseText}`, "_self");
+    });
 });

@@ -125,7 +125,6 @@
                         myRestore: {
                             show: true,
                             title: '还原',
-
                             icon: "image://dashboard/images/restore.png",
                             onclick: function () {
                                 initGeoMap(myChart);
@@ -173,7 +172,7 @@
                         type: 'effectScatter',
                         coordinateSystem: 'geo',
                         symbolSize: function (data) {
-                            return Math.cbrt(data.value); // 这里可以根据你的需求调整函数
+                            return Math.sqrt(data.value)/1.5; // 这里可以根据你的需求调整函数
                         },
                         label: {
                             show: false,

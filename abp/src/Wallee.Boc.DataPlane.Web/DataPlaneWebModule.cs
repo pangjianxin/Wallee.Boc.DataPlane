@@ -169,7 +169,7 @@ public class DataPlaneWebModule : AbpModule
                  {
                      bundle.AddFiles(
                          "/libs/echarts/js/echarts.min.js",
-                         "/libs/default-passive-events/index.js",
+                         //"/libs/default-passive-events/index.js",
                          "/libs/viz-js/viz-standalone.js");
                  }
              );

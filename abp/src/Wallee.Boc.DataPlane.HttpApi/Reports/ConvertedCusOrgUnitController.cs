@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Content;
 using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
 
@@ -25,6 +27,20 @@ namespace Wallee.Boc.DataPlane.Reports
         public async Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input)
         {
             await _convertedCusOrgUnitAppService.CreateByFileAsync(input);
+        }
+
+        [HttpGet]
+        [Route("precheck-date")]
+        public async Task<bool> DataExistedAsync(DateTime dataDate)
+        {
+            return await _convertedCusOrgUnitAppService.DataExistedAsync(dataDate);
+        }
+
+        [HttpGet]
+        [Route("download/{dataDate}")]
+        public async Task<IRemoteStreamContent> DownloadFileAsync(DateTime dataDate)
+        {
+            return await _convertedCusOrgUnitAppService.DownloadFileAsync(dataDate);
         }
 
         [HttpGet]
