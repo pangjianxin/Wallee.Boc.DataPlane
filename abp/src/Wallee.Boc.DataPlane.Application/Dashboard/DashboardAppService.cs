@@ -39,24 +39,27 @@ namespace Wallee.Boc.DataPlane.Dashboard
             _coefficientOptions = coefficientOptions;
         }
 
-        public async Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(DateTime? dataDate)
+        public async Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(GetConvertedCusOrgUnitDetailsDto input)
         {
             await _coefficientOptions.SetAsync();
+
             var coefficient = _coefficientOptions.Value;
-            var cacheName = $"{dataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitDetail)}";
+
+            var cacheName = $"{input.DataDate:yyyyMMdd}-{input.RegionCode ?? "AllRegion"}-{nameof(ConvertedCusOrgUnitDetail)}";
+
             return await _convertedCusOrgUnitDetailCache.GetOrAddAsync(
                 cacheName,
-                () => GetDetailsFromDataBaseAsync(dataDate),
+                () => GetDetailsFromDataBaseAsync(input.DataDate, input.RegionCode),
                 () => new DistributedCacheEntryOptions
                 {
                     AbsoluteExpiration = Clock.Now.AddHours(20)
                 });
 
-            async Task<ConvertedCusOrgUnitDetail> GetDetailsFromDataBaseAsync(DateTime? dataDate)
+            async Task<ConvertedCusOrgUnitDetail> GetDetailsFromDataBaseAsync(DateTime? dataDate, string? regionCode)
             {
                 var currentDataDate = dataDate ?? await _convertedCusOrgUnitRepository.GetCurrentDataDate();
                 var query = from a in (await _convertedCusOrgUnitRepository.GetQueryableAsync())
-                            join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync())
+                            join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync()).WhereIf(!regionCode.IsNullOrEmpty(), it => it.RegionCode == regionCode)
                             on a.Orgidt equals b.OrgNo
                             where a.DataDate == currentDataDate
                             select new ConvertedCusOrgUnitDetailItem

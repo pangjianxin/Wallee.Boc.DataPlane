@@ -24,6 +24,10 @@ namespace Wallee.Boc.DataPlane.Dictionaries
         /// 经度
         /// </summary>
         public double Longitude { get; private set; }
+        /// <summary>
+        /// 地区区划
+        /// </summary>
+        public string RegionCode { get; private set; } = default!;
 
         protected OrganizationUnitCoordinate()
         {
@@ -34,13 +38,15 @@ namespace Wallee.Boc.DataPlane.Dictionaries
             string orgName,
             string orgNo,
             double latitude,
-            double longitude
+            double longitude,
+            string regionCode
         ) : base(id)
         {
             OrgName = orgName;
             OrgNo = orgNo;
             Latitude = latitude;
             Longitude = longitude;
+            RegionCode = regionCode;
         }
     }
 }

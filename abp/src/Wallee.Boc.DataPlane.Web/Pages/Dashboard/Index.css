@@ -267,8 +267,14 @@ a:hover {
         bottom: 0;
     }
 
-.bar {
+.top-bar {
     background: rgba(101,132,226,.1);
+    padding: .15rem;
+}
+
+.bottom-bar {
+    background: rgba(101,132,226,.1);
+    margin-top: .1rem;
     padding: .15rem;
 }
 

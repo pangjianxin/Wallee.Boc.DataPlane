@@ -24,4 +24,8 @@ public class CreateUpdateOrganizationUnitCoordinateDto
     /// 经度
     /// </summary>
     public double Longitude { get; set; }
+    /// <summary>
+    /// 区划编码
+    /// </summary>
+    public string RegionCode { get; set; } = default!;
 }
