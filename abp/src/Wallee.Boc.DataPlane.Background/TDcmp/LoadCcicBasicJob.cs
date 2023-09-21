@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CsvHelper.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
@@ -51,7 +52,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
     }
 
-    internal class CcicBasicMap : ClassMapBase<CcicBasic>
+    internal class CcicBasicMap : ClassMap<CcicBasic>
     {
         public CcicBasicMap()
         {
@@ -63,9 +64,9 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(m => m.CSMGR_TLR_REFNO).Index(5);
             Map(m => m.OPNAC_ORG_REFNO).Index(6);
             Map(m => m.BLG_ORG_REFNO).Index(7);
-            Map(m => m.OPNAC_DT).Index(8).Convert(it => DateTimeConverter(it.Row, 8, "yyyyMMdd"));
-            Map(m => m.CLS_DT).Index(9).Convert(it => DateTimeConverter(it.Row, 9, "yyyyMMdd"));
-            Map(m => m.LAST_CNMDT_PERI).Index(10).Convert(it => DateTimeConverter(it.Row, 10, "yyyyMMdd"));
+            Map(m => m.OPNAC_DT).Index(8).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
+            Map(m => m.CLS_DT).Index(9).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
+            Map(m => m.LAST_CNMDT_PERI).Index(10).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(m => m.CSTST).Index(11);
             Map(m => m.DSABL_REASN).Index(12);
             Map(m => m.DSABL_REASN_NOTE).Index(13);
@@ -73,12 +74,12 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(m => m.DEL_FLAG).Index(15);
             Map(m => m.CRTR_TLR_REFNO).Index(16);
             Map(m => m.CRT_TLR_ORG_REFNO).Index(17);
-            Map(m => m.CRT_DTTM).Index(18).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 18, "yyyyMMdd HH:mm:ss:ff")!.Value);
-            Map(m => m.CUR_ACDT_PERI).Index(19).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 19, "yyyyMMdd")!.Value);
+            Map(m => m.CRT_DTTM).Index(18).Validate(it => !string.IsNullOrEmpty(it.Field)).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
+            Map(m => m.CUR_ACDT_PERI).Index(19).Validate(it => !string.IsNullOrEmpty(it.Field)).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(m => m.LTST_MOD_TLR_REFNO).Index(20);
             Map(m => m.MOD_TLR_ORG_REFNO).Index(21);
             Map(m => m.LAST_MNT_STS_CODE).Index(22);
-            Map(m => m.LAST_MOD_DTTM).Index(23).Validate(it => !string.IsNullOrEmpty(it.Field)).Convert(it => DateTimeConverter(it.Row, 23, "yyyyMMdd HH:mm:ss:ff")!.Value);
+            Map(m => m.LAST_MOD_DTTM).Index(23).Validate(it => !string.IsNullOrEmpty(it.Field)).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
             Map(m => m.RCRD_VRSN_SN).Index(24);
             Map(m => m.RCRD_CLNUP_STSCD).Index(25);
         }

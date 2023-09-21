@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CsvHelper.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
@@ -46,7 +47,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         }
     }
 
-    internal class CcicSignOrgMap : ClassMapBase<CcicSignOrg>
+    internal class CcicSignOrgMap : ClassMap<CcicSignOrg>
     {
         public CcicSignOrgMap()
         {
@@ -73,12 +74,12 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.DEL_FLAG).Index(20);
             Map(it => it.CRTR_TLR_REFNO).Index(21);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(22);
-            Map(it => it.CRT_DTTM).Index(23).Convert(it => DateTimeConverter(it.Row, 23, "yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(24).Convert(it => DateTimeConverter(it.Row, 24, "yyyyMMdd"));
+            Map(it => it.CRT_DTTM).Index(23).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.CUR_ACDT_PERI).Index(24).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(25);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(26);
             Map(it => it.LAST_MNT_STS_CODE).Index(27);
-            Map(it => it.LAST_MOD_DTTM).Index(28).Convert(it => DateTimeConverter(it.Row, 28, "yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.LAST_MOD_DTTM).Index(28).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
             Map(it => it.RCRD_VRSN_SN).Index(29);
             Map(it => it.RCRD_CLNUP_STSCD).Index(30);
 

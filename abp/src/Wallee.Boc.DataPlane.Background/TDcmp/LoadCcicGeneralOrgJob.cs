@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CsvHelper.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
@@ -49,7 +50,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
         }
     }
 
-    internal class CcicGeneralOrgMap : ClassMapBase<CcicGeneralOrg>
+    internal class CcicGeneralOrgMap : ClassMap<CcicGeneralOrg>
     {
         public CcicGeneralOrgMap()
         {
@@ -69,17 +70,17 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.BSC_DEP_ACCNO).Index(13);
             Map(it => it.BSC_DEP_ACC_ACOP_APVL_NO).Index(14);
             Map(it => it.BSC_DEP_ACC_DEPBK_NAME).Index(15);
-            Map(it => it.BSC_DEP_ACC_OPNAC_DT).Index(16).Convert(it => DateTimeConverter(it.Row, 16, "yyyyMMdd"));
+            Map(it => it.BSC_DEP_ACC_OPNAC_DT).Index(16).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.ENTP_DEVE_STRTG).Index(17);
             Map(it => it.DEL_FLAG).Index(18);
             Map(it => it.CRTR_TLR_REFNO).Index(19);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(20);
-            Map(it => it.CRT_DTTM).Index(21).Convert(it => DateTimeConverter(it.Row, 21, "yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(22).Convert(it => DateTimeConverter(it.Row, 22, "yyyyMMdd"));
+            Map(it => it.CRT_DTTM).Index(21).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.CUR_ACDT_PERI).Index(22).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(23);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(24);
             Map(it => it.LAST_MNT_STS_CODE).Index(25);
-            Map(it => it.LAST_MOD_DTTM).Index(26).Convert(it => DateTimeConverter(it.Row, 26, "yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.LAST_MOD_DTTM).Index(26).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
             Map(it => it.RCRD_VRSN_SN).Index(27);
             Map(it => it.RCRD_CLNUP_STSCD).Index(28);
         }

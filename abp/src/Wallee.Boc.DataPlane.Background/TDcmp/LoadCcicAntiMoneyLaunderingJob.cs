@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CsvHelper.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Timing;
@@ -49,7 +50,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             }
         }
     }
-    internal class CcicAntiMoneyLaunderingMap : ClassMapBase<CcicAntiMoneyLaundering>
+    internal class CcicAntiMoneyLaunderingMap : ClassMap<CcicAntiMoneyLaundering>
     {
         public CcicAntiMoneyLaunderingMap()
         {
@@ -67,17 +68,17 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.EXST_EXT_SANCT_NMLST_FLAG).Index(11);
             Map(it => it.POLI_FLAG).Index(12);
             Map(it => it.CRR_RSK_GRD_CODE).Index(13);
-            Map(it => it.AML_RSK_GRD_VLD_START_DT).Index(14).Convert(it => DateTimeConverter(it.Row, 14, "yyyyMMdd"));
-            Map(it => it.AML_RSK_GRD_VLD_TMT_DT).Index(15).Convert(it => DateTimeConverter(it.Row, 15, "yyyyMMdd"));
+            Map(it => it.AML_RSK_GRD_VLD_START_DT).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
+            Map(it => it.AML_RSK_GRD_VLD_TMT_DT).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.DEL_FLAG).Index(16);
             Map(it => it.CRTR_TLR_REFNO).Index(17);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(18);
-            Map(it => it.CRT_DTTM).Index(19).Convert(it => DateTimeConverter(it.Row, 19, "yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(20).Convert(it => DateTimeConverter(it.Row, 20, "yyyyMMdd"));
+            Map(it => it.CRT_DTTM).Index(19).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.CUR_ACDT_PERI).Index(20).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(21);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(22);
             Map(it => it.LAST_MNT_STS_CODE).Index(23);
-            Map(it => it.LAST_MOD_DTTM).Index(24).Convert(it => DateTimeConverter(it.Row, 24, "yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.LAST_MOD_DTTM).Index(24).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
             Map(it => it.RCRD_VRSN_SN).Index(25);
             Map(it => it.RCRD_CLNUP_STSCD).Index(26);
         }

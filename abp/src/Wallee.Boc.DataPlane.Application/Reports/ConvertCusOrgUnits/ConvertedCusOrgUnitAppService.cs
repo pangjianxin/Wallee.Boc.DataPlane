@@ -1,6 +1,7 @@
 using AutoFilterer.Extensions;
 using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -60,7 +61,7 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
             },
         });
 
-        csv.Context.RegisterClassMap(typeof(ConvertedCusOrgUnitMap));
+        csv.Context.RegisterClassMap(typeof(ConvertedCusOrgUnitReadingMap));
 
         var records = csv.GetRecords<ConvertedCusOrgUnit>();
 
@@ -72,7 +73,7 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
         var memory = new MemoryStream();
         var writer = new StreamWriter(memory);
         var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
-        csv.Context.RegisterClassMap(typeof(ConvertedCusOrgUnitMap));
+        csv.Context.RegisterClassMap(typeof(ConvertedCusOrgUnitWritingMap));
         var records = await _repository.GetListAsync(it => it.DataDate == dataDate);
         await csv.WriteRecordsAsync(records);
         await csv.FlushAsync();
@@ -95,19 +96,37 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
         return await _repository.AnyAsync(it => it.DataDate == dataDate);
     }
 }
-internal class ConvertedCusOrgUnitMap : ClassMapBase<ConvertedCusOrgUnit>
+internal class ConvertedCusOrgUnitReadingMap : ClassMap<ConvertedCusOrgUnit>
 {
-    public ConvertedCusOrgUnitMap()
+    public ConvertedCusOrgUnitReadingMap()
     {
+        Map(it => it.Label).Index(1);
+        Map(it => it.UpOrgidt).Index(2);
+        Map(it => it.Orgidt).Index(3);
+        Map(it => it.DataDate).Index(4).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
+        Map(it => it.FirstLevel).Index(5);
+        Map(it => it.SecondLevel).Index(6);
+        Map(it => it.ThirdLevel).Index(7);
+        Map(it => it.FourthLevel).Index(8);
+        Map(it => it.FifthLevel).Index(9);
+        Map(it => it.SixthLevel).Index(10);
+    }
+}
+
+
+internal class ConvertedCusOrgUnitWritingMap : ClassMap<ConvertedCusOrgUnit>
+{
+    public ConvertedCusOrgUnitWritingMap()
+    {
+        Map(it => it.DataDate).Index(0).Name("数据日期").TypeConverter<WritingDateTimeConverter>();
         Map(it => it.Label).Index(1).Name("标签");
-        Map(it => it.UpOrgidt).Index(2).Name("上级机构号");
-        Map(it => it.Orgidt).Index(3).Name("机构号");
-        Map(it => it.DataDate).Index(4).Name("数据日期").Convert(it => DateTimeConverter(it.Row, 4, "yyyyMMdd")!.Value);
-        Map(it => it.FirstLevel).Index(5).Name("2000-20万日均客户数");
-        Map(it => it.SecondLevel).Index(6).Name("20万-50万日均客户数");
-        Map(it => it.ThirdLevel).Index(7).Name("50万-500万日均客户数");
-        Map(it => it.FourthLevel).Index(8).Name("500万-2000万日均客户数");
-        Map(it => it.FifthLevel).Index(9).Name("2000万-1亿元日均客户数");
-        Map(it => it.SixthLevel).Index(10).Name("1亿元以上日均客户数");
+        Map(it => it.UpOrgidt).Index(2).Name("上级机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
+        Map(it => it.Orgidt).Index(3).Name("机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
+        Map(it => it.FirstLevel).Index(4).Name("2000-20万日均客户数");
+        Map(it => it.SecondLevel).Index(5).Name("20万-50万日均客户数");
+        Map(it => it.ThirdLevel).Index(6).Name("50万-500万日均客户数");
+        Map(it => it.FourthLevel).Index(7).Name("500万-2000万日均客户数");
+        Map(it => it.FifthLevel).Index(8).Name("2000万-1亿元日均客户数");
+        Map(it => it.SixthLevel).Index(9).Name("1亿元以上日均客户数");
     }
 }
