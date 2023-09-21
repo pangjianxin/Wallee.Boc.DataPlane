@@ -8,6 +8,6 @@ namespace Wallee.Boc.DataPlane.Dashboard
     public interface IDashboardAppService : IApplicationService
     {
         Task<ConvertedCusOrgUnitDetail?> GetConvertedCusOrgUnitDetailsAsync(GetConvertedCusOrgUnitDetailsDto input);
-        public Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(DateTime? dataDate);
+        public Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(GetConvertedCusOrgUnitSummaryDto input);
     }
 }

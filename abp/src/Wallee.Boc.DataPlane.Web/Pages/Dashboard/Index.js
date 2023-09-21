@@ -4,14 +4,16 @@
         $(".loading").fadeOut()
     });
 
+
     $(document).ready(function () {
         var whei = $(window).width()
         $("html").css({ fontSize: whei / 20 })
-        $(window).resize(function () {
+        window.addEventListener("resize", function () {
             var whei = $(window).width()
             $("html").css({ fontSize: whei / 20 })
-        });
+        })
     });
+
 
     var t = null;
     t = setTimeout(time, 1000);
@@ -33,14 +35,20 @@
         wrapper: '#organizationUnitMapWidget',
         filterCallback: function () {
             return {
-                'startDate': '2021-01-18',
-                'endDate': '2021-08-26'
+                dataDate: new Date()
             }
         }
     });
     organizationUnitMapWidget.init();
 
-    _dashboardService.getConvertedCusOrgUnitSummary(null).then(data => {
+    _dashboardService.getConvertedCusOrgUnitSummary({ dataDate: null }).then(data => {
+        var date = luxon
+            .DateTime
+            .fromISO(data.dataDate, { locale: abp.localization.currentCulture.name })
+            .toLocaleString(luxon.DateTime.DATE_SHORT);
+
+        $("#dashboardTitle").text(`包头分行对公折效客户数据统计(${date})`);
+
         //2000-20万日均客户
         var convertedCusFstRangeWidget = new abp.WidgetManager({
             wrapper: '#convertedCusFstRangeWidget',

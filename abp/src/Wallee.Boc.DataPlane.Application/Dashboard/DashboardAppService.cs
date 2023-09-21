@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic;
-using Nito.AsyncEx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,26 +43,26 @@ namespace Wallee.Boc.DataPlane.Dashboard
 
             var coefficient = _coefficientOptions.Value;
 
-            var cacheName = $"{input.DataDate:yyyyMMdd}-{input.RegionCode ?? "AllRegion"}-{nameof(ConvertedCusOrgUnitDetail)}";
+            var currentDataDate = input.DataDate ?? await _convertedCusOrgUnitRepository.GetCurrentDataDate();
+
+            var cacheName = $"{currentDataDate:yyyyMMdd}-{input.RegionCode ?? "AllRegion"}-{nameof(ConvertedCusOrgUnitDetail)}";
 
             return await _convertedCusOrgUnitDetailCache.GetOrAddAsync(
                 cacheName,
-                () => GetDetailsFromDataBaseAsync(input.DataDate, input.RegionCode),
+                GetDetailsFromDataBaseAsync,
                 () => new DistributedCacheEntryOptions
                 {
                     AbsoluteExpiration = Clock.Now.AddHours(20)
                 });
 
-            async Task<ConvertedCusOrgUnitDetail> GetDetailsFromDataBaseAsync(DateTime? dataDate, string? regionCode)
+            async Task<ConvertedCusOrgUnitDetail> GetDetailsFromDataBaseAsync()
             {
-                var currentDataDate = dataDate ?? await _convertedCusOrgUnitRepository.GetCurrentDataDate();
                 var query = from a in (await _convertedCusOrgUnitRepository.GetQueryableAsync())
-                            join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync()).WhereIf(!regionCode.IsNullOrEmpty(), it => it.RegionCode == regionCode)
+                            join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync()).WhereIf(!input.RegionCode.IsNullOrEmpty(), it => it.RegionCode == input.RegionCode)
                             on a.Orgidt equals b.OrgNo
                             where a.DataDate == currentDataDate
                             select new ConvertedCusOrgUnitDetailItem
                             {
-                                DataDate = a.DataDate,
                                 OrgName = b.OrgName,
                                 Orgidt = a.Orgidt,
                                 Value =
@@ -78,34 +76,35 @@ namespace Wallee.Boc.DataPlane.Dashboard
                                 Lat = b.Latitude,
                             };
 
-                return new ConvertedCusOrgUnitDetail { Items = await AsyncExecuter.ToListAsync(query) };
+                return new ConvertedCusOrgUnitDetail { Items = await AsyncExecuter.ToListAsync(query), DataDate = currentDataDate };
             }
         }
 
-        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(DateTime? dataDate)
+        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(GetConvertedCusOrgUnitSummaryDto input)
         {
-            var cacheName = $"{dataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitSummary)}";
+            var currentDataDate = input.DataDate ?? await _convertedCusOrgUnitRepository.GetCurrentDataDate();
+
+            var cacheName = $"{currentDataDate:yyyyMMdd}-{nameof(ConvertedCusOrgUnitSummary)}";
+
             return await _convertedCusOrgUnitSummaryCache.GetOrAddAsync(
                 cacheName,
-                () => GetSummaryFromDataBaseAsync(dataDate),
+                GetSummaryFromDataBaseAsync,
                 () => new DistributedCacheEntryOptions
                 {
                     AbsoluteExpiration = Clock.Now.AddHours(20)
                 });
 
-            async Task<ConvertedCusOrgUnitSummary> GetSummaryFromDataBaseAsync(DateTime? dataDate)
+            async Task<ConvertedCusOrgUnitSummary> GetSummaryFromDataBaseAsync()
             {
-                var currentDataDate = dataDate.HasValue ? dataDate.Value : await _convertedCusOrgUnitRepository.GetCurrentDataDate();
 
                 var list = await _convertedCusOrgUnitRepository.GetListAsync(it => it.DataDate == currentDataDate);
 
-                var grouped = list.GroupBy(it => new { it.UpOrgidt, it.Label, it.DataDate });
+                var grouped = list.GroupBy(it => new { it.UpOrgidt, it.Label });
 
                 var items = grouped.Select(it => new ConvertedCusOrgUnitSummaryItem
                 {
                     UpOrgidt = it.Key.UpOrgidt,
                     Label = it.Key.Label,
-                    DataDate = it.Key.DataDate,
                     FirstLevel = it.Sum(it => it.FirstLevel),
                     SecondLevel = it.Sum(it => it.SecondLevel),
                     ThirdLevel = it.Sum(it => it.ThirdLevel),
@@ -114,7 +113,7 @@ namespace Wallee.Boc.DataPlane.Dashboard
                     SixthLevel = it.Sum(it => it.SixthLevel)
                 }).ToList();
 
-                return new ConvertedCusOrgUnitSummary { Items = items };
+                return new ConvertedCusOrgUnitSummary { Items = items, DataDate = currentDataDate };
             }
         }
     }

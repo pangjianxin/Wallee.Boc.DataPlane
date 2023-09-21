@@ -21,14 +21,14 @@ $(function () {
                         [
                             {
                                 text: l('Edit'),
-                                visible: abp.auth.isGranted('DataPlane.ConvertedCusOrgUnit.Update'),
+                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCusOrgUnit'),
                                 action: function (data) {
                                     editModal.open({ id: data.record.id });
                                 }
                             },
                             {
                                 text: l('Delete'),
-                                visible: abp.auth.isGranted('DataPlane.ConvertedCusOrgUnit.Delete'),
+                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCusOrgUnit'),
                                 confirmMessage: function (data) {
                                     return l('ConvertedCusOrgUnitDeletionConfirmationMessage', data.record.id);
                                 },

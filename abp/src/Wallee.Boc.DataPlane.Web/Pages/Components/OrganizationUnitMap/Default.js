@@ -139,6 +139,7 @@
                 visualMap: {
                     show: true,
                     type: 'piecewise',
+                    orient: "horizontal",
                     pieces: [
                         {
                             min: 0, max: 200, label: '折效:0-200'
@@ -172,7 +173,7 @@
                         type: 'effectScatter',
                         coordinateSystem: 'geo',
                         symbolSize: function (data) {
-                            return Math.sqrt(data.value)/1.5; // 这里可以根据你的需求调整函数
+                            return Math.log2(data.value) + 5; // 这里可以根据你的需求调整函数
                         },
                         label: {
                             show: false,

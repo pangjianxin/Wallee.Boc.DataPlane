@@ -12,7 +12,10 @@ module.exports = {
         "@node_modules/datatables.net-buttons/js/dataTables.buttons.min.js": "@libs/datatables.net-buttons/js/",
         "@node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css": "@libs/datatables.net-buttons/css/",
         "@node_modules/echarts/dist/echarts.min.js": "@libs/echarts/js/",
+<<<<<<< Updated upstream
         //"@node_modules/default-passive-events/dist/index.js": "@libs/default-passive-events/",
         //"@node_modules/default-passive-events/dist/index.js.map": "@libs/default-passive-events/"
+=======
+>>>>>>> Stashed changes
     }
 };

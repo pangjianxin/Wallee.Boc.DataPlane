@@ -28,9 +28,9 @@ namespace Wallee.Boc.DataPlane.Dashboards
 
         [HttpGet]
         [Route("converted-cus-org-unit-summary")]
-        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(DateTime? dataDate)
+        public async Task<ConvertedCusOrgUnitSummary?> GetConvertedCusOrgUnitSummaryAsync(GetConvertedCusOrgUnitSummaryDto input)
         {
-            return await _dashboardAppService.GetConvertedCusOrgUnitSummaryAsync(dataDate);
+            return await _dashboardAppService.GetConvertedCusOrgUnitSummaryAsync(input);
         }
     }
 }

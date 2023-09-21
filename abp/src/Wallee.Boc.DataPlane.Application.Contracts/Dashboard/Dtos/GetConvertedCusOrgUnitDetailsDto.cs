@@ -8,5 +8,6 @@ namespace Wallee.Boc.DataPlane.Dashboard.Dtos
     {
         public DateTime? DataDate { get; set; }
         public string? RegionCode { get; set; }
+
     }
 }

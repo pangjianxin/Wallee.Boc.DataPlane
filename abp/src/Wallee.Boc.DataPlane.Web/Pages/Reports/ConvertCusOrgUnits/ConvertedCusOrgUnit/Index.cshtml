@@ -11,8 +11,8 @@
 @inject IHtmlLocalizer<DataPlaneResource> L
 @inject IAuthorizationService Authorization
 @{
-    PageLayout.Content.Title = L["ConvertedCusOrgUnit"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:ConvertedCusOrgUnit"].Value);
+    PageLayout.Content.Title = L["Menu:Reports"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Reports:ConvertedCusOrgUnit"].Value);
     PageLayout.Content.MenuItemName = DataPlaneMenus.Reports_ConvertedCusOrgUnit;
 }
 
@@ -32,19 +32,19 @@
                 <abp-card-title>@L["ConvertedCusOrgUnit"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Create))
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
                 {
                     <abp-button id="NewConvertedCusOrgUnitByFileButton"
-                            text="上传文件"
-                            icon="upload"
-                            button-type="Warning" />
+                                text="上传文件"
+                                icon="upload"
+                                button-type="Warning" />
                 }
-                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.ConvertedCusOrgUnit.Default))
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
                 {
                     <abp-button id="DownloadFileButton"
-                            text="下载报表"
-                            icon="download"
-                            button-type="Warning" />
+                                text="下载报表"
+                                icon="download"
+                                button-type="Warning" />
                 }
             </abp-column>
         </abp-row>

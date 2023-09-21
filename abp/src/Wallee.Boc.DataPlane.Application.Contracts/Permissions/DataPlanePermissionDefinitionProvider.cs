@@ -9,7 +9,7 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
 {
     public override void Define(IPermissionDefinitionContext context)
     {
-        var dataPlaneGroup = context.AddGroup(DataPlanePermissions.GroupName);
+        var dataPlaneGroup = context.AddGroup(DataPlanePermissions.GroupName, L("DataPlane"));
         var identityGroup = context.GetGroup(IdentityPermissions.GroupName);
 
         //系统设置
@@ -31,35 +31,34 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         organizationUnits.AddChild(DataPlanePermissions.OrganizationUnits.ManageUsers, L("Permission:OrganizationUnits:ManageUsers"));
 
         //TDCMP报表
-        var tDcmpReports = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpReports.Default);
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicBasic, L("Permission:CcicBasic"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAddress, L("Permission:CcicAddress"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering, L("Permission:CcicAntiMoneyLaundering"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerTypeOrg, L("Permission:CcicCustomerTypeOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicGeneralOrg, L("Permission:CcicGeneralOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicId, L("Permission:CcicId"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicName, L("Permission:CcicName"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPersonalRelation, L("Permission:CcicPersonalRelation"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPhone, L("Permission:CcicPhone"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPractice, L("Permission:CcicPractice"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicRegister, L("Permission:CcicRegister"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicSignOrg, L("Permission:CcicSignOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerType, L("Permission:CcicCustomerType"));
+        var tDcmpReports = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpReports.Default, L("Permission:TDcmpReports"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicBasic, L("Permission:TDcmpReports:CcicBasic"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAddress, L("Permission:TDcmpReports:CcicAddress"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering, L("Permission:TDcmpReports:CcicAntiMoneyLaundering"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerTypeOrg, L("Permission:TDcmpReports:CcicCustomerTypeOrg"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicGeneralOrg, L("Permission:TDcmpReports:CcicGeneralOrg"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicId, L("Permission:TDcmpReports:CcicId"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicName, L("Permission:TDcmpReports:CcicName"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPersonalRelation, L("Permission:TDcmpReports:CcicPersonalRelation"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPhone, L("Permission:TDcmpReports:CcicPhone"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPractice, L("Permission:TDcmpReports:CcicPractice"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicRegister, L("Permission:TDcmpReports:CcicRegister"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicSignOrg, L("Permission:TDcmpReports:CcicSignOrg"));
+        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerType, L("Permission:TDcmpReports:CcicCustomerType"));
 
         //TDCMP工作流
-        var tDcmpWorkFlowPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpWorkFlow.Default, L("Permission:TDcmpWorkFlow"));
+        var tDcmpWorkFlowPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpWorkFlow.Default, L("Permission:TDcmpReports:TDcmpWorkFlow"));
         tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Create, L("Permission:Create"));
         tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Update, L("Permission:Update"));
         tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Delete, L("Permission:Delete"));
 
         //字典
-        var organizationUnitCoordinatePermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dictionaries.Default, L("Permission:Dictionaries"));
-        organizationUnitCoordinatePermission.AddChild(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate, L("Permission:Dictionaries:OrganizationUnitCoordinates"));
+        var dictionariesPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dictionaries.Default, L("Permission:Dictionaries"));
+        dictionariesPermission.AddChild(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate, L("Permission:Dictionaries:OrganizationUnitCoordinates"));
 
-        var convertedCusOrgUnitPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.ConvertedCusOrgUnit.Default, L("Permission:ConvertedCusOrgUnit"));
-        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Create, L("Permission:Create"));
-        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Update, L("Permission:Update"));
-        convertedCusOrgUnitPermission.AddChild(DataPlanePermissions.ConvertedCusOrgUnit.Delete, L("Permission:Delete"));
+        //系统报表
+        var systemReportsPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Reports.Defaults, L("Permission:Reports"));
+        systemReportsPermission.AddChild(DataPlanePermissions.Reports.ConvertedCusOrgUnit, L("Permission:Reports:ConvertedCusOrgUnit"));
     }
 
     private static LocalizableString L(string name)
