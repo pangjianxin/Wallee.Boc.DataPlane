@@ -7,22 +7,22 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicIds;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicIdJob : TDcmpAsyncBackgroundJob<LoadCcicIdJobArgs>, ITransientDependency
+    public class LoadCcicIdJob : CcicCusInfoAsyncBackgroundJob<LoadCcicIdJobArgs>, ITransientDependency
     {
         private readonly ICcicIdRepository _ccicIdRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
-        public LoadCcicIdJob(IOptions<FtpOptions> ftpOptions, IClock clock, ITDcmpWorkFlowRepository repository,
+        public LoadCcicIdJob(IOptions<FtpOptions> ftpOptions, IClock clock, ICcicCusInfoWorkFlowRepository repository,
             IConfiguration config,
             ICcicIdRepository ccicIdRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicIdRepository = ccicIdRepository;
-            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = dcmpWorkFlowManager;
         }
 
         [UnitOfWork]
@@ -35,7 +35,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicIdRepository, typeof(CcicIdMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicIdCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicIdCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }

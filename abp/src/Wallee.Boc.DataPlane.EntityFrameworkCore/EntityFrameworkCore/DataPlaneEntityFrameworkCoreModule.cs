@@ -1,5 +1,3 @@
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
-using Wallee.Boc.DataPlane.Dictionaries;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -12,6 +10,8 @@ using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
+using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -25,7 +25,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -57,7 +58,7 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddDefaultRepositories(includeAllEntities: true);
             options.AddRepository<CcicBasic, CcicBasicRepository>();
             options.AddRepository<CcicAddress, CcicAddressRepository>();
-            options.AddRepository<TDcmpWorkFlow, TDcmpWorkFlowRepository>();
+            options.AddRepository<CcicCusInfoWorkFlow, WorkFlows.CcicCusInfoWorkFlowRepository>();
             options.AddRepository<CcicAntiMoneyLaundering, CcicAntiMoneyLaunderingRepository>();
             options.AddRepository<CcicCustomerTypeOrg, CcicCustomerTypeOrgRepository>();
             options.AddRepository<CcicGeneralOrg, CcicGeneralOrgRepository>();

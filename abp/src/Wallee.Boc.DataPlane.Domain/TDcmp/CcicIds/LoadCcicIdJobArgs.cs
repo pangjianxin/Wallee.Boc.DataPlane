@@ -1,8 +1,9 @@
 ﻿using Volo.Abp.BackgroundJobs;
+using Wallee.Boc.DataPlane.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicIds
 {
-    [BackgroundJobName(TDcmpBackgroundJobNameConsts.LoadCcicId)]
+    [BackgroundJobName(CcicCusInfoWorkFlowBackgroundJobNameConsts.LoadCcicId)]
     public class LoadCcicIdJobArgs : TDcmpBackgroundJobArgs
     {
     }

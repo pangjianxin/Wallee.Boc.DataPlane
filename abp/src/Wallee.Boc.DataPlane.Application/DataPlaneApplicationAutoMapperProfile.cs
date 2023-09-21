@@ -2,7 +2,11 @@ using AutoMapper;
 using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Identity;
 using Wallee.Boc.DataPlane.BackgroundJobs;
+using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
@@ -29,12 +33,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs.Dtos;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
-using Wallee.Boc.DataPlane.Dictionaries;
-using Wallee.Boc.DataPlane.Dictionaries.Dtos;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos.Dtos;
 
 namespace Wallee.Boc.DataPlane;
 
@@ -48,8 +48,8 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<OrganizationUnit, OrganizationUnitDto>().MapExtraProperties();
         CreateMap<CcicBasic, CcicBasicDto>();
         CreateMap<CcicAddress, CcicAddressDto>();
-        CreateMap<TDcmpWorkFlow, TDcmpWorkFlowDto>().ForMember(it => it.TotalTaskCount, config => config.MapFrom(it => it.TotalTaskCount));
-        CreateMap<CreateUpdateTDcmpWorkFlowDto, TDcmpWorkFlow>(MemberList.Source);
+        CreateMap<CcicCusInfoWorkFlow, CcicCusInfoWorkFlowDto>().ForMember(it => it.TotalTaskCount, config => config.MapFrom(it => it.TotalTaskCount));
+        CreateMap<CreateUpdateCcicCusInfoWorkFlowDto, CcicCusInfoWorkFlow>(MemberList.Source);
         CreateMap<BackgroundJobRecord, BackgroundJobRecordDto>();
         CreateMap<CcicAntiMoneyLaundering, CcicAntiMoneyLaunderingDto>();
         CreateMap<CcicCustomerTypeOrg, CcicCustomerTypeOrgDto>();

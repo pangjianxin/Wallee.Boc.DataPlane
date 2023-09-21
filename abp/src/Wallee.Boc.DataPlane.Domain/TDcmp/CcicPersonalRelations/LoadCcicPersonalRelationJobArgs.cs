@@ -1,8 +1,9 @@
 ﻿using Volo.Abp.BackgroundJobs;
+using Wallee.Boc.DataPlane.WorkFlows;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations
 {
-    [BackgroundJobName(TDcmpBackgroundJobNameConsts.LoadCcicPersonalRelation)]
+    [BackgroundJobName(CcicCusInfoWorkFlowBackgroundJobNameConsts.LoadCcicPersonalRelation)]
     public class LoadCcicPersonalRelationJobArgs : TDcmpBackgroundJobArgs
     {
     }

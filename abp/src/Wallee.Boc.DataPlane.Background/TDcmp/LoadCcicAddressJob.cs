@@ -7,25 +7,25 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicAddressJob : TDcmpAsyncBackgroundJob<LoadCcicAddressJobArgs>, ITransientDependency
+    public class LoadCcicAddressJob : CcicCusInfoAsyncBackgroundJob<LoadCcicAddressJobArgs>, ITransientDependency
     {
         private readonly ICcicAddressRepository _ccicAddressRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
         public LoadCcicAddressJob(
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
-            ITDcmpWorkFlowRepository repository,
+            ICcicCusInfoWorkFlowRepository repository,
             ICcicAddressRepository ccicAddressRepository,
-            TDcmpWorkFlowManager tDcmpWorkFlowManager,
+            CcicCusInfoWorkFlowManager tDcmpWorkFlowManager,
             IConfiguration config) : base(ftpOptions, clock, repository, config)
         {
             _ccicAddressRepository = ccicAddressRepository;
-            _tDcmpWorkFlowManager = tDcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = tDcmpWorkFlowManager;
         }
 
         [UnitOfWork]
@@ -39,7 +39,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicAddressRepository, typeof(CcicAddressMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicAddressCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicAddressCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }
@@ -82,7 +82,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             Map(it => it.CRTR_TLR_REFNO).Index(24);
             Map(it => it.CRT_TLR_ORG_REFNO).Index(25);
             Map(it => it.CRT_DTTM).Index(26).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
-            Map(it => it.CUR_ACDT_PERI).Index(27).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd HH:mm:ss:ff"));
+            Map(it => it.CUR_ACDT_PERI).Index(27).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
             Map(it => it.LTST_MOD_TLR_REFNO).Index(28);
             Map(it => it.MOD_TLR_ORG_REFNO).Index(29);
             Map(it => it.LAST_MNT_STS_CODE).Index(30);

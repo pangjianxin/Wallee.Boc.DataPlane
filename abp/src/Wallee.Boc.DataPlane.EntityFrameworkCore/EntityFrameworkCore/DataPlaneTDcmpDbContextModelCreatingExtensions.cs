@@ -15,7 +15,7 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 {
@@ -65,9 +65,9 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
             });
 
 
-            builder.Entity<TDcmpWorkFlow>(b =>
+            builder.Entity<CcicCusInfoWorkFlow>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "TDcmpWorkFlows", DataPlaneConsts.DbSchema, table => table.HasComment("信息管理平台工作流"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicCusInfoWorkFlows", DataPlaneConsts.DbSchema, table => table.HasComment("信息管理平台工作流"));
                 b.ConfigureByConvention();
                 b.HasKey(it => it.Id);
                 b.Property(it => it.Comment).IsRequired(false).HasMaxLength(int.MaxValue);
@@ -78,7 +78,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicAntiMoneyLaundering>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicAntiMoneyLaunderings", DataPlaneConsts.DbSchema, table => table.HasComment("对公反洗钱信息    a02"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicAntiMoneyLaunderings", DataPlaneConsts.DbSchema, table => table.HasComment("对公反洗钱信息-a02"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -96,7 +96,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicCustomerTypeOrg>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicCustomerTypeOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户类别信息-组织    a09"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicCustomerTypeOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户类别信息-组织-a09"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -111,7 +111,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicGeneralOrg>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicGeneralOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公概况-组织    a18"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicGeneralOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公概况-组织-a18"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -126,7 +126,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicId>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicIds", DataPlaneConsts.DbSchema, table => table.HasComment("对公证件信息    a20"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicIds", DataPlaneConsts.DbSchema, table => table.HasComment("对公证件信息-a20"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -143,7 +143,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicName>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicNames", DataPlaneConsts.DbSchema, table => table.HasComment("对公名称信息    a22"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicNames", DataPlaneConsts.DbSchema, table => table.HasComment("对公名称信息-a22"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -159,7 +159,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicPersonalRelation>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPersonalRelations", DataPlaneConsts.DbSchema, table => table.HasComment("对公人员关系    a24"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPersonalRelations", DataPlaneConsts.DbSchema, table => table.HasComment("对公人员关系-a24"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -176,7 +176,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicPhone>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPhones", DataPlaneConsts.DbSchema, table => table.HasComment("对公名称信息    a22"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPhones", DataPlaneConsts.DbSchema, table => table.HasComment("对公名称信息-a22"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -193,7 +193,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicPractice>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPractices", DataPlaneConsts.DbSchema, table => table.HasComment("对公运营信息    a26"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicPractices", DataPlaneConsts.DbSchema, table => table.HasComment("对公运营信息-a26"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -214,7 +214,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicRegister>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicRegisters", DataPlaneConsts.DbSchema, table => table.HasComment("对公注册信息    a28"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicRegisters", DataPlaneConsts.DbSchema, table => table.HasComment("对公注册信息-a28"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -233,7 +233,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicSignOrg>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicSignOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公重要标志信息-组织    a35"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicSignOrgs", DataPlaneConsts.DbSchema, table => table.HasComment("对公重要标志信息-组织-a35"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new
@@ -248,7 +248,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
             builder.Entity<CcicCustomerType>(b =>
             {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicCustomerTypes", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户类别信息    a08"));
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CcicCustomerTypes", DataPlaneConsts.DbSchema, table => table.HasComment("对公客户类别信息-a08"));
                 b.ConfigureByConvention();
 
                 b.HasKey(e => new

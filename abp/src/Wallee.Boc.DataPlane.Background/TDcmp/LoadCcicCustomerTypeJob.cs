@@ -7,25 +7,25 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicCustomerTypeJob : TDcmpAsyncBackgroundJob<LoadCcicCustomerTypeJobArgs>, ITransientDependency
+    public class LoadCcicCustomerTypeJob : CcicCusInfoAsyncBackgroundJob<LoadCcicCustomerTypeJobArgs>, ITransientDependency
     {
         private readonly ICcicCustomerTypeRepository _ccicCustomerTypeRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
         public LoadCcicCustomerTypeJob(
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
-            ITDcmpWorkFlowRepository repository,
+            ICcicCusInfoWorkFlowRepository repository,
             IConfiguration config,
             ICcicCustomerTypeRepository ccicCustomerTypeRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicCustomerTypeRepository = ccicCustomerTypeRepository;
-            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = dcmpWorkFlowManager;
         }
         [UnitOfWork]
         public override async Task ExecuteAsync(LoadCcicCustomerTypeJobArgs args)
@@ -38,7 +38,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicCustomerTypeRepository, typeof(CcicCustomerTypeMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicCustomerTypeCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicCustomerTypeCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }

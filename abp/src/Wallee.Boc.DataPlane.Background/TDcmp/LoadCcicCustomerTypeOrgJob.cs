@@ -7,25 +7,25 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypeOrgs;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicCustomerTypeOrgJob : TDcmpAsyncBackgroundJob<LoadCcicCustomerTypeOrgJobArgs>, ITransientDependency
+    public class LoadCcicCustomerTypeOrgJob : CcicCusInfoAsyncBackgroundJob<LoadCcicCustomerTypeOrgJobArgs>, ITransientDependency
     {
         private readonly ICcicCustomerTypeOrgRepository _ccicCustomerTypeOrgRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
         public LoadCcicCustomerTypeOrgJob(
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
-            ITDcmpWorkFlowRepository repository,
+            ICcicCusInfoWorkFlowRepository repository,
             IConfiguration config,
             ICcicCustomerTypeOrgRepository ccicCustomerTypeOrgRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicCustomerTypeOrgRepository = ccicCustomerTypeOrgRepository;
-            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = dcmpWorkFlowManager;
         }
 
         [UnitOfWork]
@@ -38,7 +38,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicCustomerTypeOrgRepository, typeof(CcicCustomerTypeOrgMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicCustomerTypeOrgCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicCustomerTypeOrgCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }

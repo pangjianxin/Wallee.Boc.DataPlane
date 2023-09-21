@@ -7,22 +7,22 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicPhoneJob : TDcmpAsyncBackgroundJob<LoadCcicPhoneJobArgs>, ITransientDependency
+    public class LoadCcicPhoneJob : CcicCusInfoAsyncBackgroundJob<LoadCcicPhoneJobArgs>, ITransientDependency
     {
         private readonly ICcicPhoneRepository _ccicPhoneRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
         public LoadCcicPhoneJob(IOptions<FtpOptions> ftpOptions, IClock clock,
-            ITDcmpWorkFlowRepository repository, IConfiguration config,
+            ICcicCusInfoWorkFlowRepository repository, IConfiguration config,
             ICcicPhoneRepository ccicPhoneRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicPhoneRepository = ccicPhoneRepository;
-            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = dcmpWorkFlowManager;
         }
 
         [UnitOfWork]
@@ -35,7 +35,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicPhoneRepository, typeof(CcicPhoneMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicPhoneCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicPhoneCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }

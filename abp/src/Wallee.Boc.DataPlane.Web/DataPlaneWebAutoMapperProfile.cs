@@ -1,10 +1,10 @@
 using AutoMapper;
 using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows.Dtos;
 using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrganizationUnitCoordinate.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
-using Wallee.Boc.DataPlane.Web.Pages.TDcmp.WorkFlows.TDcmpWorkFlow.ViewModels;
+using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos.ViewModels;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos.Dtos;
 
 namespace Wallee.Boc.DataPlane.Web;
 
@@ -16,8 +16,8 @@ public class DataPlaneWebAutoMapperProfile : Profile
         CreateMap<OrganizationUnitCreateViewModel, OrganizationUnitCreateDto>().MapExtraProperties();
         CreateMap<OrganizationUnitUpdateViewModel, OrganizationUnitUpdateDto>().MapExtraProperties();
         CreateMap<OrganizationUnitDto, OrganizationUnitUpdateViewModel>().MapExtraProperties();
-        CreateMap<TDcmpWorkFlowDto, CreateEditTDcmpWorkFlowViewModel>();
-        CreateMap<CreateEditTDcmpWorkFlowViewModel, CreateUpdateTDcmpWorkFlowDto>();
+        CreateMap<CcicCusInfoWorkFlowDto, CreateEditCcicCusInfoWorkFlowViewModel>();
+        CreateMap<CreateEditCcicCusInfoWorkFlowViewModel, CreateUpdateCcicCusInfoWorkFlowDto>();
         CreateMap<OrganizationUnitCoordinateDto, CreateEditOrganizationUnitCoordinateViewModel>();
         CreateMap<CreateEditOrganizationUnitCoordinateViewModel, CreateUpdateOrganizationUnitCoordinateDto>();
     }

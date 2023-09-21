@@ -7,22 +7,22 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicAntiMoneyLaunderingJob : TDcmpAsyncBackgroundJob<LoadCcicAntiMoneyLaunderingJobArgs>, ITransientDependency
+    public class LoadCcicAntiMoneyLaunderingJob : CcicCusInfoAsyncBackgroundJob<LoadCcicAntiMoneyLaunderingJobArgs>, ITransientDependency
     {
         private readonly ICcicAntiMoneyLaunderingRepository _ccicAntiMoneyLaunderingRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _tDcmpWorkFlowManager;
 
         public LoadCcicAntiMoneyLaunderingJob(
             IOptions<FtpOptions> ftpOptions,
             IClock clock,
-            ITDcmpWorkFlowRepository repository,
+            ICcicCusInfoWorkFlowRepository repository,
             IConfiguration config,
             ICcicAntiMoneyLaunderingRepository ccicAntiMoneyLaunderingRepository,
-            TDcmpWorkFlowManager tDcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager tDcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicAntiMoneyLaunderingRepository = ccicAntiMoneyLaunderingRepository;
             _tDcmpWorkFlowManager = tDcmpWorkFlowManager;

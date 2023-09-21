@@ -26,9 +26,9 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
 using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Volo.Abp.EntityFrameworkCore.Modeling;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -77,7 +77,7 @@ public class DataPlaneDbContext :
     /// <summary>
     /// 信息管理平台工作流
     /// </summary>
-    public DbSet<TDcmpWorkFlow> TDcmpWorkFlows { get; set; }
+    public DbSet<CcicCusInfoWorkFlow> CcicCusInfoWorkFlows { get; set; }
     /// <summary>
     /// 对公反洗钱信息    a02
     /// </summary>

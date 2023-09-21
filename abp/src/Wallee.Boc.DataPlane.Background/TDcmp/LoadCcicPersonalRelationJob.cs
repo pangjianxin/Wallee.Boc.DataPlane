@@ -7,22 +7,22 @@ using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.Background.Ftp;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
-using Wallee.Boc.DataPlane.TDcmp.WorkFlows;
+using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
 {
-    public class LoadCcicPersonalRelationJob : TDcmpAsyncBackgroundJob<LoadCcicPersonalRelationJobArgs>, ITransientDependency
+    public class LoadCcicPersonalRelationJob : CcicCusInfoAsyncBackgroundJob<LoadCcicPersonalRelationJobArgs>, ITransientDependency
     {
         private readonly ICcicPersonalRelationRepository _ccicPersonalRelationRepository;
-        private readonly TDcmpWorkFlowManager _tDcmpWorkFlowManager;
+        private readonly CcicCusInfoWorkFlowManager _ccicCusInfoWorkFlowManager;
 
         public LoadCcicPersonalRelationJob(IOptions<FtpOptions> ftpOptions, IClock clock,
-            ITDcmpWorkFlowRepository repository, IConfiguration config,
+            ICcicCusInfoWorkFlowRepository repository, IConfiguration config,
             ICcicPersonalRelationRepository ccicPersonalRelationRepository,
-            TDcmpWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
+            CcicCusInfoWorkFlowManager dcmpWorkFlowManager) : base(ftpOptions, clock, repository, config)
         {
             _ccicPersonalRelationRepository = ccicPersonalRelationRepository;
-            _tDcmpWorkFlowManager = dcmpWorkFlowManager;
+            _ccicCusInfoWorkFlowManager = dcmpWorkFlowManager;
         }
 
         [UnitOfWork]
@@ -35,7 +35,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 await UpsertAsync(stream, _ccicPersonalRelationRepository, typeof(CcicPersonalRelationMap));
 
-                await _tDcmpWorkFlowManager.NotifyCcicPersonalRelationCompletedAsync(workFlow);
+                await _ccicCusInfoWorkFlowManager.NotifyCcicPersonalRelationCompletedAsync(workFlow);
 
                 await Repository.UpdateAsync(workFlow);
             }
