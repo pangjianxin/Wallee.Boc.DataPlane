@@ -2,7 +2,7 @@
 @using Wallee.Boc.DataPlane.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
-@using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos;
+@using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos;
 @inject IHtmlLocalizer<DataPlaneResource> L
 @model EditModalModel
 
@@ -12,7 +12,7 @@
 
 <abp-dynamic-form abp-model="ViewModel" data-ajaxForm="true" asp-page="EditModal">
     <abp-modal>
-        <abp-modal-header title="@L["EditTDcmpWorkFlow"].Value"></abp-modal-header>
+        <abp-modal-header title="@L["EditCcicCusInfoWorkFlow"].Value"></abp-modal-header>
         <abp-modal-body>
             <abp-input asp-for="Id" />
             <abp-form-content />

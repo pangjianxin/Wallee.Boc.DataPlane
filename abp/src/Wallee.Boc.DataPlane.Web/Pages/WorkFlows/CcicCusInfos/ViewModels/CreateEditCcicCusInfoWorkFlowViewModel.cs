@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos.ViewModels;
+namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos.ViewModels;
 
 public class CreateEditCcicCusInfoWorkFlowViewModel
 {

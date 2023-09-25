@@ -3,8 +3,8 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Volo.Abp.AspNetCore.Mvc.UI.Layout
-@using Wallee.Boc.DataPlane.Web.Pages.Components.CcicInfoWorkFlow
-@using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos
+@using Wallee.Boc.DataPlane.Web.Pages.Components.CcicCusInfoWorkFlow
+@using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos
 @using Wallee.Boc.DataPlane.Localization
 @using Wallee.Boc.DataPlane.Web.Menus
 @model IndexModel
@@ -12,34 +12,34 @@
 @inject IHtmlLocalizer<DataPlaneResource> L
 @inject IAuthorizationService Authorization
 @{
-    PageLayout.Content.Title = L["TDcmpWorkFlow"].Value;
-    PageLayout.Content.BreadCrumb.Add(L["Menu:TDcmpWorkFlow"].Value);
-    PageLayout.Content.MenuItemName = DataPlaneMenus.TDcmp_WorkFlow;
+    PageLayout.Content.Title = L["WorkFlows:CcicCusInfo"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:WorkFlows:CcicCusInfo"].Value);
+    PageLayout.Content.MenuItemName = DataPlaneMenus.WorkFlows;
 }
 
 @section scripts
     {
-    <abp-script src="/Pages/WorkFlows/CusInfos/index.js" />
+    <abp-script src="/Pages/WorkFlows/CcicCusInfos/index.js" />
 }
 
 @section styles
     {
-    <abp-style src="/Pages/WorkFlows/CusInfos/index.css" />
+    <abp-style src="/Pages/WorkFlows/CcicCusInfos/index.css" />
 }
 
 <abp-card>
     <abp-card-header>
         <abp-row>
             <abp-column size-md="_6">
-                <abp-card-title>@L["TDcmpWorkFlow"]</abp-card-title>
+                <abp-card-title>@L["WorkFlows:CcicCusInfo"]</abp-card-title>
             </abp-column>
             <abp-column size-md="_6" class="text-end">
-                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.TDcmpWorkFlow.Create))
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.WorkFlows.CcicCusInfo))
                 {
                     <abp-button id="NewTDcmpWorkFlowButton"
-                            text="@L["CreateTDcmpWorkFlow"].Value"
-                            icon="plus"
-                            button-type="Primary" />
+                                text="@L["CreateTDcmpWorkFlow"].Value"
+                                icon="plus"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
@@ -47,7 +47,7 @@
     <abp-card-body>
         <abp-row>
             <abp-column size-lg="_4" size-md="_6" size-sm="_12" id="tDcmpWorkFlowWidget">
-                @await Component.InvokeAsync(typeof(CcicCusInfoWorkFlowViewComponent))
+                @await Component.InvokeAsync("CcicCusInfoWorkFlow")
             </abp-column>
         </abp-row>
         <abp-table striped-rows="true" id="TDcmpWorkFlowTable" class="nowrap" />

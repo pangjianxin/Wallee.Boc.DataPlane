@@ -13,7 +13,6 @@ public class DataPlaneMenus
     public const string TDcmp = Prefix + ".TDcmp";
     public const string TDcmp_CcicBasic = TDcmp + ".CcicBasic";
     public const string TDcmp_CcicAddress = TDcmp + ".CcicAddress";
-    public const string TDcmp_WorkFlow = TDcmp + ".TDcmpWorkFlow";
     public const string CcicAntiMoneyLaundering = TDcmp + ".CcicAntiMoneyLaundering";
     public const string CcicCustomerTypeOrg = TDcmp + ".CcicCustomerTypeOrg";
     public const string CcicGeneralOrg = TDcmp + ".CcicGeneralOrg";
@@ -25,6 +24,9 @@ public class DataPlaneMenus
     public const string CcicRegister = TDcmp + ".CcicRegister";
     public const string CcicSignOrg = TDcmp + ".CcicSignOrg";
     public const string CcicCustomerType = TDcmp + ".CcicCustomerType";
+
+    public const string WorkFlows = Prefix + ".WorkFlows";
+    public const string WorkFlows_CcicCusInfos = WorkFlows + ".CcicCusInfos";
 
     public const string Dictionaries = Prefix + ".Dictionaries";
     public const string OrganizationUnitCoordinate = Dictionaries + ".OrganizationUnitCoordinate";

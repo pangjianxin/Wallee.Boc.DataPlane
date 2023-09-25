@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos;
+namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos;
 
 public class IndexModel : DataPlanePageModel
 {

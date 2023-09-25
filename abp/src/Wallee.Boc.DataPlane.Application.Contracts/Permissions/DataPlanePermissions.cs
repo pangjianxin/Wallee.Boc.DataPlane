@@ -48,12 +48,10 @@ public static class DataPlanePermissions
     /// <summary>
     /// 信息管理平台工作流
     /// </summary>
-    public class TDcmpWorkFlow
+    public class WorkFlows
     {
-        public const string Default = GroupName + ".TDcmpWorkFlow";
-        public const string Update = Default + ".Update";
-        public const string Create = Default + ".Create";
-        public const string Delete = Default + ".Delete";
+        public const string Default = GroupName + ".WorkFlows";
+        public const string CcicCusInfo = Default + ".CcicCusInfo";
     }
 
     public class Dictionaries

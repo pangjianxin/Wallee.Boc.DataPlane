@@ -18,8 +18,8 @@
            
         };
         var init = function (filters) {
-            var tDcmpWorkFlowService = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
-            tDcmpWorkFlowService.getExecuting().then(data => {
+            var ccicCusInfoWorkFlowService = wallee.boc.dataPlane.workFlows.ccicCusInfoWorkFlow;
+            ccicCusInfoWorkFlowService.getExecuting().then(data => {
                 $("#tdcmpCreationDate").append($(`<span>
                 <i class="fas fa-clock">&nbsp;创建日期</i>
                 ${luxon.DateTime.fromISO(data.dto.creationTime, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT)}

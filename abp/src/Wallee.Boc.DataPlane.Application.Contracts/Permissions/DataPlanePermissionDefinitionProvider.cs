@@ -31,26 +31,24 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         organizationUnits.AddChild(DataPlanePermissions.OrganizationUnits.ManageUsers, L("Permission:OrganizationUnits:ManageUsers"));
 
         //TDCMP报表
-        var tDcmpReports = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpReports.Default, L("Permission:TDcmpReports"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicBasic, L("Permission:TDcmpReports:CcicBasic"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAddress, L("Permission:TDcmpReports:CcicAddress"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering, L("Permission:TDcmpReports:CcicAntiMoneyLaundering"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerTypeOrg, L("Permission:TDcmpReports:CcicCustomerTypeOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicGeneralOrg, L("Permission:TDcmpReports:CcicGeneralOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicId, L("Permission:TDcmpReports:CcicId"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicName, L("Permission:TDcmpReports:CcicName"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPersonalRelation, L("Permission:TDcmpReports:CcicPersonalRelation"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPhone, L("Permission:TDcmpReports:CcicPhone"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicPractice, L("Permission:TDcmpReports:CcicPractice"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicRegister, L("Permission:TDcmpReports:CcicRegister"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicSignOrg, L("Permission:TDcmpReports:CcicSignOrg"));
-        tDcmpReports.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerType, L("Permission:TDcmpReports:CcicCustomerType"));
+        var tDcmpReportsPermissions = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpReports.Default, L("Permission:TDcmpReports"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicBasic, L("Permission:TDcmpReports:CcicBasic"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicAddress, L("Permission:TDcmpReports:CcicAddress"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering, L("Permission:TDcmpReports:CcicAntiMoneyLaundering"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerTypeOrg, L("Permission:TDcmpReports:CcicCustomerTypeOrg"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicGeneralOrg, L("Permission:TDcmpReports:CcicGeneralOrg"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicId, L("Permission:TDcmpReports:CcicId"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicName, L("Permission:TDcmpReports:CcicName"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicPersonalRelation, L("Permission:TDcmpReports:CcicPersonalRelation"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicPhone, L("Permission:TDcmpReports:CcicPhone"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicPractice, L("Permission:TDcmpReports:CcicPractice"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicRegister, L("Permission:TDcmpReports:CcicRegister"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicSignOrg, L("Permission:TDcmpReports:CcicSignOrg"));
+        tDcmpReportsPermissions.AddChild(DataPlanePermissions.TDcmpReports.CcicCustomerType, L("Permission:TDcmpReports:CcicCustomerType"));
 
-        //TDCMP工作流
-        var tDcmpWorkFlowPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.TDcmpWorkFlow.Default, L("Permission:TDcmpReports:TDcmpWorkFlow"));
-        tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Create, L("Permission:Create"));
-        tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Update, L("Permission:Update"));
-        tDcmpWorkFlowPermission.AddChild(DataPlanePermissions.TDcmpWorkFlow.Delete, L("Permission:Delete"));
+        //工作流
+        var workFlowsPermissions = dataPlaneGroup.AddPermission(DataPlanePermissions.WorkFlows.Default, L("Permission:WorkFlows"));
+        workFlowsPermissions.AddChild(DataPlanePermissions.WorkFlows.CcicCusInfo, L("Permission:WorkFlows:CcicCusInfo"));
 
         //字典
         var dictionariesPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dictionaries.Default, L("Permission:Dictionaries"));

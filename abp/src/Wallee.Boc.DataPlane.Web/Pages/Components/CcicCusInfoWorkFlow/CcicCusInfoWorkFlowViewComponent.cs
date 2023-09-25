@@ -4,11 +4,12 @@ using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Widgets;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.Components.CcicInfoWorkFlow
+namespace Wallee.Boc.DataPlane.Web.Pages.Components.CcicCusInfoWorkFlow
 {
     [Widget(
        StyleTypes = new[] { typeof(CcicInfoWorkFlowStyleBundleContributor) },
        ScriptTypes = new[] { typeof(CcicInfoWorkFlowScriptBundleContributor) })]
+    [ViewComponent(Name = "CcicCusInfoWorkFlow")]
     public class CcicCusInfoWorkFlowViewComponent : AbpViewComponent
     {
         public IViewComponentResult Invoke()
@@ -21,7 +22,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Components.CcicInfoWorkFlow
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.AddIfNotContains("/Pages/Components/CcicInfoWorkFlow/Default.css");
+            context.Files.AddIfNotContains("/Pages/Components/CcicCusInfoWorkFlow/Default.css");
         }
     }
 
@@ -29,7 +30,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Components.CcicInfoWorkFlow
     {
         public override void ConfigureBundle(BundleConfigurationContext context)
         {
-            context.Files.AddIfNotContains("/Pages/Components/CcicInfoWorkFlow/Default.js");
+            context.Files.AddIfNotContains("/Pages/Components/CcicCusInfoWorkFlow/Default.js");
         }
     }
 }

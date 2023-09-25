@@ -1,11 +1,11 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos.ViewModels;
+using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos.ViewModels;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos.Dtos;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CusInfos;
+namespace Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos;
 
 public class EditModalModel : DataPlanePageModel
 {

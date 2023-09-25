@@ -2,9 +2,9 @@ $(function () {
 
     var l = abp.localization.getResource('DataPlane');
 
-    var service = wallee.boc.dataPlane.tDcmp.workFlows.tDcmpWorkFlow;
-    var createModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/CreateModal');
-    var editModal = new abp.ModalManager(abp.appPath + 'TDcmp/WorkFlows/TDcmpWorkFlow/EditModal');
+    var service = wallee.boc.dataPlane.workFlows.ccicCusInfoWorkFlow;
+    var createModal = new abp.ModalManager(abp.appPath + 'WorkFlows/CcicCusInfos/CreateModal');
+    var editModal = new abp.ModalManager(abp.appPath + 'WorkFlows/CcicCusInfos/EditModal');
 
     var dataTable = $('#TDcmpWorkFlowTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -22,14 +22,14 @@ $(function () {
                         [
                             {
                                 text: l('Edit'),
-                                visible: abp.auth.isGranted('DataPlane.TDcmpWorkFlow.Update'),
+                                visible: abp.auth.isGranted('DataPlane.WorkFlows.CcicCusInfo'),
                                 action: function (data) {
                                     editModal.open({ id: data.record.id });
                                 }
                             },
                             {
                                 text: l('Delete'),
-                                visible: abp.auth.isGranted('DataPlane.TDcmpWorkFlow.Delete'),
+                                visible: abp.auth.isGranted('DataPlane.WorkFlows.CcicCusInfo'),
                                 confirmMessage: function (data) {
                                     return l('TDcmpWorkFlowDeletionConfirmationMessage', data.record.id);
                                 },
@@ -45,15 +45,15 @@ $(function () {
                 }
             },
             {
-                title: l('TDcmpWorkFlowStatus'),
+                title: l('WorkFlows:CcicCusInfo:CcicCusInfoWorkFlowStatus'),
                 data: "status",
                 render: function (data) {
                     let color = data === 99 ? "success" : "warning";
-                    return `<span class='badge bg-${color}'>${l('Enum:TDcmpStatus:' + data)}</span>`;
+                    return `<span class='badge bg-${color}'>${l('Enum:CcicCusInfoWorkFlowStatus:' + data)}</span>`;
                 }
             },
             {
-                title: l('TDcmpWorkFlowDataDate'),
+                title: l('WorkFlows:CcicCusInfo:DataDate'),
                 data: "dataDate",
                 render: function (data) {
                     return luxon.DateTime.fromISO(data, { locale: abp.localization.currentCulture.name }).toLocaleString(luxon.DateTime.DATE_SHORT);
@@ -67,7 +67,7 @@ $(function () {
                 }
             },
             {
-                title: l('TDcmpWorkFlowComment'),
+                title: l('WorkFlows:CcicCusInfo:Comment'),
                 data: "comment"
             },
         ]

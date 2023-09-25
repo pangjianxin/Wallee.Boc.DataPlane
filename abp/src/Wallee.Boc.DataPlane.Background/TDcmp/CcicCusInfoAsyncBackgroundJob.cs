@@ -104,14 +104,14 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             using var conn = new SqlConnection(connStr);
             await conn.OpenAsync();
 
-            using var tran = conn.BeginTransaction("Write_Exception_To_TDcmpWorkFlow");
+            using var tran = conn.BeginTransaction("Write_Exception_To_AppCcicCusInfoWorkFlows");
             try
             {
                 var sqlCommand = conn.CreateCommand();
 
                 sqlCommand.Transaction = tran;
 
-                sqlCommand.CommandText = $"UPDATE dbo.AppTDcmpWorkFlows SET Comment=N'{exception.Message.Replace("'", "''")}' WHERE ID='{workFlow.Id}'";
+                sqlCommand.CommandText = $"UPDATE dbo.AppCcicCusInfoWorkFlows SET Comment=N'{exception.Message.Replace("'", "''")}' WHERE ID='{workFlow.Id}'";
 
                 await sqlCommand.ExecuteNonQueryAsync();
 
