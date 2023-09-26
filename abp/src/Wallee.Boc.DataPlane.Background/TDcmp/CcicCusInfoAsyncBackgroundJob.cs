@@ -104,7 +104,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             using var conn = new SqlConnection(connStr);
             await conn.OpenAsync();
 
-            using var tran = conn.BeginTransaction("Write_Exception_To_AppCcicCusInfoWorkFlows");
+            using var tran = conn.BeginTransaction("CcicCusInfoWorkFlows_Exception");
             try
             {
                 var sqlCommand = conn.CreateCommand();
