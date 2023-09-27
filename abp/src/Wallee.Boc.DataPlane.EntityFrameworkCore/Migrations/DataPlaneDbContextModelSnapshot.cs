@@ -1728,7 +1728,7 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AppOrganizationUnitCoordinates", (string)null);
                 });
 
-            modelBuilder.Entity("Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.ConvertedCusOrgUnit", b =>
+            modelBuilder.Entity("Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit", b =>
                 {
                     b.Property<DateTime>("DataDate")
                         .HasColumnType("datetime2")
@@ -1796,6 +1796,66 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AppConvertedCusOrgUnits", null, t =>
                         {
                             t.HasComment("折效客户机构分布情况");
+                        });
+                });
+
+            modelBuilder.Entity("Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.ConvertedCus", b =>
+                {
+                    b.Property<DateTime>("DataDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Cusidt")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("CusName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("DepCurBal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("DepYavBal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ExtraProperties")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("OrgName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Orgidt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DataDate", "Cusidt");
+
+                    b.ToTable("AppConvertedCus", null, t =>
+                        {
+                            t.HasComment("折效客户明细");
                         });
                 });
 

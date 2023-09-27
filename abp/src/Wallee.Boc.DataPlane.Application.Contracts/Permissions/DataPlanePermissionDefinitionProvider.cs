@@ -57,6 +57,7 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         //系统报表
         var systemReportsPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Reports.Defaults, L("Permission:Reports"));
         systemReportsPermission.AddChild(DataPlanePermissions.Reports.ConvertedCusOrgUnit, L("Permission:Reports:ConvertedCusOrgUnit"));
+        systemReportsPermission.AddChild(DataPlanePermissions.Reports.ConvertedCus, L("Permission:Reports:ConvertedCus"));
     }
 
     private static LocalizableString L(string name)

@@ -8,7 +8,8 @@ using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Caching;
 using Wallee.Boc.DataPlane.Dashboard.Dtos;
 using Wallee.Boc.DataPlane.Dictionaries;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Settings;
 
 namespace Wallee.Boc.DataPlane.Dashboard
 {

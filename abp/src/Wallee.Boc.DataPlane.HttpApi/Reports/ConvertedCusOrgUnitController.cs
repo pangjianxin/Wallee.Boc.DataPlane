@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports
 {
     [RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
-    [Route("/api/app/converted-cus-org-unit")]
+    [Route("/api/app/reports/converted-cus-org-unit")]
     [Authorize]
     public class ConvertedCusOrgUnitController : DataPlaneController, IConvertedCusOrgUnitAppService
     {

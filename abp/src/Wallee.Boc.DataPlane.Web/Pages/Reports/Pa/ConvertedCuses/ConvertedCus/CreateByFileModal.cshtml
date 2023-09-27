@@ -1,0 +1,21 @@
+﻿@page
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus.CreateByFileModalModel
+
+@{
+    Layout = null;
+}
+
+
+<abp-dynamic-form abp-model="@Model.ViewModel" asp-page="/Reports/Pa/ConvertedCuses/ConvertedCus/CreateByFileModal">
+    <abp-modal>
+        <abp-modal-header>
+            上传折效客户数据
+        </abp-modal-header>
+        <abp-modal-body>
+            <abp-form-content />
+            <abp-input type="file" accept=".csv" asp-for="@Model.ViewModel.File"></abp-input>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@AbpModalButtons.Save|AbpModalButtons.Cancel"></abp-modal-footer>
+    </abp-modal>
+</abp-dynamic-form>

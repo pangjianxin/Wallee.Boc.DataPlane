@@ -22,6 +22,7 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             return View("~/Components/DataPlaneSettingGroup/Default.cshtml", new UpdateDataPlaneSettingsViewModel
             {
                 TDcmpWorkFlowCronExpression = settings.TDcmpWorkFlowCronExpression,
+
                 ConvertedCusOrgUnitFirstLevel = settings.ConvertedCusOrgUnitFirstLevel,
                 ConvertedCusOrgUnitSecondLevel = settings.ConvertedCusOrgUnitSecondLevel,
                 ConvertedCusOrgUnitThirdLevel = settings.ConvertedCusOrgUnitThirdLevel,

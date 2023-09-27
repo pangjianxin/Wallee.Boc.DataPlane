@@ -5,8 +5,8 @@ using Wallee.Boc.DataPlane.BackgroundJobs;
 using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
@@ -34,6 +34,8 @@ using Wallee.Boc.DataPlane.TDcmp.CcicRegisters.Dtos;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs.Dtos;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos.Dtos;
 
 namespace Wallee.Boc.DataPlane;
@@ -65,6 +67,6 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<OrganizationUnitCoordinate, OrganizationUnitCoordinateDto>();
         CreateMap<CreateUpdateOrganizationUnitCoordinateDto, OrganizationUnitCoordinate>(MemberList.Source);
         CreateMap<ConvertedCusOrgUnit, ConvertedCusOrgUnitDto>();
-        CreateMap<CreateUpdateConvertedCusOrgUnitDto, ConvertedCusOrgUnit>(MemberList.Source);
+        CreateMap<ConvertedCus, ConvertedCusDto>();
     }
 }

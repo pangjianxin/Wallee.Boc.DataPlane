@@ -17,8 +17,6 @@
     "Permission:Organization": "组织机构",
     "Permission:OrganizationUnits:ManageRoles": "管理角色",
     "Permission:OrganizationUnits:ManageUsers": "管理用户",
-
-    //公共信息
     "CUSNO": "客户号",
     "LGPER_CODE": "法人编码",
     "TableFilter": "表格过滤",
@@ -27,9 +25,7 @@
     "Permission:Update": "更新",
     "Permission:Delete": "删除",
     "SuccessfullyDeleted": "Successfully deleted",
-
     "Permission:TDcmpReports": "总行下传平台信息管理组件",
-
     "Permission:WorkFlows": "数据ETL工作流",
     "Menu:WorkFlows": "数据ETL工作流",
     "Menu:WorkFlows:CcicCusInfo": "对公客户信息工作流",
@@ -57,7 +53,6 @@
     "Enum:CcicCusInfoWorkFlowStatus:14": "注册信息",
     "Enum:CcicCusInfoWorkFlowStatus:15": "重要标志信息组织",
     "Enum:CcicCusInfoWorkFlowStatus:99": "已完成",
-
     "Permission:TDcmpReports:CcicBasic": "对公基础信息",
     "Menu:TDcmpReports:CcicBasic": "对公基础信息",
     "CcicBasic": "对公客户基础信息",
@@ -85,7 +80,6 @@
     "CcicBasicLAST_MOD_DTTM": "最后修改日期时间",
     "CcicBasicRCRD_VRSN_SN": "记录版本序号",
     "CcicBasicRCRD_CLNUP_STSCD": "记录清理状态代码",
-
     "Permission:TDcmpReports:CcicAddress": "对公地址信息",
     "Menu:TDcmpReports:CcicAddress": "对公地址信息",
     "CcicAddress": "对公地址信息",
@@ -120,7 +114,6 @@
     "CcicAddressLAST_MNT_STS_CODE": "最后维护状态代码",
     "CcicAddressLAST_MOD_DTTM": "最后修改日期时间",
     "CcicAddressRCRD_VRSN_SN": "记录版本序号",
-
     "Permission:TDcmpReports:CcicAntiMoneyLaundering": "对公反洗钱信息",
     "Menu:TDcmpReports:CcicAntiMoneyLaundering": "对公反洗钱信息",
     "CcicAntiMoneyLaundering": "对公反洗钱信息",
@@ -149,7 +142,6 @@
     "CcicAntiMoneyLaunderingLAST_MOD_DTTM": "CcicAntiMoneyLaunderingLAST_MOD_DTTM",
     "CcicAntiMoneyLaunderingRCRD_VRSN_SN": "CcicAntiMoneyLaunderingRCRD_VRSN_SN",
     "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD": "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicCustomerTypeOrg": "对公类别组织信息",
     "Menu:TDcmpReports:CcicCustomerTypeOrg": "对公类别组织信息",
     "CcicCustomerTypeOrg": "对公类别组织信息",
@@ -184,7 +176,6 @@
     "CcicCustomerTypeOrgLAST_MOD_DTTM": "CcicCustomerTypeOrgLAST_MOD_DTTM",
     "CcicCustomerTypeOrgRCRD_VRSN_SN": "CcicCustomerTypeOrgRCRD_VRSN_SN",
     "CcicCustomerTypeOrgRCRD_CLNUP_STSCD": "CcicCustomerTypeOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicGeneralOrg": "对公概况组织信息",
     "Menu:TDcmpReports:CcicGeneralOrg": "对公概况组织信息",
     "CcicGeneralOrg": "对公概况组织信息",
@@ -215,7 +206,6 @@
     "CcicGeneralOrgLAST_MOD_DTTM": "CcicGeneralOrgLAST_MOD_DTTM",
     "CcicGeneralOrgRCRD_VRSN_SN": "CcicGeneralOrgRCRD_VRSN_SN",
     "CcicGeneralOrgRCRD_CLNUP_STSCD": "CcicGeneralOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicId": "对公证件信息",
     "Menu:TDcmpReports:CcicId": "对公证件信息",
     "CcicId": "对公证件信息",
@@ -248,7 +238,6 @@
     "CreateCcicId": "CreateCcicId",
     "EditCcicId": "EditCcicId",
     "CcicIdDeletionConfirmationMessage": "Are you sure to delete the ccicId {0}?",
-
     "Permission:TDcmpReports:CcicName": "对公名称信息",
     "Menu:TDcmpReports:CcicName": "对公名称信息",
     "CcicName": "对公名称信息",
@@ -283,7 +272,6 @@
     "CcicNameLAST_MOD_DTTM": "CcicNameLAST_MOD_DTTM",
     "CcicNameRCRD_VRSN_SN": "CcicNameRCRD_VRSN_SN",
     "CcicNameRCRD_CLNUP_STSCD": "CcicNameRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPersonalRelation": "对公人员关系信息",
     "Menu:TDcmpReports:CcicPersonalRelation": "对公人员关系信息",
     "CcicPersonalRelation": "对公人员关系信息",
@@ -305,7 +293,6 @@
     "CcicPersonalRelationLAST_MOD_DTTM": "CcicPersonalRelationLAST_MOD_DTTM",
     "CcicPersonalRelationRCRD_VRSN_SN": "CcicPersonalRelationRCRD_VRSN_SN",
     "CcicPersonalRelationRCRD_CLNUP_STSCD": "CcicPersonalRelationRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPhone": "对公电话信息",
     "Menu:TDcmpReports:CcicPhone": "对公电话信息",
     "CcicPhone": "对公电话信息",
@@ -334,7 +321,6 @@
     "CcicPhoneLAST_MOD_DTTM": "CcicPhoneLAST_MOD_DTTM",
     "CcicPhoneRCRD_VRSN_SN": "CcicPhoneRCRD_VRSN_SN",
     "CcicPhoneRCRD_CLNUP_STSCD": "CcicPhoneRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPractice": "对公运营信息",
     "Menu:TDcmpReports:CcicPractice": "对公运营信息",
     "CcicPractice": "对公运营信息",
@@ -374,7 +360,6 @@
     "CcicPracticeLAST_MOD_DTTM": "CcicPracticeLAST_MOD_DTTM",
     "CcicPracticeRCRD_VRSN_SN": "CcicPracticeRCRD_VRSN_SN",
     "CcicPracticeRCRD_CLNUP_STSCD": "CcicPracticeRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicRegister": "对公注册信息",
     "Menu:TDcmpReports:CcicRegister": "对公注册信息",
     "CcicRegister": "对公注册信息",
@@ -422,7 +407,6 @@
     "CcicRegisterLAST_MOD_DTTM": "CcicRegisterLAST_MOD_DTTM",
     "CcicRegisterRCRD_VRSN_SN": "CcicRegisterRCRD_VRSN_SN",
     "CcicRegisterRCRD_CLNUP_STSCD": "CcicRegisterRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicSignOrg": "对公重要标志信息",
     "Menu:TDcmpReports:CcicSignOrg": "对公重要标志信息",
     "CcicSignOrg": "对公重要标志信息",
@@ -455,7 +439,6 @@
     "CcicSignOrgLAST_MOD_DTTM": "CcicSignOrgLAST_MOD_DTTM",
     "CcicSignOrgRCRD_VRSN_SN": "CcicSignOrgRCRD_VRSN_SN",
     "CcicSignOrgRCRD_CLNUP_STSCD": "CcicSignOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicCustomerType": "对公类别信息",
     "Menu:TDcmpReports:CcicCustomerType": "对公类别信息",
     "CcicCustomerType": "对公类别信息",
@@ -495,7 +478,6 @@
     "CcicCustomerTypeLAST_MOD_DTTM": "CcicCustomerTypeLAST_MOD_DTTM",
     "CcicCustomerTypeRCRD_VRSN_SN": "CcicCustomerTypeRCRD_VRSN_SN",
     "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD",
-
     "Permission:Settings": "系统设置",
     "Permission:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
     "Menu:Dictionaries:OrganizationUnitCoordinates": "机构坐标",
@@ -507,7 +489,6 @@
     "CreateOrganizationUnitCoordinate": "添加记录",
     "EditOrganizationUnitCoordinate": "编辑记录",
     "OrganizationUnitCoordinateDeletionConfirmationMessage": "确定删除该记录 {0}?",
-
     "Permission:Reports": "系统报表",
     "Permission:Reports:ConvertedCusOrgUnit": "折效客户机构情况",
     "Menu:Reports:ConvertedCusOrgUnit": "折效客户机构情况",
@@ -524,6 +505,9 @@
     "ConvertedCusOrgUnitSixthLevel": "1亿+",
     "CreateConvertedCusOrgUnit": "添加记录",
     "EditConvertedCusOrgUnit": "编辑记录",
-    "ConvertedCusOrgUnitDeletionConfirmationMessage": "确认删除该条折效记录{0}?"
+    "ConvertedCusOrgUnitDeletionConfirmationMessage": "确认删除该条折效记录{0}?",
+    "Permission:Reports:ConvertedCus": "客户资产汇总",
+    "Menu:Reports:ConvertedCus": "客户资产汇总",
+    "ConvertedCus": "客户资产汇总"
   }
 }

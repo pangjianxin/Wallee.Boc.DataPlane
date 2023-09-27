@@ -1,3 +1,4 @@
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 using Microsoft.Extensions.DependencyInjection;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -11,7 +12,8 @@ using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Dictionaries;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -72,6 +74,7 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<CcicCustomerType, CcicCustomerTypeRepository>();
             options.AddRepository<OrganizationUnitCoordinate, OrganizationUnitCoordinateRepository>();
             options.AddRepository<ConvertedCusOrgUnit, ConvertedCusOrgUnitRepository>();
+            options.AddRepository<ConvertedCus, ConvertedCusRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

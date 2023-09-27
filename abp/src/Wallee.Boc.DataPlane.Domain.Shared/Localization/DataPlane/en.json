@@ -50,7 +50,6 @@
     "CcicBasicRCRD_VRSN_SN": "CcicBasicRCRD_VRSN_SN",
     "CcicBasicRCRD_CLNUP_STSCD": "CcicBasicRCRD_CLNUP_STSCD",
     "TableFilter": "TableFilter",
-
     "Enum:TDcmpStatus:1": "初始化",
     "Enum:TDcmpStatus:2": "基础信息",
     "Enum:TDcmpStatus:3": "地址信息",
@@ -67,7 +66,6 @@
     "Enum:TDcmpStatus:14": "注册信息",
     "Enum:TDcmpStatus:15": "重要标志信息组织",
     "Enum:TDcmpStatus:99": "已完成",
-
     "Permission:TDcmpReports:CcicAddress": "CcicAddress",
     "Menu:TDcmpReports:CcicAddress": "MenuCcicAddress",
     "CcicAddress": "CcicAddress",
@@ -102,7 +100,6 @@
     "CcicAddressLAST_MNT_STS_CODE": "CcicAddressLAST_MNT_STS_CODE",
     "CcicAddressLAST_MOD_DTTM": "CcicAddressLAST_MOD_DTTM",
     "CcicAddressRCRD_VRSN_SN": "CcicAddressRCRD_VRSN_SN",
-
     "Permission:TDcmpWorkFlow": "TDcmpWorkFlow",
     "Menu:TDcmpWorkFlow": "MenuTDcmpWorkFlow",
     "TDcmpWorkFlow": "TDcmpWorkFlow",
@@ -110,7 +107,6 @@
     "TDcmpWorkFlowDataDate": "TDcmpWorkFlowDataDate",
     "TDcmpWorkFlowComment": "TDcmpWorkFlowComment",
     "SuccessfullyDeleted": "Successfully deleted",
-
     "Permission:TDcmpReports:CcicAntiMoneyLaundering": "CcicAntiMoneyLaundering",
     "Menu:TDcmpReports:CcicAntiMoneyLaundering": "MenuCcicAntiMoneyLaundering",
     "CcicAntiMoneyLaundering": "CcicAntiMoneyLaundering",
@@ -141,7 +137,6 @@
     "CcicAntiMoneyLaunderingLAST_MOD_DTTM": "CcicAntiMoneyLaunderingLAST_MOD_DTTM",
     "CcicAntiMoneyLaunderingRCRD_VRSN_SN": "CcicAntiMoneyLaunderingRCRD_VRSN_SN",
     "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD": "CcicAntiMoneyLaunderingRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicCustomerTypeOrg": "CcicCustomerTypeOrg",
     "Menu:TDcmpReports:CcicCustomerTypeOrg": "MenuCcicCustomerTypeOrg",
     "CcicCustomerTypeOrg": "CcicCustomerTypeOrg",
@@ -178,7 +173,6 @@
     "CcicCustomerTypeOrgLAST_MOD_DTTM": "CcicCustomerTypeOrgLAST_MOD_DTTM",
     "CcicCustomerTypeOrgRCRD_VRSN_SN": "CcicCustomerTypeOrgRCRD_VRSN_SN",
     "CcicCustomerTypeOrgRCRD_CLNUP_STSCD": "CcicCustomerTypeOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicGeneralOrg": "CcicGeneralOrg",
     "Menu:TDcmpReports:CcicGeneralOrg": "MenuCcicGeneralOrg",
     "CcicGeneralOrg": "CcicGeneralOrg",
@@ -211,7 +205,6 @@
     "CcicGeneralOrgLAST_MOD_DTTM": "CcicGeneralOrgLAST_MOD_DTTM",
     "CcicGeneralOrgRCRD_VRSN_SN": "CcicGeneralOrgRCRD_VRSN_SN",
     "CcicGeneralOrgRCRD_CLNUP_STSCD": "CcicGeneralOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicId": "CcicId",
     "Menu:TDcmpReports:CcicId": "MenuCcicId",
     "CcicId": "CcicId",
@@ -243,7 +236,6 @@
     "CcicIdLAST_MOD_DTTM": "CcicIdLAST_MOD_DTTM",
     "CcicIdRCRD_VRSN_SN": "CcicIdRCRD_VRSN_SN",
     "CcicIdRCRD_CLNUP_STSCD": "CcicIdRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicName": "CcicName",
     "Menu:TDcmpReports:CcicName": "MenuCcicName",
     "CcicName": "CcicName",
@@ -280,7 +272,6 @@
     "CcicNameLAST_MOD_DTTM": "CcicNameLAST_MOD_DTTM",
     "CcicNameRCRD_VRSN_SN": "CcicNameRCRD_VRSN_SN",
     "CcicNameRCRD_CLNUP_STSCD": "CcicNameRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPersonalRelation": "CcicPersonalRelation",
     "Menu:TDcmpReports:CcicPersonalRelation": "MenuCcicPersonalRelation",
     "CcicPersonalRelation": "CcicPersonalRelation",
@@ -304,7 +295,6 @@
     "CcicPersonalRelationLAST_MOD_DTTM": "CcicPersonalRelationLAST_MOD_DTTM",
     "CcicPersonalRelationRCRD_VRSN_SN": "CcicPersonalRelationRCRD_VRSN_SN",
     "CcicPersonalRelationRCRD_CLNUP_STSCD": "CcicPersonalRelationRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPhone": "CcicPhone",
     "Menu:TDcmpReports:CcicPhone": "MenuCcicPhone",
     "CcicPhone": "CcicPhone",
@@ -335,7 +325,6 @@
     "CcicPhoneLAST_MOD_DTTM": "CcicPhoneLAST_MOD_DTTM",
     "CcicPhoneRCRD_VRSN_SN": "CcicPhoneRCRD_VRSN_SN",
     "CcicPhoneRCRD_CLNUP_STSCD": "CcicPhoneRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicPractice": "CcicPractice",
     "Menu:TDcmpReports:CcicPractice": "MenuCcicPractice",
     "CcicPractice": "CcicPractice",
@@ -377,7 +366,6 @@
     "CcicPracticeLAST_MOD_DTTM": "CcicPracticeLAST_MOD_DTTM",
     "CcicPracticeRCRD_VRSN_SN": "CcicPracticeRCRD_VRSN_SN",
     "CcicPracticeRCRD_CLNUP_STSCD": "CcicPracticeRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicRegister": "CcicRegister",
     "Menu:TDcmpReports:CcicRegister": "MenuCcicRegister",
     "CcicRegister": "CcicRegister",
@@ -427,7 +415,6 @@
     "CcicRegisterLAST_MOD_DTTM": "CcicRegisterLAST_MOD_DTTM",
     "CcicRegisterRCRD_VRSN_SN": "CcicRegisterRCRD_VRSN_SN",
     "CcicRegisterRCRD_CLNUP_STSCD": "CcicRegisterRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicSignOrg": "CcicSignOrg",
     "Menu:TDcmpReports:CcicSignOrg": "MenuCcicSignOrg",
     "CcicSignOrg": "CcicSignOrg",
@@ -462,7 +449,6 @@
     "CcicSignOrgLAST_MOD_DTTM": "CcicSignOrgLAST_MOD_DTTM",
     "CcicSignOrgRCRD_VRSN_SN": "CcicSignOrgRCRD_VRSN_SN",
     "CcicSignOrgRCRD_CLNUP_STSCD": "CcicSignOrgRCRD_CLNUP_STSCD",
-
     "Permission:TDcmpReports:CcicCustomerType": "CcicCustomerType",
     "Menu:TDcmpReports:CcicCustomerType": "MenuCcicCustomerType",
     "CcicCustomerType": "CcicCustomerType",
@@ -504,7 +490,6 @@
     "CcicCustomerTypeLAST_MOD_DTTM": "CcicCustomerTypeLAST_MOD_DTTM",
     "CcicCustomerTypeRCRD_VRSN_SN": "CcicCustomerTypeRCRD_VRSN_SN",
     "CcicCustomerTypeRCRD_CLNUP_STSCD": "CcicCustomerTypeRCRD_CLNUP_STSCD",
-
     "Permission:Dictionaries:OrganizationUnitCoordinate": "OrganizationUnitCoordinate",
     "Menu:Dictionaries:OrganizationUnitCoordinate": "MenuOrganizationUnitCoordinate",
     "OrganizationUnitCoordinate": "OrganizationUnitCoordinate",
@@ -530,6 +515,19 @@
     "ConvertedCusOrgUnitSixthLevel": "ConvertedCusOrgUnitSixthLevel",
     "CreateConvertedCusOrgUnit": "CreateConvertedCusOrgUnit",
     "EditConvertedCusOrgUnit": "EditConvertedCusOrgUnit",
-    "ConvertedCusOrgUnitDeletionConfirmationMessage": "Are you sure to delete the convertedCusOrgUnit {0}?"
+    "ConvertedCusOrgUnitDeletionConfirmationMessage": "Are you sure to delete the convertedCusOrgUnit {0}?",
+    "Permission:ConvertedCus": "ConvertedCus",
+    "Menu:ConvertedCus": "MenuConvertedCus",
+    "ConvertedCus": "ConvertedCus",
+    "ConvertedCusDataDate": "ConvertedCusDataDate",
+    "ConvertedCusCusidt": "ConvertedCusCusidt",
+    "ConvertedCusCusName": "ConvertedCusCusName",
+    "ConvertedCusDepYavBal": "ConvertedCusDepYavBal",
+    "ConvertedCusDepCurBal": "ConvertedCusDepCurBal",
+    "ConvertedCusOrgidt": "ConvertedCusOrgidt",
+    "ConvertedCusOrgName": "ConvertedCusOrgName",
+    "CreateConvertedCus": "CreateConvertedCus",
+    "EditConvertedCus": "EditConvertedCus",
+    "ConvertedCusDeletionConfirmationMessage": "Are you sure to delete the convertedCus {0}?"
   }
 }

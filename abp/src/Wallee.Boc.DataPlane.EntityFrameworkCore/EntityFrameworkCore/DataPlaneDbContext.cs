@@ -26,9 +26,10 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -130,6 +131,10 @@ public class DataPlaneDbContext :
     /// 折效客户机构分布情况
     /// </summary>
     public DbSet<ConvertedCusOrgUnit> ConvertedCusOrgUnits { get; set; }
+    /// <summary>
+    /// 折效客户明细
+    /// </summary>
+    public DbSet<ConvertedCus> ConvertedCus { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
@@ -153,5 +158,8 @@ public class DataPlaneDbContext :
         builder.ConfigureTenantManagement();
         builder.ConfigureTDcmp();
         builder.ConfigureDataPlane();
+
+
+        
     }
 }

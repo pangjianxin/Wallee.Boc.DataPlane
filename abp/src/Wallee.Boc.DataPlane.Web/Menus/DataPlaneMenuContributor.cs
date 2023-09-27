@@ -60,7 +60,7 @@ public class DataPlaneMenuContributor : IMenuContributor
 
         context.Menu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Dashboard, l["Menu:Dashboard"], "/Dashboard", icon: "fas fa-tachometer-alt"));
 
-        //TDCMP◊Èº˛
+        //TDCMPÔøΩÔøΩÔøΩ
         if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpReports.Default))
         {
             var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list");
@@ -158,7 +158,8 @@ public class DataPlaneMenuContributor : IMenuContributor
 
             context.Menu.AddItem(tDcmpMenu);
         }
-        //◊÷µ‰
+
+        //Â≠óÂÖ∏ÁÆ°ÁêÜ
         if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.Default))
         {
             var dictionariesMenu = new ApplicationMenuItem(DataPlaneMenus.Dictionaries, l["Menu:Dictionaries"], icon: "fas fa-book");
@@ -172,7 +173,8 @@ public class DataPlaneMenuContributor : IMenuContributor
 
             context.Menu.AddItem(dictionariesMenu);
         }
-        //±®±Ì
+
+        //Á≥ªÁªüÊä•Ë°®
         if (await context.IsGrantedAsync(DataPlanePermissions.Reports.Defaults))
         {
             var reportsMenu = new ApplicationMenuItem(DataPlaneMenus.Reports, l["Menu:Reports"], icon: "fas fa-newspaper");
@@ -180,13 +182,19 @@ public class DataPlaneMenuContributor : IMenuContributor
             if (await context.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
             {
                 reportsMenu.AddItem(
-                    new ApplicationMenuItem(DataPlaneMenus.Reports_ConvertedCusOrgUnit, l["Menu:Reports:ConvertedCusOrgUnit"], "/Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit", icon: "fas fa-newspaper")
+                    new ApplicationMenuItem(DataPlaneMenus.Reports_ConvertedCusOrgUnit, l["Menu:Reports:ConvertedCusOrgUnit"], "/Reports/Pa/ConvertCusOrgUnits/ConvertedCusOrgUnit", icon: "fas fa-newspaper")
                 );
+            }
+
+            if (await context.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCus))
+            {
+                reportsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Reports_ConvertedCus, l["Menu:Reports:ConvertedCus"], "/Reports/Pa/ConvertedCuses/ConvertedCus", icon: "fas fa-newspaper"));
             }
 
             context.Menu.AddItem(reportsMenu);
         }
-        //π§◊˜¡˜
+
+        //Êï∞ÊçÆÂ§ÑÁêÜÂ∑•‰ΩúÊµÅ
         if (await context.IsGrantedAsync(DataPlanePermissions.WorkFlows.Default))
         {
             var workFlowMenu = new ApplicationMenuItem(DataPlaneMenus.WorkFlows, l["Menu:WorkFlows"], icon: "fas fa-cogs");
@@ -196,5 +204,6 @@ public class DataPlaneMenuContributor : IMenuContributor
             }
             context.Menu.AddItem(workFlowMenu);
         }
+
     }
 }

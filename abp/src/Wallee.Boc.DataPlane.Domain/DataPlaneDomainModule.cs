@@ -15,7 +15,7 @@ using Volo.Abp.PermissionManagement.OpenIddict;
 using Volo.Abp.SettingManagement;
 using Volo.Abp.TenantManagement;
 using Wallee.Boc.DataPlane.MultiTenancy;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Settings;
 
 namespace Wallee.Boc.DataPlane;
 

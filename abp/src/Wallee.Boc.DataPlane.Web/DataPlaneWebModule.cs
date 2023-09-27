@@ -39,7 +39,8 @@ using Wallee.Boc.DataPlane.Background;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Localization;
 using Wallee.Boc.DataPlane.Minio;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits.Dtos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 using Wallee.Boc.DataPlane.Web.Extensions;
 using Wallee.Boc.DataPlane.Web.Menus;
 using Wallee.Boc.DataPlane.Web.Settings;
@@ -222,6 +223,7 @@ public class DataPlaneWebModule : AbpModule
         {
             //options.ConventionalControllers.Create(typeof(DataPlaneApplicationModule).Assembly);
             options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateConvertedCusOrgUnitByFileDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateConvertedCusByFileDto));
         });
     }
 

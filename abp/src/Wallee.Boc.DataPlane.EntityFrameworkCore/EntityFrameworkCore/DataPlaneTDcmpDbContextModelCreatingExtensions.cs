@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore.Modeling;
 using Wallee.Boc.DataPlane.Dictionaries;
-using Wallee.Boc.DataPlane.Reports.ConvertCusOrgUnits;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -289,6 +290,23 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.Property(it => it.FourthLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.FifthLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.SixthLevel).HasColumnType("decimal(18,2)");
+                /* Configure more properties here */
+            });
+
+            builder.Entity<ConvertedCus>(b =>
+            {
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCus", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户明细"));
+                b.ConfigureByConvention();
+
+                b.HasKey(e => new
+                {
+                    e.DataDate,
+                    e.Cusidt,
+                });
+
+                b.Property(it => it.DepYavBal).HasColumnType("decimal(18,2)");
+                b.Property(it => it.DepCurBal).HasColumnType("decimal(18,2)");
+
                 /* Configure more properties here */
             });
         }
