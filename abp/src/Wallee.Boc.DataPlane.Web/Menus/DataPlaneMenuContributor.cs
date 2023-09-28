@@ -191,6 +191,11 @@ public class DataPlaneMenuContributor : IMenuContributor
                 reportsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Reports_ConvertedCus, l["Menu:Reports:ConvertedCus"], "/Reports/Pa/ConvertedCuses/ConvertedCus", icon: "fas fa-newspaper"));
             }
 
+            if (await context.IsGrantedAsync(DataPlanePermissions.Reports.CusOrgAdjusment))
+            {
+                reportsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Reports_CusOrgAdjusment, l["Menu:Reports:CusOrgAdjusment"], "/Reports/Pa/ConvertedCuses/CusOrgAdjusment", icon: "fas fa-newspaper"));
+            }
+
             context.Menu.AddItem(reportsMenu);
         }
 
@@ -204,6 +209,5 @@ public class DataPlaneMenuContributor : IMenuContributor
             }
             context.Menu.AddItem(workFlowMenu);
         }
-
     }
 }

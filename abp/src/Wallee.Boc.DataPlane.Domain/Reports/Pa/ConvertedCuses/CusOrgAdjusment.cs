@@ -1,4 +1,4 @@
-﻿using Volo.Abp.Domain.Entities;
+using Volo.Abp.Domain.Entities;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
 {

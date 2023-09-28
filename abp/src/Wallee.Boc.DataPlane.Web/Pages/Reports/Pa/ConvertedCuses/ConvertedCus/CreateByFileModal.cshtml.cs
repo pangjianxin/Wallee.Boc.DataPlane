@@ -12,7 +12,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus
         private readonly IConvertedCusAppService _convertedCusAppService;
 
         [BindProperty]
-        public CreateConvertedCusByFileViewModel ViewModel { get; set; } = default!;
+        public CreateEditConvertedCusByFileViewModel ViewModel { get; set; } = default!;
         public CreateByFileModalModel(IConvertedCusAppService convertedCusAppService)
         {
             _convertedCusAppService = convertedCusAppService;

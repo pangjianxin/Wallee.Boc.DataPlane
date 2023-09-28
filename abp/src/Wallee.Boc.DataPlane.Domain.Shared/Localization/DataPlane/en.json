@@ -528,6 +528,14 @@
     "ConvertedCusOrgName": "ConvertedCusOrgName",
     "CreateConvertedCus": "CreateConvertedCus",
     "EditConvertedCus": "EditConvertedCus",
-    "ConvertedCusDeletionConfirmationMessage": "Are you sure to delete the convertedCus {0}?"
+    "ConvertedCusDeletionConfirmationMessage": "Are you sure to delete the convertedCus {0}?",
+    "Permission:CusOrgAdjusment": "CusOrgAdjusment",
+    "Menu:CusOrgAdjusment": "MenuCusOrgAdjusment",
+    "CusOrgAdjusment": "CusOrgAdjusment",
+    "CusOrgAdjusmentCusidt": "CusOrgAdjusmentCusidt",
+    "CusOrgAdjusmentOrgidt": "CusOrgAdjusmentOrgidt",
+    "CreateCusOrgAdjusment": "CreateCusOrgAdjusment",
+    "EditCusOrgAdjusment": "EditCusOrgAdjusment",
+    "CusOrgAdjusmentDeletionConfirmationMessage": "Are you sure to delete the cusOrgAdjusment {0}?"
   }
 }

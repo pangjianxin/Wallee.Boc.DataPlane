@@ -35,4 +35,5 @@ public class DataPlaneMenus
     public const string Reports = Prefix + ".Reports";
     public const string Reports_ConvertedCusOrgUnit = Reports + ".ConvertedCusOrgUnit";
     public const string Reports_ConvertedCus = Reports + ".ConvertedCus";
+    public const string Reports_CusOrgAdjusment = Reports + ".CusOrgAdjusment";
 }

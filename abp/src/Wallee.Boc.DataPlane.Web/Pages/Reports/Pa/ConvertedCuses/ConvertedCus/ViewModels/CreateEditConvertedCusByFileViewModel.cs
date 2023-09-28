@@ -4,7 +4,7 @@ using Volo.Abp.Content;
 
 namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus.ViewModels;
 
-public class CreateConvertedCusByFileViewModel
+public class CreateEditConvertedCusByFileViewModel
 {
     [Required]
     [DynamicFormIgnore]

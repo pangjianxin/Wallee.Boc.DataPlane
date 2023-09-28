@@ -135,6 +135,10 @@ public class DataPlaneDbContext :
     /// 折效客户明细
     /// </summary>
     public DbSet<ConvertedCus> ConvertedCus { get; set; }
+    /// <summary>
+    /// 客户机构调整
+    /// </summary>
+    public DbSet<CusOrgAdjusment> CusOrgAdjusments { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
@@ -161,5 +165,19 @@ public class DataPlaneDbContext :
 
 
         
+
+
+        builder.Entity<CusOrgAdjusment>(b =>
+        {
+            b.ToTable(DataPlaneConsts.DbTablePrefix + "CusOrgAdjusments", DataPlaneConsts.DbSchema, table => table.HasComment("客户机构调整"));
+            b.ConfigureByConvention(); 
+            
+            b.HasKey(e => new
+            {
+                e.Cusidt,
+            });
+
+            /* Configure more properties here */
+        });
     }
 }

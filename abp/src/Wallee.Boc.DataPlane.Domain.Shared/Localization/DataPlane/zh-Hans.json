@@ -506,8 +506,12 @@
     "CreateConvertedCusOrgUnit": "添加记录",
     "EditConvertedCusOrgUnit": "编辑记录",
     "ConvertedCusOrgUnitDeletionConfirmationMessage": "确认删除该条折效记录{0}?",
+
     "Permission:Reports:ConvertedCus": "客户资产汇总",
     "Menu:Reports:ConvertedCus": "客户资产汇总",
-    "ConvertedCus": "客户资产汇总"
+    "ConvertedCus": "客户资产汇总",
+    "Permission:Reports:CusOrgAdjusment": "客户机构调整",
+    "Menu:Reports:CusOrgAdjusment": "客户机构调整",
+    "CusOrgAdjusment": "客户机构调整"
   }
 }

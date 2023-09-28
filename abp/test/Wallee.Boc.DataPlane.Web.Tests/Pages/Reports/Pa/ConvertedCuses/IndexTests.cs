@@ -14,7 +14,7 @@ public class Index_Tests : DataPlaneWebTestBase
         // Arrange
 
         // Act
-        var response = await GetResponseAsStringAsync("/ConvertedCus");
+        var response = await GetResponseAsStringAsync("/CusOrgAdjusment");
 
         // Assert
         response.ShouldNotBeNull();

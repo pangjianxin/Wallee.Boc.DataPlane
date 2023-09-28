@@ -224,6 +224,7 @@ public class DataPlaneWebModule : AbpModule
             //options.ConventionalControllers.Create(typeof(DataPlaneApplicationModule).Assembly);
             options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateConvertedCusOrgUnitByFileDto));
             options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateConvertedCusByFileDto));
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateUpdateCusOrgAdjusmentByFileDto));
         });
     }
 
