@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -21,6 +20,7 @@ public class CusOrgAdjusmentController : DataPlaneController, ICusOrgAdjusmentAp
         _service = service;
     }
 
+    [HttpPost]
     [Route("create-by-file")]
     public async Task CreateByFileAsync(CreateUpdateCusOrgAdjusmentByFileDto input)
     {

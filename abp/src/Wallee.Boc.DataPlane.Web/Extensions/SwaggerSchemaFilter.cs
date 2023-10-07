@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Wallee.Boc.DataPlane.Web.Extensions
 {
-    public class CreditSystemSwaggerSchemaFilter : ISchemaFilter
+    public class SwaggerSchemaFilter : ISchemaFilter
     {
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {

@@ -6,13 +6,13 @@ using Volo.Abp.DependencyInjection;
 
 namespace Wallee.Boc.DataPlane.Web.Extensions
 {
-    public class CreditSystemHttpContextWebClientInfoProvider : IWebClientInfoProvider, ITransientDependency
+    public class HttpContextWebClientInfoProvider : IWebClientInfoProvider, ITransientDependency
     {
-        protected ILogger<HttpContextWebClientInfoProvider> Logger { get; }
+        protected ILogger<Volo.Abp.AspNetCore.WebClientInfo.HttpContextWebClientInfoProvider> Logger { get; }
         protected IHttpContextAccessor HttpContextAccessor { get; }
 
-        public CreditSystemHttpContextWebClientInfoProvider(
-            ILogger<HttpContextWebClientInfoProvider> logger,
+        public HttpContextWebClientInfoProvider(
+            ILogger<Volo.Abp.AspNetCore.WebClientInfo.HttpContextWebClientInfoProvider> logger,
             IHttpContextAccessor httpContextAccessor)
         {
             Logger = logger;

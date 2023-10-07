@@ -24,6 +24,7 @@ namespace Wallee.Boc.DataPlane.Reports
             _convertedCusAppService = convertedCusAppService;
         }
 
+        [HttpPost]
         [Route("create-by-file")]
         public async Task CreateByFileAsync(CreateUpdateConvertedCusByFileDto input)
         {

@@ -81,6 +81,12 @@ public class DataPlaneWebModule : AbpModule
 
         PreConfigure<OpenIddictBuilder>(builder =>
         {
+            builder.AddServer(options =>
+            {
+                options.SetAccessTokenLifetime(TimeSpan.FromDays(1));
+                options.UseAspNetCore().DisableTransportSecurityRequirement();
+            });
+
             builder.AddValidation(options =>
             {
                 options.AddAudiences("DataPlane");
@@ -233,9 +239,11 @@ public class DataPlaneWebModule : AbpModule
         services.AddAbpSwaggerGen(
             options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo { Title = "DataPlane API", Version = "v1" });
+                options.SchemaFilter<SwaggerSchemaFilter>();
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "数据平台API", Version = "v1" });
                 options.DocInclusionPredicate((docName, description) => true);
-                options.CustomSchemaIds(type => type.FullName);
+                options.CustomSchemaIds(type => type.FriendlyId().Replace("[", "Of").Replace("]", ""));
+                options.CustomOperationIds(options => $"{options.ActionDescriptor.RouteValues["controller"]}{options.ActionDescriptor.RouteValues["action"]}");
             }
         );
     }
@@ -274,6 +282,7 @@ public class DataPlaneWebModule : AbpModule
         app.UseCookiePolicy();
         app.UseCorrelationId();
         app.UseStaticFiles();
+        app.UseCors();
         app.UseRouting();
         app.UseAuthentication();
         app.UseAbpOpenIddictValidation();

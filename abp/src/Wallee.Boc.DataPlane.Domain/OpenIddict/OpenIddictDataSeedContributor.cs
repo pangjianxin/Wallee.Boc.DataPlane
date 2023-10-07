@@ -38,7 +38,7 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         IOpenIddictScopeRepository openIddictScopeRepository,
         IOpenIddictScopeManager scopeManager,
         IPermissionDataSeeder permissionDataSeeder,
-        IStringLocalizer<OpenIddictResponse> l )
+        IStringLocalizer<OpenIddictResponse> l)
     {
         _configuration = configuration;
         _openIddictApplicationRepository = openIddictApplicationRepository;
@@ -60,8 +60,11 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
     {
         if (await _openIddictScopeRepository.FindByNameAsync("DataPlane") == null)
         {
-            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor {
-                Name = "DataPlane", DisplayName = "DataPlane API", Resources = { "DataPlane" }
+            await _scopeManager.CreateAsync(new OpenIddictScopeDescriptor
+            {
+                Name = "DataPlane",
+                DisplayName = "DataPlane API",
+                Resources = { "DataPlane" }
             });
         }
     }
@@ -79,9 +82,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
 
         var configurationSection = _configuration.GetSection("OpenIddict:Applications");
 
-       
 
-        //Console Test / Angular Client
+
+        //Vue Client
         var consoleAndAngularClientId = configurationSection["DataPlane_App:ClientId"];
         if (!consoleAndAngularClientId.IsNullOrWhiteSpace())
         {
@@ -90,12 +93,10 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
                 name: consoleAndAngularClientId!,
                 type: OpenIddictConstants.ClientTypes.Public,
                 consentType: OpenIddictConstants.ConsentTypes.Implicit,
-                displayName: "Console Test / Angular Application",
+                displayName: "Vue Client",
                 secret: null,
                 grantTypes: new List<string> {
-                    OpenIddictConstants.GrantTypes.AuthorizationCode,
                     OpenIddictConstants.GrantTypes.Password,
-                    OpenIddictConstants.GrantTypes.ClientCredentials,
                     OpenIddictConstants.GrantTypes.RefreshToken
                 },
                 scopes: commonScopes,
@@ -151,8 +152,9 @@ public class OpenIddictDataSeedContributor : IDataSeedContributor, ITransientDep
         }
 
         var client = await _openIddictApplicationRepository.FindByClientIdAsync(name);
-        
-        var application = new AbpApplicationDescriptor {
+
+        var application = new AbpApplicationDescriptor
+        {
             ClientId = name,
             Type = type,
             ClientSecret = secret,
