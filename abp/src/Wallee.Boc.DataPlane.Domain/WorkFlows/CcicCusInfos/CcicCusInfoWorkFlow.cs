@@ -41,7 +41,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos
         {
             get
             {
-                return Enum.GetValues<CcicCusInfoWorkFlowStatus>().Count();
+                return Enum.GetValues<CcicCusInfoWorkFlowStatus>().Length;
             }
         }
         /// <summary>

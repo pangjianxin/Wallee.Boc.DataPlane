@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Timing;
@@ -10,6 +11,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.Converted
     public class DownloadFileModalModel : DataPlanePageModel
     {
         [BindProperty]
+        [Display(Name = "数据日期")]
         public DateTime DataDate { get; set; }
 
         private readonly IConvertedCusOrgUnitAppService _convertedCusOrgUnitAppService;

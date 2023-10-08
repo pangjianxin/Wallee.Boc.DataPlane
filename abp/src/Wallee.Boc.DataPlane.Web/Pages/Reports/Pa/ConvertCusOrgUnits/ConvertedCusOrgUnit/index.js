@@ -2,8 +2,8 @@ $(function () {
     var l = abp.localization.getResource('DataPlane');
 
     var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
-    var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
-    var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/ConvertCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
+    var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/Pa/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
+    var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
 
     var dataTable = $('#ConvertedCusOrgUnitTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -105,6 +105,7 @@ $(function () {
     });
 
     downloadFileModal.onResult(function (event, response) {
+        console.log(response.responseText);
         window.open(`/api/app/converted-cus-org-unit/download/${response.responseText}`, "_self");
     });
 });

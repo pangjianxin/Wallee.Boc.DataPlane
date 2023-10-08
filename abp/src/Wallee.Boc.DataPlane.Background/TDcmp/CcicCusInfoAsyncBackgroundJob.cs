@@ -111,7 +111,8 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
 
                 sqlCommand.Transaction = tran;
 
-                sqlCommand.CommandText = $"UPDATE dbo.AppCcicCusInfoWorkFlows SET Comment=N'{exception.Message.Replace("'", "''")}' WHERE ID='{workFlow.Id}'";
+                sqlCommand.CommandText = @$"UPDATE dbo.AppCcicCusInfoWorkFlows SET Comment=N'{exception.Message.Replace("'", "''")}',
+                                            LastModificationTime='{Clock.Now:yyyy-MM-dd HH:mm:ss}'  WHERE ID='{workFlow.Id}'";
 
                 await sqlCommand.ExecuteNonQueryAsync();
 

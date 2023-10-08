@@ -275,6 +275,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
+            //折效客户的机构分布
             builder.Entity<ConvertedCusOrgUnit>(b =>
             {
                 b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCusOrgUnits", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户机构分布情况"));
@@ -293,6 +294,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 /* Configure more properties here */
             });
 
+            //折效客户明细
             builder.Entity<ConvertedCus>(b =>
             {
                 b.ToTable(DataPlaneConsts.DbTablePrefix + "ConvertedCus", DataPlaneConsts.DbSchema, table => table.HasComment("折效客户明细"));
@@ -306,6 +308,20 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.Property(it => it.DepYavBal).HasColumnType("decimal(18,2)");
                 b.Property(it => it.DepCurBal).HasColumnType("decimal(18,2)");
+
+                /* Configure more properties here */
+            });
+
+            //客户归属重新分配表
+            builder.Entity<CusOrgAdjusment>(b =>
+            {
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "CusOrgAdjusments", DataPlaneConsts.DbSchema, table => table.HasComment("客户机构调整"));
+                b.ConfigureByConvention();
+
+                b.HasKey(e => new
+                {
+                    e.Cusidt,
+                });
 
                 /* Configure more properties here */
             });

@@ -37,7 +37,7 @@
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.WorkFlows.CcicCusInfo))
                 {
                     <abp-button id="NewTDcmpWorkFlowButton"
-                                text="@L["CreateTDcmpWorkFlow"].Value"
+                                text="添加信息(仅限管理员)"
                                 icon="plus"
                                 button-type="Primary" />
                 }

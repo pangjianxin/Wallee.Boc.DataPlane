@@ -162,22 +162,5 @@ public class DataPlaneDbContext :
         builder.ConfigureTenantManagement();
         builder.ConfigureTDcmp();
         builder.ConfigureDataPlane();
-
-
-        
-
-
-        builder.Entity<CusOrgAdjusment>(b =>
-        {
-            b.ToTable(DataPlaneConsts.DbTablePrefix + "CusOrgAdjusments", DataPlaneConsts.DbSchema, table => table.HasComment("客户机构调整"));
-            b.ConfigureByConvention(); 
-            
-            b.HasKey(e => new
-            {
-                e.Cusidt,
-            });
-
-            /* Configure more properties here */
-        });
     }
 }
