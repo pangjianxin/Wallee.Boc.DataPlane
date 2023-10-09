@@ -7,7 +7,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 /// 客户机构调整
 /// </summary>
 [Serializable]
-public class CusOrgAdjusmentDto : EntityDto
+public class CusOrgAdjusmentDto : AuditedEntityDto
 {
     public string Cusidt { get; set; } = default!;
 

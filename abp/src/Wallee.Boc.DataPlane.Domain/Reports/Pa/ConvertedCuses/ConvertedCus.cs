@@ -37,6 +37,10 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         /// </summary>
         public string OrgName { get; set; } = default!;
 
+        public ConvertedCus()
+        {
+        }
+
         public override object[] GetKeys()
         {
             return new object[]
@@ -45,10 +49,6 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
             };
         }
 
-        public ConvertedCus()
-        {
-        }
-
-
+        
     }
 }

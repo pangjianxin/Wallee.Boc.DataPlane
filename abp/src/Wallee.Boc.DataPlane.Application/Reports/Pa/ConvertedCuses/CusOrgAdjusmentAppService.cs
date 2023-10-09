@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
-using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
@@ -45,10 +44,10 @@ public class CusOrgAdjusmentAppService : AbstractKeyReadOnlyAppService<CusOrgAdj
     public async Task CreateByFileAsync(CreateUpdateCusOrgAdjusmentByFileDto input)
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        using var streamReader = new StreamReader(input.File.GetStream(), encoding: Encoding.GetEncoding("GB2312"));
+        using var streamReader = new StreamReader(input.File.GetStream(), encoding: Encoding.UTF8);
         using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
         {
-            HasHeaderRecord = true,
+            HasHeaderRecord = false,
             TrimOptions = TrimOptions.Trim | TrimOptions.InsideQuotes,
             ShouldSkipRecord = args =>
             {
@@ -76,7 +75,7 @@ public class CusOrgAdjusmentAppService : AbstractKeyReadOnlyAppService<CusOrgAdj
     }
 }
 
-internal class CusOrgAdjusmentReadingMap : ClassMap<ConvertedCus>
+internal class CusOrgAdjusmentReadingMap : ClassMap<CusOrgAdjusment>
 {
     public CusOrgAdjusmentReadingMap()
     {
