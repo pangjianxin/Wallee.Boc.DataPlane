@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 
@@ -22,6 +23,7 @@ public class CcicRegisterController : DataPlaneController, ICcicRegisterAppServi
 
     [HttpGet]
     [Route("{CUSNO}/{LGPER_CODE}")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicRegister)]
     public virtual Task<CcicRegisterDto> GetAsync(CcicRegisterKey id)
     {
         return _service.GetAsync(id);
@@ -29,6 +31,7 @@ public class CcicRegisterController : DataPlaneController, ICcicRegisterAppServi
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicRegister)]
     public virtual Task<PagedResultDto<CcicRegisterDto>> GetListAsync(CcicRegisterGetListInput input)
     {
         return _service.GetListAsync(input);

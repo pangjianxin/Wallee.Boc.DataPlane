@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.TDcmp.CcicNames.Dtos;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicNames
@@ -21,12 +22,14 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicNames
 
         [HttpGet]
         [Route("{CUSNO}/{CUS_NAME_LANG}/{LGPER_CODE}")]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicName)]
         public async Task<CcicNameDto> GetAsync(CcicNameKey id)
         {
             return await _ccicNameAppService.GetAsync(id);
         }
 
         [HttpGet]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicName)]
         public async Task<PagedResultDto<CcicNameDto>> GetListAsync(CcicNameGetListInput input)
         {
             return await _ccicNameAppService.GetListAsync(input);

@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos.Dtos;
 
@@ -22,6 +23,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows
         }
 
         [HttpPost]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task<CcicCusInfoWorkFlowDto> CreateAsync(CreateUpdateCcicCusInfoWorkFlowDto input)
         {
             return await _ccicCusInfoWorkFlowAppService.CreateAsync(input);
@@ -29,6 +31,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task DeleteAsync(Guid id)
         {
             await _ccicCusInfoWorkFlowAppService.DeleteAsync(id);
@@ -36,6 +39,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task<CcicCusInfoWorkFlowDto> GetAsync(Guid id)
         {
             return await _ccicCusInfoWorkFlowAppService.GetAsync(id);
@@ -43,12 +47,14 @@ namespace Wallee.Boc.DataPlane.WorkFlows
 
         [HttpGet]
         [Route("executing")]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task<ExecutingCcicCusInfoWorkFlowDto?> GetExecutingAsync()
         {
             return await _ccicCusInfoWorkFlowAppService.GetExecutingAsync();
         }
 
         [HttpGet]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task<PagedResultDto<CcicCusInfoWorkFlowDto>> GetListAsync(CcicCusInfoWorkFlowGetListInput input)
         {
             return await _ccicCusInfoWorkFlowAppService.GetListAsync(input);
@@ -56,6 +62,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(DataPlanePermissions.WorkFlows.CcicCusInfo)]
         public async Task<CcicCusInfoWorkFlowDto> UpdateAsync(Guid id, CreateUpdateCcicCusInfoWorkFlowDto input)
         {
             return await _ccicCusInfoWorkFlowAppService.UpdateAsync(id, input);

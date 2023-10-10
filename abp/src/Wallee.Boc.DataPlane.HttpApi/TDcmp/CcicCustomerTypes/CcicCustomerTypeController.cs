@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes.Dtos;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes
@@ -22,12 +23,14 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicCustomerTypes
 
         [HttpGet]
         [Route("{CUSNO}/{LGPER_CODE}")]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicCustomerType)]
         public async Task<CcicCustomerTypeDto> GetAsync(CcicCustomerTypeKey id)
         {
             return await _ccicCustomerTypeAppService.GetAsync(id);
         }
 
         [HttpGet]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicCustomerType)]
         public async Task<PagedResultDto<CcicCustomerTypeDto>> GetListAsync(CcicCustomerTypeGetListInput input)
         {
             return await _ccicCustomerTypeAppService.GetListAsync(input);

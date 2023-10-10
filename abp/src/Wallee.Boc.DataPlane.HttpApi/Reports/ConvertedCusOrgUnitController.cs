@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Content;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 
@@ -24,6 +25,7 @@ namespace Wallee.Boc.DataPlane.Reports
 
         [HttpPost]
         [Route("create-by-file")]
+        [Authorize(DataPlanePermissions.Reports.ConvertedCusOrgUnit)]
         public async Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input)
         {
             await _convertedCusOrgUnitAppService.CreateByFileAsync(input);
@@ -31,6 +33,7 @@ namespace Wallee.Boc.DataPlane.Reports
 
         [HttpGet]
         [Route("precheck-date")]
+        [Authorize(DataPlanePermissions.Reports.ConvertedCusOrgUnit)]
         public async Task<bool> DataExistedAsync(DateTime dataDate)
         {
             return await _convertedCusOrgUnitAppService.DataExistedAsync(dataDate);
@@ -38,6 +41,7 @@ namespace Wallee.Boc.DataPlane.Reports
 
         [HttpGet]
         [Route("download/{dataDate}")]
+        [Authorize(DataPlanePermissions.Reports.ConvertedCusOrgUnit)]
         public async Task<IRemoteStreamContent> DownloadFileAsync(DateTime dataDate)
         {
             return await _convertedCusOrgUnitAppService.DownloadFileAsync(dataDate);
@@ -45,6 +49,7 @@ namespace Wallee.Boc.DataPlane.Reports
 
         [HttpGet]
         [Route("{DataDate}/{Orgidt}")]
+        [Authorize(DataPlanePermissions.Reports.ConvertedCusOrgUnit)]
         public async Task<ConvertedCusOrgUnitDto> GetAsync(ConvertedCusOrgUnitKey id)
         {
             return await _convertedCusOrgUnitAppService.GetAsync(id);
@@ -52,6 +57,7 @@ namespace Wallee.Boc.DataPlane.Reports
 
         [HttpGet]
         [Route("")]
+        [Authorize(DataPlanePermissions.Reports.ConvertedCusOrgUnit)]
         public async Task<PagedResultDto<ConvertedCusOrgUnitDto>> GetListAsync(ConvertedCusOrgUnitGetListInput input)
         {
             return await _convertedCusOrgUnitAppService.GetListAsync(input);

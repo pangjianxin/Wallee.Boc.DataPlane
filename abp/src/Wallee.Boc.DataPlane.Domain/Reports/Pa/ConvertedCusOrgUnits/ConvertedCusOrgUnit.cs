@@ -1,12 +1,13 @@
 using System;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Auditing;
+using Volo.Abp.Domain.Entities;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits
 {
     /// <summary>
     /// 折效客户机构分布情况
     /// </summary>
-    public class ConvertedCusOrgUnit : AuditedAggregateRoot
+    public class ConvertedCusOrgUnit : AggregateRoot, IModificationAuditedObject
     {
         public DateTime DataDate { get; set; }
         public string Orgidt { get; set; } = default!;
@@ -19,6 +20,9 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits
         public decimal FifthLevel { get; set; }
         public decimal SixthLevel { get; set; }
 
+        public Guid? LastModifierId { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
 
         public ConvertedCusOrgUnit()
         {

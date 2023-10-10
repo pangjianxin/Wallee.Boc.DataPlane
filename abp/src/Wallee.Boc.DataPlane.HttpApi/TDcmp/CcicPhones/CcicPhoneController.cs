@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 
@@ -22,6 +23,7 @@ public class CcicPhoneController : DataPlaneController, ICcicPhoneAppService
 
     [HttpGet]
     [Route("{CUSNO}/{UNIT_TEL_TP}/{CNTEL_SN}/{LGPER_CODE}")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicPhone)]
     public virtual Task<CcicPhoneDto> GetAsync(CcicPhoneKey id)
     {
         return _service.GetAsync(id);
@@ -29,6 +31,7 @@ public class CcicPhoneController : DataPlaneController, ICcicPhoneAppService
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicPhone)]
     public virtual Task<PagedResultDto<CcicPhoneDto>> GetListAsync(CcicPhoneGetListInput input)
     {
         return _service.GetListAsync(input);

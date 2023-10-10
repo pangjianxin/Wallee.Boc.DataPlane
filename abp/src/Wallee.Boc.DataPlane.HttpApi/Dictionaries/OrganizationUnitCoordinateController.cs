@@ -1,14 +1,17 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Wallee.Boc.DataPlane.Dictionaries.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.Dictionaries;
 
 [RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
 [Route("/api/app/dictionaries/organization-unit-coordinate")]
+[Authorize]
 public class OrganizationUnitCoordinateController : DataPlaneController, IOrganizationUnitCoordinateAppService
 {
     private readonly IOrganizationUnitCoordinateAppService _service;
@@ -20,6 +23,7 @@ public class OrganizationUnitCoordinateController : DataPlaneController, IOrgani
 
     [HttpPost]
     [Route("")]
+    [Authorize(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)]
     public virtual Task<OrganizationUnitCoordinateDto> CreateAsync(CreateUpdateOrganizationUnitCoordinateDto input)
     {
         return _service.CreateAsync(input);
@@ -27,6 +31,7 @@ public class OrganizationUnitCoordinateController : DataPlaneController, IOrgani
 
     [HttpPut]
     [Route("{id}")]
+    [Authorize(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)]
     public virtual Task<OrganizationUnitCoordinateDto> UpdateAsync(Guid id, CreateUpdateOrganizationUnitCoordinateDto input)
     {
         return _service.UpdateAsync(id, input);
@@ -34,6 +39,7 @@ public class OrganizationUnitCoordinateController : DataPlaneController, IOrgani
 
     [HttpDelete]
     [Route("{id}")]
+    [Authorize(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)]
     public virtual Task DeleteAsync(Guid id)
     {
         return _service.DeleteAsync(id);
@@ -41,6 +47,7 @@ public class OrganizationUnitCoordinateController : DataPlaneController, IOrgani
 
     [HttpGet]
     [Route("{id}")]
+    [Authorize(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)]
     public virtual Task<OrganizationUnitCoordinateDto> GetAsync(Guid id)
     {
         return _service.GetAsync(id);
@@ -48,6 +55,7 @@ public class OrganizationUnitCoordinateController : DataPlaneController, IOrgani
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)]
     public virtual Task<PagedResultDto<OrganizationUnitCoordinateDto>> GetListAsync(OrganizationUnitCoordinateGetListInput input)
     {
         return _service.GetListAsync(input);

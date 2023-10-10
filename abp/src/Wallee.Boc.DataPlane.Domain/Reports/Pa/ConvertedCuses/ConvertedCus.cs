@@ -1,12 +1,13 @@
 using System;
-using Volo.Abp.Domain.Entities.Auditing;
+using Volo.Abp.Auditing;
+using Volo.Abp.Domain.Entities;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
 {
     /// <summary>
     /// 折效客户明细
     /// </summary>
-    public class ConvertedCus : AuditedAggregateRoot
+    public class ConvertedCus : AggregateRoot, IModificationAuditedObject
     {
         /// <summary>
         /// 数据日期
@@ -37,6 +38,10 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         /// </summary>
         public string OrgName { get; set; } = default!;
 
+        public Guid? LastModifierId { get; set; }
+
+        public DateTime? LastModificationTime { get; set; }
+
         public ConvertedCus()
         {
         }
@@ -49,6 +54,6 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
             };
         }
 
-        
+
     }
 }

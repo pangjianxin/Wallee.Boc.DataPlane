@@ -13,8 +13,8 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 namespace Wallee.Boc.DataPlane.Migrations
 {
     [DbContext(typeof(DataPlaneDbContext))]
-    [Migration("20231009091936_ModCurOrgAdjusment")]
-    partial class ModCurOrgAdjusment
+    [Migration("20231010010839_ModPaReports")]
+    partial class ModPaReports
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1748,14 +1748,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("ExtraProperties");
@@ -1816,14 +1808,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
 
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
-
                     b.Property<string>("CusName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1872,14 +1856,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
                         .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<DateTime>("CreationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("CreationTime");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CreatorId");
 
                     b.Property<string>("ExtraProperties")
                         .HasColumnType("nvarchar(max)")

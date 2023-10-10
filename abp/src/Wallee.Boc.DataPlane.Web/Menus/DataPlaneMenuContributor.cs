@@ -6,6 +6,7 @@ using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
 using Volo.Abp.UI.Navigation;
 using Wallee.Boc.DataPlane.Permissions;
+using Microsoft.Extensions.Localization;
 
 namespace Wallee.Boc.DataPlane.Web.Menus;
 
@@ -21,49 +22,18 @@ public class DataPlaneMenuContributor : IMenuContributor
 
     private async Task ConfigureMainMenuAsync(MenuConfigurationContext context)
     {
-        var administration = context.Menu.GetAdministration();
         var l = context.GetLocalizer<DataPlaneResource>();
+        //administration
+        await SetAdministrationMenuAsync(context, l);
+        //home
+        context.Menu.Items.Insert(0, new ApplicationMenuItem(DataPlaneMenus.Home, l["Menu:Home"], "~/", icon: "fas fa-home", order: 0));
+        //dashboard
+        context.Menu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Dashboard, l["Menu:Dashboard"], "/Dashboard", icon: "fas fa-tachometer-alt", order: 1));
 
-        context.Menu.Items.Insert(
-            0,
-            new ApplicationMenuItem(
-                DataPlaneMenus.Home,
-                l["Menu:Home"],
-                "~/",
-                icon: "fas fa-home",
-                order: 0
-            )
-        );
-
-        if (MultiTenancyConsts.IsEnabled)
-        {
-            //administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
-        }
-        else
-        {
-            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
-        }
-
-        administration.SetSubItemOrder(IdentityMenuNames.GroupName, 2);
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
-
-        var backgroundJobsMenu = new ApplicationMenuItem(DataPlaneMenus.BackgroundJobs, l["Menu:BackgroundJobs"], icon: "fas fa-tasks", order: 4, requiredPermissionName: DataPlanePermissions.BackgroundJobs.Default);
-        backgroundJobsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.BackgroundJobs_Index, l["Menu:BackgroundJobs:Index"], icon: "fas fa-tasks", order: 1, url: "/BackgroundJobs/Index", requiredPermissionName: DataPlanePermissions.BackgroundJobs.Default));
-        backgroundJobsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.BackgroundJobs_Operation, l["Menu:BackgroundJobs:Operation"], icon: "fas fa-cog", order: 2, url: "/BackgroundJobs/Operation", requiredPermissionName: DataPlanePermissions.BackgroundJobs.Default));
-        administration.AddItem(backgroundJobsMenu);
-
-        if (await context.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Default))
-        {
-            var identity = administration.GetMenuItem(IdentityMenuNames.GroupName);
-            identity.AddItem(new ApplicationMenuItem(DataPlaneMenus.OrganizationUnit, l["Menu:OrganizationUnit"], "/Identity/OrganizationUnits"));
-        }
-
-        context.Menu.AddItem(new ApplicationMenuItem(DataPlaneMenus.Dashboard, l["Menu:Dashboard"], "/Dashboard", icon: "fas fa-tachometer-alt"));
-
-        //TDCMP���
+        //TDCMP
         if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpReports.Default))
         {
-            var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list");
+            var tDcmpMenu = new ApplicationMenuItem(name: DataPlaneMenus.TDcmp, displayName: l["Menu:TDcmp"], icon: "fas fa-list", order: 2);
 
             if (await context.IsGrantedAsync(DataPlanePermissions.TDcmpReports.CcicBasic))
             {
@@ -159,25 +129,10 @@ public class DataPlaneMenuContributor : IMenuContributor
             context.Menu.AddItem(tDcmpMenu);
         }
 
-        //字典管理
-        if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.Default))
-        {
-            var dictionariesMenu = new ApplicationMenuItem(DataPlaneMenus.Dictionaries, l["Menu:Dictionaries"], icon: "fas fa-book");
-
-            if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate))
-            {
-                dictionariesMenu.AddItem(
-                    new ApplicationMenuItem(DataPlaneMenus.OrganizationUnitCoordinate, l["Menu:Dictionaries:OrganizationUnitCoordinates"], "/Dictionaries/OrganizationUnitCoordinate", order: 1, icon: "fas fa-building", requiredPermissionName: DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)
-                );
-            }
-
-            context.Menu.AddItem(dictionariesMenu);
-        }
-
         //系统报表
         if (await context.IsGrantedAsync(DataPlanePermissions.Reports.Defaults))
         {
-            var reportsMenu = new ApplicationMenuItem(DataPlaneMenus.Reports, l["Menu:Reports"], icon: "fas fa-newspaper");
+            var reportsMenu = new ApplicationMenuItem(DataPlaneMenus.Reports, l["Menu:Reports"], icon: "fas fa-newspaper", order: 4);
 
             if (await context.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
             {
@@ -199,15 +154,60 @@ public class DataPlaneMenuContributor : IMenuContributor
             context.Menu.AddItem(reportsMenu);
         }
 
+        //字典管理
+        if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.Default))
+        {
+            var dictionariesMenu = new ApplicationMenuItem(DataPlaneMenus.Dictionaries, l["Menu:Dictionaries"], icon: "fas fa-book", order: 5);
+
+            if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate))
+            {
+                dictionariesMenu.AddItem(
+                    new ApplicationMenuItem(DataPlaneMenus.OrganizationUnitCoordinate, l["Menu:Dictionaries:OrganizationUnitCoordinates"], "/Dictionaries/OrganizationUnitCoordinate", order: 1, icon: "fas fa-building", requiredPermissionName: DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate)
+                );
+            }
+
+            context.Menu.AddItem(dictionariesMenu);
+        }
+
         //数据处理工作流
         if (await context.IsGrantedAsync(DataPlanePermissions.WorkFlows.Default))
         {
-            var workFlowMenu = new ApplicationMenuItem(DataPlaneMenus.WorkFlows, l["Menu:WorkFlows"], icon: "fas fa-cogs");
+            var workFlowMenu = new ApplicationMenuItem(DataPlaneMenus.WorkFlows, l["Menu:WorkFlows"], icon: "fas fa-cogs", order: 6);
             if (await context.IsGrantedAsync(DataPlanePermissions.WorkFlows.CcicCusInfo))
             {
                 workFlowMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.WorkFlows_CcicCusInfos, l["Menu:WorkFlows:CcicCusInfo"], url: "/WorkFlows/CcicCusInfos", icon: "fas fa-cog", order: 1));
             }
             context.Menu.AddItem(workFlowMenu);
         }
+
+
+    }
+
+    private async Task SetAdministrationMenuAsync(MenuConfigurationContext context, IStringLocalizer l)
+    {
+        var administration = context.Menu.GetAdministration();
+
+        if (MultiTenancyConsts.IsEnabled)
+        {
+            //administration.SetSubItemOrder(TenantManagementMenuNames.GroupName, 1);
+        }
+        else
+        {
+            administration.TryRemoveMenuItem(TenantManagementMenuNames.GroupName);
+        }
+
+        var backgroundJobsMenu = new ApplicationMenuItem(DataPlaneMenus.BackgroundJobs, l["Menu:BackgroundJobs"], icon: "fas fa-tasks", order: 4, requiredPermissionName: DataPlanePermissions.BackgroundJobs.Default);
+
+        backgroundJobsMenu.AddItem(new ApplicationMenuItem(DataPlaneMenus.BackgroundJobs_Index, l["Menu:BackgroundJobs:Index"], icon: "fas fa-tasks", order: 1, url: "/BackgroundJobs/Index", requiredPermissionName: DataPlanePermissions.BackgroundJobs.Default));
+
+        administration.AddItem(backgroundJobsMenu);
+
+        if (await context.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Default))
+        {
+            var identity = administration.GetMenuItem(IdentityMenuNames.GroupName);
+
+            identity.AddItem(new ApplicationMenuItem(DataPlaneMenus.OrganizationUnit, l["Menu:OrganizationUnit"], "/Identity/OrganizationUnits"));
+        }
+        administration.Order = 10000;
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicPersonalRelations;
 
@@ -22,6 +23,7 @@ public class CcicPersonalRelationController : DataPlaneController, ICcicPersonal
 
     [HttpGet]
     [Route("{CUSNO}/{REL_RL}/{PRINT_CUSNO_YARD}/{LGPER_CODE}")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicPersonalRelation)]
     public virtual Task<CcicPersonalRelationDto> GetAsync(CcicPersonalRelationKey id)
     {
         return _service.GetAsync(id);
@@ -29,6 +31,7 @@ public class CcicPersonalRelationController : DataPlaneController, ICcicPersonal
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicPersonalRelation)]
     public virtual Task<PagedResultDto<CcicPersonalRelationDto>> GetListAsync(CcicPersonalRelationGetListInput input)
     {
         return _service.GetListAsync(input);

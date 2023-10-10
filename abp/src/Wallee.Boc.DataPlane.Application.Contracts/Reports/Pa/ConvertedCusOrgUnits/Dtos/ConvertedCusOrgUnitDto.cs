@@ -1,5 +1,6 @@
 using System;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Auditing;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 
@@ -7,7 +8,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 /// 折效客户机构分布情况
 /// </summary>
 [Serializable]
-public class ConvertedCusOrgUnitDto : AuditedEntityDto<Guid>
+public class ConvertedCusOrgUnitDto : EntityDto, IModificationAuditedObject
 {
     public string Label { get; set; } = default!;
 
@@ -27,4 +28,8 @@ public class ConvertedCusOrgUnitDto : AuditedEntityDto<Guid>
 
     public decimal SixthLevel { get; set; }
     public DateTime DataDate { get; set; }
+
+    public Guid? LastModifierId { get; set; }
+
+    public DateTime? LastModificationTime { get; set; }
 }

@@ -59,6 +59,9 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         systemReportsPermission.AddChild(DataPlanePermissions.Reports.ConvertedCusOrgUnit, L("Permission:Reports:ConvertedCusOrgUnit"));
         systemReportsPermission.AddChild(DataPlanePermissions.Reports.ConvertedCus, L("Permission:Reports:ConvertedCus"));
         systemReportsPermission.AddChild(DataPlanePermissions.Reports.CusOrgAdjusment, L("Permission:Reports:CusOrgAdjusment"));
+
+        var dashboardPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dashboard.Default, L("Permission:Dashboad"));
+        dashboardPermission.AddChild(DataPlanePermissions.Dashboard.ConvertedCusOrgUnit, L("Permission:Dashboard:ConvertedCusOrgUnit"));
     }
 
     private static LocalizableString L(string name)

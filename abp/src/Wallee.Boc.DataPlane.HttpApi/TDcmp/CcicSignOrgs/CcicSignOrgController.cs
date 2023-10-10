@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 
@@ -22,6 +23,7 @@ public class CcicSignOrgController : DataPlaneController, ICcicSignOrgAppService
 
     [HttpGet]
     [Route("{CUSNO}/{LGPER_CODE}")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicSignOrg)]
     public virtual Task<CcicSignOrgDto> GetAsync(CcicSignOrgKey id)
     {
         return _service.GetAsync(id);
@@ -29,6 +31,7 @@ public class CcicSignOrgController : DataPlaneController, ICcicSignOrgAppService
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicSignOrg)]
     public virtual Task<PagedResultDto<CcicSignOrgDto>> GetListAsync(CcicSignOrgGetListInput input)
     {
         return _service.GetListAsync(input);

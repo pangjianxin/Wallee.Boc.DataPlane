@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics.Dtos;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -22,6 +23,7 @@ public class CcicBasicController : DataPlaneController, ICcicBasicAppService
 
     [HttpGet]
     [Route("{CUSNO}/{LGPER_CODE}")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicBasic)]
     public virtual Task<CcicBasicDto> GetAsync(CcicBasicKey id)
     {
         return _service.GetAsync(id);
@@ -29,6 +31,7 @@ public class CcicBasicController : DataPlaneController, ICcicBasicAppService
 
     [HttpGet]
     [Route("")]
+    [Authorize(DataPlanePermissions.TDcmpReports.CcicBasic)]
     public virtual Task<PagedResultDto<CcicBasicDto>> GetListAsync(CcicBasicGetListInput input)
     {
         return _service.GetListAsync(input);

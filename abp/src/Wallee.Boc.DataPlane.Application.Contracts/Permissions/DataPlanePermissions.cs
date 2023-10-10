@@ -67,4 +67,10 @@ public static class DataPlanePermissions
         public const string ConvertedCus = Defaults + ".ConvertedCus";
         public const string CusOrgAdjusment = Defaults + ".CusOrgAdjusment";
     }
+
+    public class Dashboard
+    {
+        public const string Default = GroupName + ".Dashborad";
+        public const string ConvertedCusOrgUnit = Default + ".ConvertedCusOrg";
+    }
 }

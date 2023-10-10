@@ -11,13 +11,13 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 
 public class CusOrgAdjusmentRepository : EfCoreRepository<DataPlaneDbContext, CusOrgAdjusment>, ICusOrgAdjusmentRepository
 {
-    private readonly IClock _clock;
+    public IClock Clock { get; set; }
 
     public CusOrgAdjusmentRepository(
         IDbContextProvider<DataPlaneDbContext> dbContextProvider,
         IClock clock) : base(dbContextProvider)
     {
-        _clock = clock;
+        Clock = clock;
     }
     public async Task UpsertAsync(IEnumerable<CusOrgAdjusment> convertedCuses)
     {
@@ -27,7 +27,7 @@ public class CusOrgAdjusmentRepository : EfCoreRepository<DataPlaneDbContext, Cu
            {
                Cusidt = cur.Cusidt,
                Orgidt = cur.Orgidt,
-               LastModificationTime = _clock.Now
+               LastModificationTime = Clock.Now
            })
            .RunAsync();
     }

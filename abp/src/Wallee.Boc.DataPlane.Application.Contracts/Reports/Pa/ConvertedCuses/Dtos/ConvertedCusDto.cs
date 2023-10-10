@@ -1,5 +1,6 @@
 using System;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Auditing;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
@@ -7,7 +8,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 /// 折效客户明细
 /// </summary>
 [Serializable]
-public class ConvertedCusDto : AuditedEntityDto
+public class ConvertedCusDto : EntityDto, IModificationAuditedObject
 {
     /// <summary>
     /// 数据日期
@@ -37,4 +38,8 @@ public class ConvertedCusDto : AuditedEntityDto
     /// 所属机构名称
     /// </summary>
     public string OrgName { get; set; } = default!;
+
+    public Guid? LastModifierId { get; set; }
+
+    public DateTime? LastModificationTime { get; set; }
 }

@@ -89,6 +89,17 @@ $(function () {
                 title: l('ConvertedCusOrgUnitSixthLevel'),
                 data: "sixthLevel"
             },
+            {
+                title: "最后维护日期",
+                data: "lastModificationTime",
+                render: function (data) {
+                    var dataDate = luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toFormat("yyyy-MM-dd HH:mm:ss");
+                    return `<span class="badge bg-success">${dataDate}</span>`;
+                }
+            }
         ]
     }));
 

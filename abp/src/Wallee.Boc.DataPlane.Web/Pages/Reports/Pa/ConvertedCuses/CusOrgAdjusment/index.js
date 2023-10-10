@@ -39,23 +39,23 @@ $(function () {
                 }
             },
             {
-                title: "创建日期",
-                data: "creationTime",
-                render: function (data) {
-                    var dataDate = luxon
-                        .DateTime
-                        .fromISO(data, { locale: abp.localization.currentCulture.name })
-                        .toLocaleString(luxon.DateTime.DATE_SHORT);
-                    return `<span class="badge bg-success">${dataDate}</span>`;
-                }
-            },
-            {
                 title: "客户号",
                 data: "cusidt"
             },
             {
                 title: "调整后的机构号",
                 data: "orgidt"
+            },
+            {
+                title: "最后维护日期",
+                data: "lastModificationTime",
+                render: function (data) {
+                    var dataDate = luxon
+                        .DateTime
+                        .fromISO(data, { locale: abp.localization.currentCulture.name })
+                        .toFormat("yyyy-MM-dd HH:mm:ss");
+                    return `<span class="badge bg-success">${dataDate}</span>`;
+                }
             },
         ]
     }));

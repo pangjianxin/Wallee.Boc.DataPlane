@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings.Dtos;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings
@@ -21,12 +22,14 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings
 
         [HttpGet]
         [Route("{CUSNO}/{AML_INF_SN}/{LGPER_CODE}")]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering)]
         public async Task<CcicAntiMoneyLaunderingDto> GetAsync(CcicAntiMoneyLaunderingKey id)
         {
             return await _ccicAntiMoneyLaunderingAppService.GetAsync(id);
         }
 
         [HttpGet]
+        [Authorize(DataPlanePermissions.TDcmpReports.CcicAntiMoneyLaundering)]
         public async Task<PagedResultDto<CcicAntiMoneyLaunderingDto>> GetListAsync(CcicAntiMoneyLaunderingGetListInput input)
         {
             return await _ccicAntiMoneyLaunderingAppService.GetListAsync(input);
