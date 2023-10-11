@@ -16,6 +16,7 @@ using Volo.Abp.Account.Web;
 using Volo.Abp.AspNetCore.Mvc;
 using Volo.Abp.AspNetCore.Mvc.Localization;
 using Volo.Abp.AspNetCore.Mvc.UI.Bundling;
+using Volo.Abp.AspNetCore.Mvc.UI.Packages.JsTree;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.LeptonXLite.Bundling;
 using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared;
@@ -167,6 +168,7 @@ public class DataPlaneWebModule : AbpModule
                 bundle =>
                 {
                     bundle.AddFiles("/global-styles.css");
+                    bundle.AddContributors(typeof(JsTreeStyleContributor));
                 }
             );
 
@@ -178,6 +180,7 @@ public class DataPlaneWebModule : AbpModule
                          "/libs/echarts/js/echarts.min.js",
                          //"/libs/default-passive-events/index.js",
                          "/libs/viz-js/viz-standalone.js");
+                     bundle.AddContributors(typeof(JsTreeScriptContributor));
                  }
              );
 

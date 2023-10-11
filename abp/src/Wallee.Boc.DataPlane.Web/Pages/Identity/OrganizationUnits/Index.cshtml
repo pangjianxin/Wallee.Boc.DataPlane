@@ -11,10 +11,16 @@
 @inject IHtmlLocalizer<DataPlaneResource> L
 
 @section scripts{
-    <abp-script src="/Pages/Identity/OrganizationUnits/Index.js"></abp-script>
+    <abp-script-bundle>
+        <abp-script src="/Pages/Identity/OrganizationUnits/Index.js"></abp-script>
+    </abp-script-bundle>
+
 }
 @section styles{
-    <abp-style src="/Pages/Identity/OrganizationUnits/Index.css"></abp-style>
+    <abp-style-bundle>
+        <abp-style src="/Pages/Identity/OrganizationUnits/Index.css"></abp-style>
+    </abp-style-bundle>
+
 }
 <abp-card>
     <abp-card-header>
@@ -29,21 +35,26 @@
     </abp-card-header>
     <abp-card-body>
         <abp-row>
-            <abp-column size-lg="_4">
+            <abp-column size-lg="_5">
                 <abp-card>
-                    <abp-card-header background="Light" class="d-flex flex-row justify-content-between align-items-center">
-                        <span>机构目录树</span>
-                        @if (await Authorization.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Create))
-                        {
-                            <abp-button size="Small" button-type="Primary" icon="fas fa-plus" text="新增根机构" id="CreateNewRootOrganizationUnit"></abp-button>
-                        }
+                    <abp-card-header background="Light">
+                        <abp-card-title>
+                            <div class="d-flex flex-row justify-content-between align-items-center">
+                                <span>机构目录树</span>
+                                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.OrganizationUnits.Create))
+                                {
+                                    <abp-button size="Small" button-type="Primary" icon="fas fa-plus" text="新增根机构" id="CreateNewRootOrganizationUnit"></abp-button>
+                                }
+                            </div>
+                        </abp-card-title>
                     </abp-card-header>
+
                     <abp-card-body>
-                        <abp-table id="ousTable" class="nowrap" />
+                        <div id="ouTree"></div>
                     </abp-card-body>
                 </abp-card>
             </abp-column>
-            <abp-column size-lg="_8">
+            <abp-column size-lg="_7">
                 <abp-tabs tab-style="Tab">
                     <abp-tab title="用户">
                         <abp-card id="userInfoEmpty" class="d-flex flex-column justify-content-center align-items-center">

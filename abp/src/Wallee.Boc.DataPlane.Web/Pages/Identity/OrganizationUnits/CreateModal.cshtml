@@ -14,6 +14,7 @@
     <abp-modal>
         <abp-modal-header title="新增机构"></abp-modal-header>
         <abp-modal-body>
+            <abp-input asp-for="ViewModel.ParentId"></abp-input>
             <abp-input asp-for="ViewModel.DisplayName"></abp-input>
             @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<OrganizationUnitCreateViewModel>())
             {
