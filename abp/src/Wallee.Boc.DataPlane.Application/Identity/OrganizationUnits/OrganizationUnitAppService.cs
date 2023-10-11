@@ -41,7 +41,6 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
             input.MapExtraPropertiesTo(organizationUnit);
 
             await OrganizationUnitManager.CreateAsync(organizationUnit);
-            await CurrentUnitOfWork.SaveChangesAsync();
 
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(organizationUnit);
         }
@@ -76,7 +75,7 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
         {
             var origanizationUnit = await OrganizationUnitRepository.FindAsync(id);
 
-            return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(origanizationUnit);
+            return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(origanizationUnit!);
         }
 
         public async virtual Task<OrganizationUnitDto> GetLastChildOrNullAsync(Guid? parentId)
@@ -185,7 +184,6 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
             input.MapExtraPropertiesTo(origanizationUnit);
 
             await OrganizationUnitManager.UpdateAsync(origanizationUnit);
-            await CurrentUnitOfWork.SaveChangesAsync();
 
             return ObjectMapper.Map<OrganizationUnit, OrganizationUnitDto>(origanizationUnit);
         }
@@ -199,8 +197,6 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
                 var user = await UserRepository.GetAsync(item);
                 await UserManager.AddToOrganizationUnitAsync(user, origanizationUnit);
             }
-
-            await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         public async virtual Task AddRolesAsync(Guid id, OrganizationUnitAddRoleDto input)
@@ -213,7 +209,6 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
                 await OrganizationUnitManager.AddRoleToOrganizationUnitAsync(role, origanizationUnit);
             }
 
-            await CurrentUnitOfWork.SaveChangesAsync();
         }
 
         public async virtual Task DeleteRoleAsync(Guid organizationUnitId, Guid roleId)

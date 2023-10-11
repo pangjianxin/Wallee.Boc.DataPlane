@@ -48,8 +48,8 @@ public class CcicCusInfoWorkFlowAppService : CrudAppService<CcicCusInfoWorkFlow,
         }
         return new ExecutingCcicCusInfoWorkFlowDto
         {
-            Dto = await MapToGetOutputDtoAsync(workFlow),
-            DotGraph = await _ccicCusInfoWorkFlowManager.GetDotGraphAsync(workFlow)
+            Dto = await MapToGetOutputDtoAsync(workFlow!),
+            DotGraph = await _ccicCusInfoWorkFlowManager.GetDotGraphAsync(workFlow!)
         };
 
     }

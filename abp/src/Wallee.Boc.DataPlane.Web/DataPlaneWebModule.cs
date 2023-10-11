@@ -185,7 +185,7 @@ public class DataPlaneWebModule : AbpModule
              );
 
             options.ScriptBundles.Configure(
-                typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName,
+                typeof(Volo.Abp.Identity.Web.Pages.Identity.Users.IndexModel).FullName!,
                bundle =>
                {
                    bundle.AddFiles(

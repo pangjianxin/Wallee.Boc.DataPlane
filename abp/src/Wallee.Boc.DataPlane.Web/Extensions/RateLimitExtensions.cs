@@ -60,7 +60,7 @@ namespace Wallee.Boc.DataPlane.Web.Extensions
 
                     if (currentUser is not null && currentUser.IsAuthenticated)
                     {
-                        RateLimitPartition<string> partition = RateLimitPartition.GetSlidingWindowLimiter(currentUser.UserName,
+                        RateLimitPartition<string?> partition = RateLimitPartition.GetSlidingWindowLimiter(currentUser.UserName,
                                         _ => new SlidingWindowRateLimiterOptions
                                         {
                                             PermitLimit = 2,
@@ -70,7 +70,7 @@ namespace Wallee.Boc.DataPlane.Web.Extensions
                                             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
                                             QueueLimit = 0,
                                         });
-                        return partition;
+                        return partition!;
                     }
                     return RateLimitPartition.GetNoLimiter("");
                 });

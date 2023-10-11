@@ -12,7 +12,7 @@ namespace Wallee.Boc.DataPlane.Identity
             {
                 throw new ArgumentException(null, nameof(ou));
             }
-            return ou.GetProperty<string>("OrgNo");
+            return ou.GetProperty<string>("OrgNo")!;
         }
     }
 }

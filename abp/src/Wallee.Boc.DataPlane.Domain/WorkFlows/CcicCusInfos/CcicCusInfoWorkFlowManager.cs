@@ -38,7 +38,7 @@ namespace Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos
 
             var stateMachine = new CcicCusInfoStateMachine(workFlow, _backgroundJobManager);
 
-            await stateMachine.NotifyCcicCusInfoWorkFlowInitialized(Clock.Now, cron);
+            await stateMachine.NotifyCcicCusInfoWorkFlowInitialized(Clock.Now, cron!);
 
             workFlow = await _ccicCusInfoWorkFlowRepository.InsertAsync(workFlow, autoSave: true);
 

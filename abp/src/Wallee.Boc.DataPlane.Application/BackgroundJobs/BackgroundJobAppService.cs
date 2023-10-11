@@ -37,7 +37,7 @@ namespace Wallee.Boc.DataPlane.BackgroundJobs
         {
             var count = await BackgroundJobRepository.GetCountAsync();
 
-            var records = await BackgroundJobRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting, false);
+            var records = await BackgroundJobRepository.GetPagedListAsync(input.SkipCount, input.MaxResultCount, input.Sorting!, false);
 
             return new PagedResultDto<BackgroundJobRecordDto>
             {
@@ -57,16 +57,12 @@ namespace Wallee.Boc.DataPlane.BackgroundJobs
 
             await BackgroundJobRepository.UpdateAsync(bj);
 
-            await CurrentUnitOfWork.SaveChangesAsync();
-
             return ObjectMapper.Map<BackgroundJobRecord, BackgroundJobRecordDto>(bj);
         }
 
         public async Task DeleteAsync(Guid id)
         {
             await BackgroundJobRepository.DeleteAsync(id);
-
-            await CurrentUnitOfWork.SaveChangesAsync();
         }
     }
 }

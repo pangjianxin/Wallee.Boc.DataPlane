@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.3.1":
-  version "2.3.2"
-  resolved "https://registry.npmmirror.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.3.2.tgz#1d96b59f0669a90db1689e57a1c815f54a8ca3a9"
-  integrity sha512-V2jj/air+M5A0r7FAfYaCPrALGKGZrT1HtMayqFOFFEJSoxqx4r/0JQ0bEdXlsvhQ3+BiVtNuKG66dTh64nAdQ==
+"@abp/aspnetcore.mvc.ui.theme.leptonxlite@~2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmmirror.com/@abp/aspnetcore.mvc.ui.theme.leptonxlite/-/aspnetcore.mvc.ui.theme.leptonxlite-2.4.0.tgz#5de8a4c3efa3c9d9b20e6819830f8b791f86b89d"
+  integrity sha512-hkPPZsEwI4lYN8PeRMExRC8YLPAMTxW9Cs3UNZ5IpzVTfLN9z6vjCWMux8uzdLGKzqNHEXwrWr+o3BQhLXUmaA==
   dependencies:
     "@abp/aspnetcore.mvc.ui.theme.shared" "~7.2.1"
 
@@ -143,7 +143,7 @@
     "@abp/core" "~7.4.0"
     jquery "~3.6.0"
 
-"@abp/jstree@^7.3.2":
+"@abp/jstree@~7.4.0":
   version "7.4.0"
   resolved "https://registry.npmmirror.com/@abp/jstree/-/jstree-7.4.0.tgz#67fa92c9f043c422fe87bb97dcc64ae597901f91"
   integrity sha512-vDC+ZdK9OCSthbmw9P8+ezNtRG1KM3+t1S/0t50La24Wo37QVJuA4IeIPbhYxvZ8Urh9ZYphUqsNXylcXDWuZQ==
