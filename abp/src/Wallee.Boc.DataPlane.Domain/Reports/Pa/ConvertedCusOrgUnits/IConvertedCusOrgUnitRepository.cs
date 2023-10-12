@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
@@ -11,5 +12,5 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 public interface IConvertedCusOrgUnitRepository : IRepository<ConvertedCusOrgUnit>
 {
     Task<DateTime> GetCurrentDataDate();
-    Task UpsertAsync(IEnumerable<ConvertedCusOrgUnit> convertedCusOrgUnits);
+    Task UpsertAsync(IEnumerable<ConvertedCusOrgUnit> convertedCusOrgUnits, bool autoSave = false, CancellationToken cancellationToken = default);
 }

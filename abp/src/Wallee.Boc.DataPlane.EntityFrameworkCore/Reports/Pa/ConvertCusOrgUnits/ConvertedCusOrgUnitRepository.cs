@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Timing;
+using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 
@@ -26,13 +28,26 @@ public class ConvertedCusOrgUnitRepository : EfCoreRepository<DataPlaneDbContext
         Clock = clock;
     }
 
-    public async Task UpsertAsync(IEnumerable<ConvertedCusOrgUnit> convertedCusOrgUnits)
+
+    public async Task UpsertAsync(IEnumerable<ConvertedCusOrgUnit> convertedCusOrgUnits, bool autoSave = false, CancellationToken cancellationToken = default)
     {
-        var dbContxt = await GetDbContextAsync();
+        DbContext dbContext = await GetDbContextAsync();
 
-        await dbContxt.BulkInsertOrUpdateAsync(convertedCusOrgUnits);
+        var entityArray = convertedCusOrgUnits.ToArray();
 
-       //await dbContxt.SaveChangesAsync();
+        foreach (var entity in entityArray)
+        {
+            CheckAndSetId(entity);
+        }
+
+        await dbContext.BulkInsertOrUpdateAsync(entityArray, cancellationToken: cancellationToken);
+
+        if (autoSave)
+        {
+            await dbContext.BulkSaveChangesAsync();
+        }
+
+        //await dbContxt.SaveChangesAsync();
         //await (await GetDbSetAsync()).UpsertRange(convertedCusOrgUnits)
         //    .On(it => new { it.DataDate, it.Orgidt })
         //    .WhenMatched((origin, cur) => new ConvertedCusOrgUnit
