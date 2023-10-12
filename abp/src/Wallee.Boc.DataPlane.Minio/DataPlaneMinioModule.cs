@@ -26,9 +26,9 @@ namespace Wallee.Boc.DataPlane.Minio
                 {
                     config.UseMinio(option =>
                     {
-                        option.EndPoint = configuration["Blob:Minio:EndPoint"];
-                        option.AccessKey = configuration["Blob:Minio:AccessKey"];
-                        option.SecretKey = configuration["Blob:Minio:SecretKey"];
+                        option.EndPoint = configuration["Blob:Minio:EndPoint"]!;
+                        option.AccessKey = configuration["Blob:Minio:AccessKey"]!;
+                        option.SecretKey = configuration["Blob:Minio:SecretKey"]!;
                         option.CreateBucketIfNotExists = true;
                     });
                 });

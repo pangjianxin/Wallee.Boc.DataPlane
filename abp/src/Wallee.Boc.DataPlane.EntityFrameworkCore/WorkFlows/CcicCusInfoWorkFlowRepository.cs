@@ -8,7 +8,9 @@ using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.WorkFlows;
 
+#pragma warning disable CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
 public class CcicCusInfoWorkFlowRepository : EfCoreRepository<DataPlaneDbContext, CcicCusInfoWorkFlow, Guid>, ICcicCusInfoWorkFlowRepository
+#pragma warning restore CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
 {
     public CcicCusInfoWorkFlowRepository(IDbContextProvider<DataPlaneDbContext> dbContextProvider) : base(dbContextProvider)
     {

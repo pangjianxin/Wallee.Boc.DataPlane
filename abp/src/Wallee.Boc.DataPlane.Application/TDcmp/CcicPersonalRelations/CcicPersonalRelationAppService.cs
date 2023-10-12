@@ -29,13 +29,13 @@ public class CcicPersonalRelationAppService : AbstractKeyReadOnlyAppService<Ccic
     protected override async Task<CcicPersonalRelation> GetEntityByIdAsync(CcicPersonalRelationKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.REL_RL == id.REL_RL &&
                 e.PRINT_CUSNO_YARD == id.PRINT_CUSNO_YARD &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicPersonalRelation> ApplyDefaultSorting(IQueryable<CcicPersonalRelation> query)

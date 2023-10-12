@@ -27,7 +27,7 @@ namespace Wallee.Boc.DataPlane.DataPlaneSettings
         {
             return new DataPlaneSettingsDto
             {
-                TDcmpWorkFlowCronExpression = await SettingProvider.GetOrNullAsync(Settings.DataPlaneSettings.TDcmpWorkFlowCronExpression),
+                TDcmpWorkFlowCronExpression = (await SettingProvider.GetOrNullAsync(Settings.DataPlaneSettings.TDcmpWorkFlowCronExpression))!,
                 ConvertedCusOrgUnitFirstLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitFirstLevel),
                 ConvertedCusOrgUnitSecondLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitSecondLevel),
                 ConvertedCusOrgUnitThirdLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitThirdLevel),

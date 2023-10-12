@@ -29,13 +29,13 @@ public class CcicPhoneAppService : AbstractKeyReadOnlyAppService<CcicPhone, Ccic
     protected override async Task<CcicPhone> GetEntityByIdAsync(CcicPhoneKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.UNIT_TEL_TP == id.UNIT_TEL_TP &&
                 e.CNTEL_SN == id.CNTEL_SN &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicPhone> ApplyDefaultSorting(IQueryable<CcicPhone> query)

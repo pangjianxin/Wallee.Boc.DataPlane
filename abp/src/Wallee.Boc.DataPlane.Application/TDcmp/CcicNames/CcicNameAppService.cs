@@ -26,12 +26,12 @@ public class CcicNameAppService : AbstractKeyReadOnlyAppService<CcicName, CcicNa
     protected override async Task<CcicName> GetEntityByIdAsync(CcicNameKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.CUS_NAME_LANG == id.CUS_NAME_LANG &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicName> ApplyDefaultSorting(IQueryable<CcicName> query)

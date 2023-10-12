@@ -15,7 +15,7 @@ namespace Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
 public class CcicSignOrgAppService : AbstractKeyReadOnlyAppService<CcicSignOrg, CcicSignOrgDto, CcicSignOrgKey, CcicSignOrgGetListInput>,
     ICcicSignOrgAppService
 {
-    
+
 
     private readonly ICcicSignOrgRepository _repository;
 
@@ -24,16 +24,16 @@ public class CcicSignOrgAppService : AbstractKeyReadOnlyAppService<CcicSignOrg, 
         _repository = repository;
     }
 
-  
+
 
     protected override async Task<CcicSignOrg> GetEntityByIdAsync(CcicSignOrgKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicSignOrg> ApplyDefaultSorting(IQueryable<CcicSignOrg> query)

@@ -125,7 +125,21 @@
             $("#ouTree").jstree({
                 core: {
                     data: transformData(ouData.items),
-                    check_callback: true,
+                    check_callback: function (operation, node, node_parent, node_position, more) {
+                        // operation参数表示操作类型，比如"move_node", "delete_node"等
+                        // node参数表示被操作的节点
+                        // node_parent参数表示新的父节点
+                        // node_position参数表示新的位置
+                        // more参数包含了更多的信息
+                        if (operation === 'move_node') {
+                            if (node.children && node.children.length > 0) {
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        }
+                        return true; // 默认允许所有操作
+                    },
                     themes: {
                         icons: true,
                         theme: "default",
@@ -136,7 +150,10 @@
                     animation: 10,
                     dblclick_toggle: true,
                 },
-                plugins: ["contextmenu"],  //启用contextmenu插件
+                plugins: ["contextmenu", "dnd"],  //启用contextmenu插件
+                dhd: {
+                    check_while_dragging: true
+                },
                 contextmenu: {             //配置contextmenu插件
                     items: function (node) {
                         return {
@@ -225,6 +242,24 @@
     initOrgUnitTree();
 
     checkUserAndRoleInfoPanel();
+
+    $("#ouTree").on('move_node.jstree', function (e, data) {
+        if (data.parent !== data.old_parent) {
+            let id = data.node.id; // 被移动的节点ID
+            let oldParent = data.old_parent;
+            let newPparent = data.parent; // 新的父节点ID 
+            abp.message.confirm(`确认移动该节点${data.node.original.text}?`, "移动确认", (e) => {
+                if (e === true) {
+                    ouService.move(id, { parentId: newPparent }).done(() => {
+                        abp.notify.info("操作成功");
+                    });
+                } else {
+                    refreshOrgUnitTree();
+                    abp.notify.info("你已取消操作");
+                }
+            });
+        }
+    });
 
     $("#addUserToOuBtn").on("click", function (e) {
         addUserToOuModal.open({ organizationUnitId: currentOu });

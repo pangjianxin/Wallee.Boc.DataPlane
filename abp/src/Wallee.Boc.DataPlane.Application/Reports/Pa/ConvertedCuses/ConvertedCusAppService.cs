@@ -31,11 +31,11 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
     protected override async Task<ConvertedCus> GetEntityByIdAsync(ConvertedCusKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.DataDate == id.DataDate &&
                 e.Cusidt == id.Cusidt
-            ));
+            )))!;
     }
 
     protected override IQueryable<ConvertedCus> ApplyDefaultSorting(IQueryable<ConvertedCus> query)

@@ -29,12 +29,12 @@ public class CcicPracticeAppService : AbstractKeyReadOnlyAppService<CcicPractice
     protected override async Task<CcicPractice> GetEntityByIdAsync(CcicPracticeKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.OPRT_INF_SN == id.OPRT_INF_SN &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicPractice> ApplyDefaultSorting(IQueryable<CcicPractice> query)

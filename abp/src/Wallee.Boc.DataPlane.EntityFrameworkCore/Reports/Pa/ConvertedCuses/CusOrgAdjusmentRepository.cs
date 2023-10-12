@@ -9,7 +9,9 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 
+#pragma warning disable CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
 public class CusOrgAdjusmentRepository : EfCoreRepository<DataPlaneDbContext, CusOrgAdjusment>, ICusOrgAdjusmentRepository
+#pragma warning restore CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
 {
     public IClock Clock { get; set; }
 

@@ -82,11 +82,11 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
     protected override async Task<ConvertedCusOrgUnit> GetEntityByIdAsync(ConvertedCusOrgUnitKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.DataDate == id.DataDate &&
                 e.Orgidt == id.Orgidt
-            ));
+            )))!;
     }
 
     public async Task<bool> DataExistedAsync(DateTime dataDate)

@@ -24,11 +24,11 @@ public class CcicCustomerTypeOrgAppService : AbstractKeyReadOnlyAppService<CcicC
     protected override async Task<CcicCustomerTypeOrg> GetEntityByIdAsync(CcicCustomerTypeOrgKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicCustomerTypeOrg> ApplyDefaultSorting(IQueryable<CcicCustomerTypeOrg> query)

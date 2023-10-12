@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Wallee.Boc.DataPlane.Domain\Wallee.Boc.DataPlane.Domain.csproj" />
+    <PackageReference Include="EFCore.BulkExtensions" Version="7.1.6" />
     <PackageReference Include="FlexLabs.EntityFrameworkCore.Upsert" Version="7.0.0" />
     <PackageReference Include="Volo.Abp.BackgroundJobs.EntityFrameworkCore" Version="7.4.0" />
     <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="7.4.0" />

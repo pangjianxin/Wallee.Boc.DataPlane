@@ -25,12 +25,12 @@ public class CcicAntiMoneyLaunderingAppService : AbstractKeyReadOnlyAppService<C
     protected override async Task<CcicAntiMoneyLaundering> GetEntityByIdAsync(CcicAntiMoneyLaunderingKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.CUSNO == id.CUSNO &&
                 e.AML_INF_SN == id.AML_INF_SN &&
                 e.LGPER_CODE == id.LGPER_CODE
-            ));
+            )))!;
     }
 
     protected override IQueryable<CcicAntiMoneyLaundering> ApplyDefaultSorting(IQueryable<CcicAntiMoneyLaundering> query)

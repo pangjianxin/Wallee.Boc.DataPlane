@@ -29,10 +29,10 @@ public class CusOrgAdjusmentAppService : AbstractKeyReadOnlyAppService<CusOrgAdj
     protected override async Task<CusOrgAdjusment> GetEntityByIdAsync(CusOrgAdjusmentKey id)
     {
         // TODO: AbpHelper generated
-        return await AsyncExecuter.FirstOrDefaultAsync(
+        return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.Cusidt == id.Cusidt
-            ));
+            )))!;
     }
 
     protected override IQueryable<CusOrgAdjusment> ApplyDefaultSorting(IQueryable<CusOrgAdjusment> query)
