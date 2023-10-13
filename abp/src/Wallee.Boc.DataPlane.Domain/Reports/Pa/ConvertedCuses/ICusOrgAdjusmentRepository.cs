@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 
@@ -10,5 +11,5 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 /// </summary>
 public interface ICusOrgAdjusmentRepository : IRepository<CusOrgAdjusment>
 {
-    Task UpsertAsync(IEnumerable<CusOrgAdjusment> convertedCuses);
+    Task UpsertAsync(IEnumerable<CusOrgAdjusment> convertedCuses, bool autoSave = true, CancellationToken cancelldationToken = default);
 }

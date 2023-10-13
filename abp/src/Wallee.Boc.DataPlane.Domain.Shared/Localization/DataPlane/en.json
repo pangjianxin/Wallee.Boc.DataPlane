@@ -536,6 +536,15 @@
     "CusOrgAdjusmentOrgidt": "CusOrgAdjusmentOrgidt",
     "CreateCusOrgAdjusment": "CreateCusOrgAdjusment",
     "EditCusOrgAdjusment": "EditCusOrgAdjusment",
-    "CusOrgAdjusmentDeletionConfirmationMessage": "Are you sure to delete the cusOrgAdjusment {0}?"
+    "CusOrgAdjusmentDeletionConfirmationMessage": "Are you sure to delete the cusOrgAdjusment {0}?",
+    "Permission:OrgUnitHierachy": "OrgUnitHierachy",
+    "Menu:OrgUnitHierachy": "MenuOrgUnitHierachy",
+    "OrgUnitHierachy": "OrgUnitHierachy",
+    "OrgUnitHierachyParentId": "OrgUnitHierachyParentId",
+    "OrgUnitHierachyIdentity": "OrgUnitHierachyIdentity",
+    "OrgUnitHierachyName": "OrgUnitHierachyName",
+    "CreateOrgUnitHierachy": "CreateOrgUnitHierachy",
+    "EditOrgUnitHierachy": "EditOrgUnitHierachy",
+    "OrgUnitHierachyDeletionConfirmationMessage": "Are you sure to delete the orgUnitHierachy {0}?"
   }
 }

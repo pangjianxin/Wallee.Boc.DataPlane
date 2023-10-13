@@ -45,7 +45,7 @@ $(function () {
             },
             {
                 title: l('ConvertedCusOrgUnitLabel'),
-                data: "label"
+                data: "parentName"
             },
             {
                 title: l('ConvertedCusOrgUnitDataDate'),
@@ -59,11 +59,11 @@ $(function () {
             },
             {
                 title: l('ConvertedCusOrgUnitUpOrgidt'),
-                data: "upOrgidt"
+                data: "parentIdentity"
             },
             {
                 title: l('ConvertedCusOrgUnitOrgidt'),
-                data: "orgidt"
+                data: "identity"
             },
             {
                 title: l('ConvertedCusOrgUnitFirstLevel'),
@@ -88,17 +88,6 @@ $(function () {
             {
                 title: l('ConvertedCusOrgUnitSixthLevel'),
                 data: "sixthLevel"
-            },
-            {
-                title: "最后维护日期",
-                data: "lastModificationTime",
-                render: function (data) {
-                    var dataDate = luxon
-                        .DateTime
-                        .fromISO(data, { locale: abp.localization.currentCulture.name })
-                        .toFormat("yyyy-MM-dd HH:mm:ss");
-                    return `<span class="badge bg-success">${dataDate}</span>`;
-                }
             }
         ]
     }));

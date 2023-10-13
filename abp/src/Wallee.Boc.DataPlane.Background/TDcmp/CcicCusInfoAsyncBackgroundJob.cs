@@ -13,8 +13,8 @@ using Volo.Abp.BackgroundJobs;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.Background.Ftp;
+using Wallee.Boc.DataPlane.Repositories;
 using Wallee.Boc.DataPlane.TDcmp;
-using Wallee.Boc.DataPlane.TDcmp.Repositories;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
 
 namespace Wallee.Boc.DataPlane.Background.TDcmp
@@ -69,7 +69,7 @@ namespace Wallee.Boc.DataPlane.Background.TDcmp
             return memory;
         }
 
-        protected virtual async Task UpsertAsync<T>(Stream stream, ITDcmpRepository<T> tDcmpRepository, Type csvClassMap) where T : BasicAggregateRoot
+        protected virtual async Task UpsertAsync<T>(Stream stream, IUpsertableRepository<T> tDcmpRepository, Type csvClassMap) where T : BasicAggregateRoot
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             using var gzStream = new GZipStream(stream, CompressionMode.Decompress);

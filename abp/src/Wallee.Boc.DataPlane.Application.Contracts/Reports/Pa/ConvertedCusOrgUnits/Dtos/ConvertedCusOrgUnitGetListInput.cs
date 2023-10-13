@@ -9,7 +9,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 public class ConvertedCusOrgUnitGetListInput : FilterBase, IPagedAndSortedResultRequest
 {
     [StringFilterOptions(AutoFilterer.Enums.StringFilterOption.Contains)]
-    [CompareTo(nameof(ConvertedCusOrgUnitDto.Label), nameof(ConvertedCusOrgUnitDto.UpOrgidt), nameof(ConvertedCusOrgUnitDto.Orgidt))]
+    [CompareTo(nameof(ConvertedCusOrgUnitDto.ParentName), nameof(ConvertedCusOrgUnitDto.ParentIdentity), nameof(ConvertedCusOrgUnitDto.OrgIdentity))]
     public string? Filter { get; set; }
     public int SkipCount { get; set; }
     public int MaxResultCount { get; set; }

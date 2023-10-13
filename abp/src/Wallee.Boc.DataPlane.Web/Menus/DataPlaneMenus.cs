@@ -30,10 +30,13 @@ public class DataPlaneMenus
 
     public const string Dictionaries = Prefix + ".Dictionaries";
     public const string OrganizationUnitCoordinate = Dictionaries + ".OrganizationUnitCoordinate";
+    public const string OrgUnitHierarchy = Dictionaries + ".OrgUnitHierarchy";
+
     public const string Dashboard = Prefix + ".Dashboard";
 
     public const string Reports = Prefix + ".Reports";
     public const string Reports_ConvertedCusOrgUnit = Reports + ".ConvertedCusOrgUnit";
     public const string Reports_ConvertedCus = Reports + ".ConvertedCus";
     public const string Reports_CusOrgAdjusment = Reports + ".CusOrgAdjusment";
+    
 }

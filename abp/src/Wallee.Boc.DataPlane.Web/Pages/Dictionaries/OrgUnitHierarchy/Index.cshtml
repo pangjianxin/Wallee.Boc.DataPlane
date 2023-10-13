@@ -1,0 +1,48 @@
+@page
+@using Wallee.Boc.DataPlane.Permissions
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrgUnitHierarchy
+@using Wallee.Boc.DataPlane.Localization
+@using Wallee.Boc.DataPlane.Web.Menus
+@model IndexModel
+@inject IPageLayout PageLayout
+@inject IHtmlLocalizer<DataPlaneResource> L
+@inject IAuthorizationService Authorization
+@{
+    PageLayout.Content.Title = L["Menu:Dictionaries:OrgUnitHierarchy"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:Dictionaries"].Value);
+    PageLayout.Content.MenuItemName = DataPlaneMenus.OrgUnitHierarchy;
+}
+
+@section scripts
+    {
+    <abp-script src="/Pages/Dictionaries/OrgUnitHierarchy/index.js" />
+}
+@section styles
+    {
+    <abp-style src="/Pages/Dictionaries/OrgUnitHierarchy/index.css" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["OrgUnitHierarchy"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Dictionaries.OrgUnitHierarchy))
+                {
+                    <abp-button id="NewOrgUnitHierarchyButton"
+                                text="@L["CreateOrgUnitHierarchy"].Value"
+                                icon="plus"
+                                button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <div id="orgUnitHierarchyTree"></div>
+    </abp-card-body>
+</abp-card>

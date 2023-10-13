@@ -58,6 +58,7 @@ public static class DataPlanePermissions
     {
         public const string Default = GroupName + ".Dictionaries";
         public const string OrganizationUnitCoordinate = Default + ".OrganizationUnitCoordinate";
+        public const string OrgUnitHierarchy = Default + ".OrgUnitHierarchy";
 
     }
     public class Reports
@@ -73,4 +74,5 @@ public static class DataPlanePermissions
         public const string Default = GroupName + ".Dashborad";
         public const string ConvertedCusOrgUnit = Default + ".ConvertedCusOrg";
     }
+
 }

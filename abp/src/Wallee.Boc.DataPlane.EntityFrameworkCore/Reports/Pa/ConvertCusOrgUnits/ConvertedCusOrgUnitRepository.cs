@@ -1,21 +1,17 @@
-using EFCore.BulkExtensions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
-using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 using Volo.Abp.Timing;
-using Volo.Abp.Uow;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
+using Wallee.Boc.DataPlane.Repositories;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertCusOrgUnits;
 
 #pragma warning disable CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
-public class ConvertedCusOrgUnitRepository : EfCoreRepository<DataPlaneDbContext, ConvertedCusOrgUnit>, IConvertedCusOrgUnitRepository
+public class ConvertedCusOrgUnitRepository : UpsertableEfCoreRepository<ConvertedCusOrgUnit>, IConvertedCusOrgUnitRepository
 #pragma warning restore CS8613 // 返回类型中引用类型的为 Null 性与隐式实现的成员不匹配。
 
 {
@@ -26,45 +22,6 @@ public class ConvertedCusOrgUnitRepository : EfCoreRepository<DataPlaneDbContext
         IClock clock) : base(dbContextProvider)
     {
         Clock = clock;
-    }
-
-
-    public async Task UpsertAsync(IEnumerable<ConvertedCusOrgUnit> convertedCusOrgUnits, bool autoSave = false, CancellationToken cancellationToken = default)
-    {
-        DbContext dbContext = await GetDbContextAsync();
-
-        var entityArray = convertedCusOrgUnits.ToArray();
-
-        foreach (var entity in entityArray)
-        {
-            CheckAndSetId(entity);
-        }
-
-        await dbContext.BulkInsertOrUpdateAsync(entityArray, cancellationToken: cancellationToken);
-
-        if (autoSave)
-        {
-            await dbContext.BulkSaveChangesAsync();
-        }
-
-        //await dbContxt.SaveChangesAsync();
-        //await (await GetDbSetAsync()).UpsertRange(convertedCusOrgUnits)
-        //    .On(it => new { it.DataDate, it.Orgidt })
-        //    .WhenMatched((origin, cur) => new ConvertedCusOrgUnit
-        //    {
-        //        Label = cur.Label,
-        //        UpOrgidt = cur.UpOrgidt,
-        //        Orgidt = cur.Orgidt,
-        //        DataDate = cur.DataDate,
-        //        FirstLevel = cur.FirstLevel,
-        //        SecondLevel = cur.SecondLevel,
-        //        ThirdLevel = cur.ThirdLevel,
-        //        FourthLevel = cur.FourthLevel,
-        //        FifthLevel = cur.FifthLevel,
-        //        SixthLevel = cur.SixthLevel,
-        //        LastModificationTime = Clock.Now
-        //    })
-        //    .RunAsync();
     }
 
     public async Task<DateTime> GetCurrentDataDate()

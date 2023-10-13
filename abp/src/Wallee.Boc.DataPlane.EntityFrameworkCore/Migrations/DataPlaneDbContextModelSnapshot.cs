@@ -1761,6 +1761,63 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.ToTable("AbpTenantConnectionStrings", (string)null);
                 });
 
+            modelBuilder.Entity("Wallee.Boc.DataPlane.Dictionaries.OrgUnitHierarchy", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
+                        .HasColumnName("ConcurrencyStamp");
+
+                    b.Property<DateTime>("CreationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("CreationTime");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("CreatorId");
+
+                    b.Property<string>("ExtraProperties")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("ExtraProperties");
+
+                    b.Property<string>("Identity")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Identity")
+                        .IsUnique();
+
+                    b.ToTable("AppOrgUnitHierarchies", null, t =>
+                        {
+                            t.HasComment("机构层级表");
+                        });
+                });
+
             modelBuilder.Entity("Wallee.Boc.DataPlane.Dictionaries.OrganizationUnitCoordinate", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1809,22 +1866,10 @@ namespace Wallee.Boc.DataPlane.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnOrder(0);
 
-                    b.Property<string>("Orgidt")
+                    b.Property<string>("Identity")
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)")
                         .HasColumnOrder(1);
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
 
                     b.Property<decimal>("FifthLevel")
                         .HasColumnType("decimal(18,2)");
@@ -1835,17 +1880,13 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<decimal>("FourthLevel")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ParentIdentity")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
 
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
+                    b.Property<string>("ParentName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("SecondLevel")
                         .HasColumnType("decimal(18,2)");
@@ -1856,11 +1897,7 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<decimal>("ThirdLevel")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UpOrgidt")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("DataDate", "Orgidt");
+                    b.HasKey("DataDate", "Identity");
 
                     b.ToTable("AppConvertedCusOrgUnits", null, t =>
                         {
@@ -1876,13 +1913,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<string>("Cusidt")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
                     b.Property<string>("CusName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -1892,19 +1922,6 @@ namespace Wallee.Boc.DataPlane.Migrations
 
                     b.Property<decimal>("DepYavBal")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
-                    b.Property<DateTime?>("LastModificationTime")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("LastModificationTime");
-
-                    b.Property<Guid?>("LastModifierId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LastModifierId");
 
                     b.Property<string>("OrgName")
                         .IsRequired()
@@ -1927,18 +1944,6 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<string>("Cusidt")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .IsRequired()
-                        .HasMaxLength(40)
-                        .HasColumnType("nvarchar(40)")
-                        .HasColumnName("ConcurrencyStamp");
-
-                    b.Property<string>("ExtraProperties")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ExtraProperties");
-
                     b.Property<DateTime?>("LastModificationTime")
                         .HasColumnType("datetime2")
                         .HasColumnName("LastModificationTime");
@@ -1949,7 +1954,8 @@ namespace Wallee.Boc.DataPlane.Migrations
 
                     b.Property<string>("Orgidt")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("Cusidt");
 

@@ -1,7 +1,7 @@
-using Wallee.Boc.DataPlane.TDcmp.Repositories;
+using Wallee.Boc.DataPlane.Repositories;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 
-public interface ICcicAddressRepository : ITDcmpRepository<CcicAddress>
+public interface ICcicAddressRepository : IUpsertableRepository<CcicAddress>
 {
 }

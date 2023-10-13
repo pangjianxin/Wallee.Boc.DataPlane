@@ -1,10 +1,10 @@
-using Wallee.Boc.DataPlane.TDcmp.Repositories;
+using Wallee.Boc.DataPlane.Repositories;
 
 namespace Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 
 /// <summary>
 /// 对公运营信息    a26
 /// </summary>
-public interface ICcicPracticeRepository : ITDcmpRepository<CcicPractice>
+public interface ICcicPracticeRepository : IUpsertableRepository<CcicPractice>
 {
 }

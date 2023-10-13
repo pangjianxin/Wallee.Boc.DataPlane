@@ -2,15 +2,18 @@ using AutoFilterer.Extensions;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using Volo.Abp.Domain.Repositories;
 using Wallee.Boc.DataPlane.CsvHelper;
+using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
@@ -23,10 +26,14 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
     IConvertedCusOrgUnitAppService
 {
     private readonly IConvertedCusOrgUnitRepository _repository;
+    private readonly IOrgUnitHierarchyRepository _orgUnitHierarchyRepository;
 
-    public ConvertedCusOrgUnitAppService(IConvertedCusOrgUnitRepository repository) : base(repository)
+    public ConvertedCusOrgUnitAppService(
+        IConvertedCusOrgUnitRepository repository,
+        IOrgUnitHierarchyRepository orgUnitHierarchyRepository) : base(repository)
     {
         _repository = repository;
+        _orgUnitHierarchyRepository = orgUnitHierarchyRepository;
     }
 
     protected override async Task<IQueryable<ConvertedCusOrgUnit>> CreateFilteredQueryAsync(ConvertedCusOrgUnitGetListInput input)
@@ -44,7 +51,7 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
     public async Task CreateByFileAsync(CreateUpdateConvertedCusOrgUnitByFileDto input)
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        using var streamReader = new StreamReader(input.File.GetStream(), encoding: Encoding.GetEncoding("GB2312"));
+        using var streamReader = new StreamReader(input.File.GetStream(), encoding: Encoding.UTF8);
         using var csv = new CsvReader(streamReader, new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             HasHeaderRecord = true,
@@ -63,7 +70,32 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
 
         var records = csv.GetRecords<ConvertedCusOrgUnit>();
 
+        records = await CheckAndSetParentInfo(records);
+
         await _repository.UpsertAsync(records);
+    }
+
+    private async Task<IEnumerable<ConvertedCusOrgUnit>> CheckAndSetParentInfo(IEnumerable<ConvertedCusOrgUnit> records)
+    {
+        var orgUnitHierarchies = await _orgUnitHierarchyRepository.GetListAsync();
+
+        foreach (var record in records)
+        {
+            var orgInfo = orgUnitHierarchies.First(it => it.Identity == record.OrgIdentity);
+
+            if (orgInfo.ParentId.HasValue)
+            {
+                var parent = orgUnitHierarchies.First(it => it.Id == orgInfo.ParentId);
+
+                record.SetParentInfo(parent.Name, parent.Identity);
+            }
+            else
+            {
+                throw new UserFriendlyException("查找不到该机构的上级机构");
+            }
+        }
+
+        return records;
     }
 
     public async Task<IRemoteStreamContent> DownloadFileAsync(DateTime dataDate)
@@ -85,7 +117,7 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
         return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.DataDate == id.DataDate &&
-                e.Orgidt == id.Orgidt
+                e.OrgIdentity == id.OrgIdentity
             )))!;
     }
 
@@ -98,16 +130,14 @@ internal class ConvertedCusOrgUnitReadingMap : ClassMap<ConvertedCusOrgUnit>
 {
     public ConvertedCusOrgUnitReadingMap()
     {
-        Map(it => it.Label).Index(1);
-        Map(it => it.UpOrgidt).Index(2);
-        Map(it => it.Orgidt).Index(3);
-        Map(it => it.DataDate).Index(4).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
-        Map(it => it.FirstLevel).Index(5);
-        Map(it => it.SecondLevel).Index(6);
-        Map(it => it.ThirdLevel).Index(7);
-        Map(it => it.FourthLevel).Index(8);
-        Map(it => it.FifthLevel).Index(9);
-        Map(it => it.SixthLevel).Index(10);
+        Map(it => it.OrgIdentity).Index(0);
+        Map(it => it.DataDate).Index(1).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
+        Map(it => it.FirstLevel).Index(2);
+        Map(it => it.SecondLevel).Index(3);
+        Map(it => it.ThirdLevel).Index(4);
+        Map(it => it.FourthLevel).Index(5);
+        Map(it => it.FifthLevel).Index(6);
+        Map(it => it.SixthLevel).Index(7);
     }
 }
 
@@ -117,9 +147,9 @@ internal class ConvertedCusOrgUnitWritingMap : ClassMap<ConvertedCusOrgUnit>
     public ConvertedCusOrgUnitWritingMap()
     {
         Map(it => it.DataDate).Index(0).Name("数据日期").TypeConverter<WritingDateTimeConverter>();
-        Map(it => it.Label).Index(1).Name("标签");
-        Map(it => it.UpOrgidt).Index(2).Name("上级机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
-        Map(it => it.Orgidt).Index(3).Name("机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
+        Map(it => it.ParentName).Index(1).Name("标签");
+        Map(it => it.ParentIdentity).Index(2).Name("上级机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
+        Map(it => it.OrgIdentity).Index(3).Name("机构号").TypeConverter<WritingOrganizationUnitStringConverter>();
         Map(it => it.FirstLevel).Index(4).Name("2000-20万日均客户数");
         Map(it => it.SecondLevel).Index(5).Name("20万-50万日均客户数");
         Map(it => it.ThirdLevel).Index(6).Name("50万-500万日均客户数");

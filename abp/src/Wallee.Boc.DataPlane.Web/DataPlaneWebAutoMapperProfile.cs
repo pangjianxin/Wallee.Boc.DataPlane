@@ -3,6 +3,7 @@ using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrganizationUnitCoordinate.ViewModels;
+using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrgUnitHierarchy.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
 using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.CusOrgAdjusment.ViewModels;
@@ -19,12 +20,21 @@ public class DataPlaneWebAutoMapperProfile : Profile
         CreateMap<OrganizationUnitCreateViewModel, OrganizationUnitCreateDto>().MapExtraProperties();
         CreateMap<OrganizationUnitUpdateViewModel, OrganizationUnitUpdateDto>().MapExtraProperties();
         CreateMap<OrganizationUnitDto, OrganizationUnitUpdateViewModel>().MapExtraProperties();
+
         CreateMap<CcicCusInfoWorkFlowDto, CreateEditCcicCusInfoWorkFlowViewModel>();
         CreateMap<CreateEditCcicCusInfoWorkFlowViewModel, CreateUpdateCcicCusInfoWorkFlowDto>();
+
         CreateMap<OrganizationUnitCoordinateDto, CreateEditOrganizationUnitCoordinateViewModel>();
         CreateMap<CreateEditOrganizationUnitCoordinateViewModel, CreateUpdateOrganizationUnitCoordinateDto>();
+
         CreateMap<ConvertedCusDto, CreateEditConvertedCusByFileViewModel>();
+
         CreateMap<CusOrgAdjusmentDto, CreateEditCusOrgAdjusmentByFileViewModel>();
         CreateMap<CreateEditCusOrgAdjusmentByFileViewModel, CreateUpdateCusOrgAdjusmentByFileDto>();
+
+        CreateMap<OrgUnitHierarchyDto, CreateOrgUnitHierarchyViewModel>();
+        CreateMap<CreateOrgUnitHierarchyViewModel, CreateOrgUnitHierarchyDto>();
+        CreateMap<OrgUnitHierarchyDto, EditOrgUnitHierarchyViewModel>();
+        CreateMap<EditOrgUnitHierarchyViewModel, UpdateOrgUnitHierarchyDto>();
     }
 }

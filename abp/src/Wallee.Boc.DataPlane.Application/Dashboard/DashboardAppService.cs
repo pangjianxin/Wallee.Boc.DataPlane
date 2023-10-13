@@ -60,12 +60,12 @@ namespace Wallee.Boc.DataPlane.Dashboard
             {
                 var query = from a in (await _convertedCusOrgUnitRepository.GetQueryableAsync())
                             join b in (await _organizationUnitCoordinateRepository.GetQueryableAsync()).WhereIf(!input.RegionCode.IsNullOrEmpty(), it => it.RegionCode == input.RegionCode)
-                            on a.Orgidt equals b.OrgNo
+                            on a.OrgIdentity equals b.OrgNo
                             where a.DataDate == currentDataDate
                             select new ConvertedCusOrgUnitDetailItem
                             {
                                 OrgName = b.OrgName,
-                                Orgidt = a.Orgidt,
+                                Orgidt = a.OrgIdentity,
                                 Value =
                                 a.FirstLevel * coefficient.FirstLevel
                                 + a.SecondLevel * coefficient.SecondLevel
@@ -100,12 +100,12 @@ namespace Wallee.Boc.DataPlane.Dashboard
 
                 var list = await _convertedCusOrgUnitRepository.GetListAsync(it => it.DataDate == currentDataDate);
 
-                var grouped = list.GroupBy(it => new { it.UpOrgidt, it.Label });
+                var grouped = list.GroupBy(it => new { it.ParentIdentity, it.ParentName });
 
                 var items = grouped.Select(it => new ConvertedCusOrgUnitSummaryItem
                 {
-                    UpOrgidt = it.Key.UpOrgidt,
-                    Label = it.Key.Label,
+                    UpOrgidt = it.Key.ParentIdentity,
+                    Label = it.Key.ParentName,
                     FirstLevel = it.Sum(it => it.FirstLevel),
                     SecondLevel = it.Sum(it => it.SecondLevel),
                     ThirdLevel = it.Sum(it => it.ThirdLevel),

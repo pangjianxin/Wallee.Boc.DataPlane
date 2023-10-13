@@ -8,7 +8,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 /// 折效客户明细
 /// </summary>
 [Serializable]
-public class ConvertedCusDto : EntityDto, IModificationAuditedObject
+public class ConvertedCusDto : EntityDto
 {
     /// <summary>
     /// 数据日期
@@ -38,8 +38,4 @@ public class ConvertedCusDto : EntityDto, IModificationAuditedObject
     /// 所属机构名称
     /// </summary>
     public string OrgName { get; set; } = default!;
-
-    public Guid? LastModifierId { get; set; }
-
-    public DateTime? LastModificationTime { get; set; }
 }

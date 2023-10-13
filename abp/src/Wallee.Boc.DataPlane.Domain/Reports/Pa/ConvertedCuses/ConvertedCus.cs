@@ -7,7 +7,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
     /// <summary>
     /// 折效客户明细
     /// </summary>
-    public class ConvertedCus : AggregateRoot, IModificationAuditedObject
+    public class ConvertedCus : BasicAggregateRoot
     {
         /// <summary>
         /// 数据日期
@@ -37,10 +37,6 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         /// 所属机构名称
         /// </summary>
         public string OrgName { get; set; } = default!;
-
-        public Guid? LastModifierId { get; set; }
-
-        public DateTime? LastModificationTime { get; set; }
 
         public ConvertedCus()
         {

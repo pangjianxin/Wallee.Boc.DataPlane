@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Data;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;

@@ -70,5 +70,7 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<ConvertedCus, ConvertedCusDto>();
         CreateMap<CusOrgAdjusment, CusOrgAdjusmentDto>();
         CreateMap<CreateUpdateCusOrgAdjusmentByFileDto, CusOrgAdjusment>(MemberList.Source);
+        CreateMap<OrgUnitHierarchy, OrgUnitHierarchyDto>();
+        CreateMap<CreateOrgUnitHierarchyDto, OrgUnitHierarchy>(MemberList.Source);
     }
 }

@@ -62,7 +62,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -73,7 +72,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.HasKey(it => it.Id);
                 b.Property(it => it.Comment).IsRequired(false).HasMaxLength(int.MaxValue);
                 b.Ignore(it => it.TotalTaskCount);
-                /* Configure more properties here */
             });
 
 
@@ -91,7 +89,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.Property(it => it.EXPC_MO_TXN_SZ_AMT).HasColumnType("decimal(18,3)");
 
-                /* Configure more properties here */
             });
 
 
@@ -106,7 +103,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -121,7 +117,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
                 b.Property(it => it.EXST_OURBK_EQU_PCT).HasColumnType("decimal(6,2)");
-                /* Configure more properties here */
             });
 
 
@@ -138,7 +133,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -154,7 +148,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -171,7 +164,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -188,7 +180,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -209,7 +200,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.Property(it => it.NTAST_AMT).HasColumnType("decimal(18,3)");
                 b.Property(it => it.SALES_AMT).HasColumnType("decimal(18,3)");
 
-                /* Configure more properties here */
             });
 
 
@@ -228,7 +218,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.Property(it => it.ORGN_FNDS_AMT).HasColumnType("decimal(18,3)");
                 b.Property(it => it.RC_AMT).HasColumnType("decimal(18,3)");
                 b.Property(it => it.SHR_TOTAL).HasColumnType("decimal(24,6)");
-                /* Configure more properties here */
             });
 
 
@@ -243,7 +232,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.LGPER_CODE,
                 });
 
-                /* Configure more properties here */
             });
 
 
@@ -272,7 +260,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.Property(it => it.OrgName).IsRequired().HasMaxLength(128);
                 b.Property(it => it.OrgNo).IsRequired().HasMaxLength(32);
-                /* Configure more properties here */
             });
 
             //折效客户的机构分布
@@ -282,16 +269,17 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
 
                 b.ConfigureByConvention();
 
-                b.HasKey(it => new { it.DataDate, it.Orgidt });
+                b.HasKey(it => new { it.DataDate, it.OrgIdentity });
                 b.Property(it => it.DataDate).HasColumnOrder(0).IsRequired();
-                b.Property(it => it.Orgidt).HasColumnOrder(1).HasMaxLength(8).IsRequired();
+                b.Property(it => it.OrgIdentity).HasColumnOrder(1).HasMaxLength(8).IsRequired();
+                b.Property(it => it.ParentName).HasMaxLength(100).IsRequired(false);
+                b.Property(it => it.ParentIdentity).HasMaxLength(16).IsRequired(false);
                 b.Property(it => it.FirstLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.SecondLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.ThirdLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.FourthLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.FifthLevel).HasColumnType("decimal(18,2)");
                 b.Property(it => it.SixthLevel).HasColumnType("decimal(18,2)");
-                /* Configure more properties here */
             });
 
             //折效客户明细
@@ -309,7 +297,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.Property(it => it.DepYavBal).HasColumnType("decimal(18,2)");
                 b.Property(it => it.DepCurBal).HasColumnType("decimal(18,2)");
 
-                /* Configure more properties here */
             });
 
             //客户归属重新分配表
@@ -323,6 +310,20 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                     e.Cusidt,
                 });
 
+                //b.Property(it => it.Cusidt).HasMaxLength(32).IsRequired();
+                b.Property(it => it.Orgidt).HasMaxLength(32).IsRequired();
+
+            });
+
+            builder.Entity<OrgUnitHierarchy>(b =>
+            {
+                b.ToTable(DataPlaneConsts.DbTablePrefix + "OrgUnitHierarchies", DataPlaneConsts.DbSchema, table => table.HasComment("机构层级表"));
+                b.ConfigureByConvention();
+
+                b.HasKey(it => it.Id);
+                b.HasIndex(it => it.Identity).IsUnique();
+                b.Property(it => it.Identity).IsRequired().HasMaxLength(16);
+                b.Property(it => it.Name).IsRequired().HasMaxLength(128);
                 /* Configure more properties here */
             });
         }

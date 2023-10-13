@@ -139,6 +139,10 @@ public class DataPlaneDbContext :
     /// 客户机构调整
     /// </summary>
     public DbSet<CusOrgAdjusment> CusOrgAdjusments { get; set; }
+    /// <summary>
+    /// 机构层级表
+    /// </summary>
+    public DbSet<OrgUnitHierarchy> OrgUnitHierachies { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
