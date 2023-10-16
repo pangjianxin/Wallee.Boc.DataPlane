@@ -21,7 +21,7 @@ namespace Wallee.Boc.DataPlane.DataPlaneSettings
             await _settingManager.SetForTenantOrGlobalAsync(CurrentTenant.Id, Settings.DataPlaneSettings.ConvertedCusOrgUnitFourthLevel, $"{input.ConvertedCusOrgUnitFourthLevel}");
             await _settingManager.SetForTenantOrGlobalAsync(CurrentTenant.Id, Settings.DataPlaneSettings.ConvertedCusOrgUnitFifthLevel, $"{input.ConvertedCusOrgUnitFifthLevel}");
             await _settingManager.SetForTenantOrGlobalAsync(CurrentTenant.Id, Settings.DataPlaneSettings.ConvertedCusOrgUnitSixthLevel, $"{input.ConvertedCusOrgUnitSixthLevel}");
-            await _settingManager.SetForTenantOrGlobalAsync(CurrentTenant.Id, Settings.DataPlaneSettings.ConvertedCusFilterRules, $"{input.ConvertedCusFilterRules}");
+            await _settingManager.SetForTenantOrGlobalAsync(CurrentTenant.Id, Settings.DataPlaneSettings.ConvertedCusFilterRules, $"{input.OrgUnitHierarchyVisiblity}");
 
         }
 
@@ -30,7 +30,7 @@ namespace Wallee.Boc.DataPlane.DataPlaneSettings
             return new DataPlaneSettingsDto
             {
                 TDcmpWorkFlowCronExpression = (await SettingProvider.GetOrNullAsync(Settings.DataPlaneSettings.TDcmpWorkFlowCronExpression))!,
-                ConvertedCusFilterRules = (await SettingProvider.GetOrNullAsync(Settings.DataPlaneSettings.ConvertedCusFilterRules))!,
+                OrgUnitHierarchyVisiblity = (await SettingProvider.GetOrNullAsync(Settings.DataPlaneSettings.ConvertedCusFilterRules))!,
                 ConvertedCusOrgUnitFirstLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitFirstLevel),
                 ConvertedCusOrgUnitSecondLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitSecondLevel),
                 ConvertedCusOrgUnitThirdLevel = await SettingProvider.GetAsync<decimal>(Settings.DataPlaneSettings.ConvertedCusOrgUnitThirdLevel),

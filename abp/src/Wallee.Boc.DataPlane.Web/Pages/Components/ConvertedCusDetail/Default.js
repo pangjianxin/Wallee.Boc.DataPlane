@@ -2,19 +2,19 @@
     abp.widgets.ConvertedCusDetail = function ($wrapper) {
         var l = abp.localization.getResource('DataPlane');
         var service = wallee.boc.dataPlane.reports.convertedCus;
-        let getFilter;
         let dataTable;
-        const initTable = function (filters) {
-            getFilter = filters;
+        let filters;
+        const setFilters = value => filters = value;
+        const initTable = function () {
             dataTable = $('#ConvertedCusTable').DataTable(abp.libs.datatables.normalizeConfiguration({
                 processing: true,
                 serverSide: true,
                 paging: true,
-                searching: true,//disable default searchbox
+                searching: false,//disable default searchbox
                 autoWidth: false,
                 scrollCollapse: true,
                 order: [[0, "asc"]],
-                ajax: abp.libs.datatables.createAjax(service.getList, function () { return getFilter; }),
+                ajax: abp.libs.datatables.createAjax(service.getList, () => filters),
                 columnDefs: [
                     {
                         title: "数据日期",
@@ -55,18 +55,17 @@
             }));
         }
 
-        var getFilters = function (filter) {
+        var getFilters = function () {
 
         }
 
         var refresh = function (filters) {
-            getFilter = filters;
-            console.log(filters);
+            setFilters(filters);
             dataTable.ajax.reload();
         };
 
         var init = function (filters) {
-            console.log("widgets init");
+            setFilters(filters);
             initTable(filters);
         }
 

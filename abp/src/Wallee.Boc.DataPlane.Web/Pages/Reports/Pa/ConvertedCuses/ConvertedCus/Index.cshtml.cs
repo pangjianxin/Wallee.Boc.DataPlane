@@ -4,12 +4,12 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus;
 
 public class IndexModel : DataPlanePageModel
 {
-    public ConvertedCusDetailsFilterViewModel ViewModel { get; set; } = default!;
+    public ConvertedCusDetailsFilterViewModel ConvertedCusDetailsFilter { get; set; } = default!;
     public virtual void OnGet()
     {
-        ViewModel = new ConvertedCusDetailsFilterViewModel
+        ConvertedCusDetailsFilter = new ConvertedCusDetailsFilterViewModel
         {
-
+            DataDate = Clock.Now.AddDays(-1)
         };
     }
 }

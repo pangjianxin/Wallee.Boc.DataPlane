@@ -35,17 +35,18 @@
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCus))
                 {
                     <abp-button id="NewConvertedCusButton"
-                                text="上传文件"
-                                icon="upload"
-                                button-type="Primary" />
+                            text="上传文件"
+                            icon="upload"
+                            button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-dynamic-form abp-model="ViewModel" id="ConvertedCusDetailsFilter" required-symbols="false" class="mb-3">
-        </abp-dynamic-form>
-        @* <abp-table striped-rows="true" id="ConvertedCusTable" class="nowrap" /> *@
+        <abp-row>
+            <abp-dynamic-form abp-model="ConvertedCusDetailsFilter" id="ConvertedCusDetailsFilter" required-symbols="false">
+            </abp-dynamic-form>
+        </abp-row>
         <abp-row id="convertedCusDetailWidget">
             @await Component.InvokeAsync("ConvertedCusDetail")
         </abp-row>

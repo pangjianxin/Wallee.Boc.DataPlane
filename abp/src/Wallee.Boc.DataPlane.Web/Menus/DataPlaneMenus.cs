@@ -6,7 +6,7 @@ public class DataPlaneMenus
     public const string Home = Prefix + ".Home";
     public const string BackgroundJobs = Prefix + ".BackgroundJobs";
     public const string BackgroundJobs_Index = BackgroundJobs + ".Index";
- 
+
     public const string OrganizationUnit = Prefix + ".OrganizationUnit";
 
     //Add your menu items here...
@@ -37,5 +37,7 @@ public class DataPlaneMenus
     public const string Reports = Prefix + ".Reports";
     public const string Reports_ConvertedCusOrgUnit = Reports + ".ConvertedCusOrgUnit";
     public const string Reports_ConvertedCus = Reports + ".ConvertedCus";
-    
+    public const string Reports_ConvertedCus_Analysis = Reports + "ConvertedCusAnalysis";
+
+
 }

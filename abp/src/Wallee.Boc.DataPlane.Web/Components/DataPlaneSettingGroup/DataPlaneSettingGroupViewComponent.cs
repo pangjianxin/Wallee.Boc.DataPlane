@@ -23,7 +23,7 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             return View("~/Components/DataPlaneSettingGroup/Default.cshtml", new UpdateDataPlaneSettingsViewModel
             {
                 TDcmpWorkFlowCronExpression = settings.TDcmpWorkFlowCronExpression,
-                ConvertedCusFilterRules = settings.ConvertedCusFilterRules,
+                OrgUnitHierarchyVisiblity = settings.OrgUnitHierarchyVisiblity,
                 ConvertedCusOrgUnitFirstLevel = settings.ConvertedCusOrgUnitFirstLevel,
                 ConvertedCusOrgUnitSecondLevel = settings.ConvertedCusOrgUnitSecondLevel,
                 ConvertedCusOrgUnitThirdLevel = settings.ConvertedCusOrgUnitThirdLevel,
@@ -38,25 +38,32 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             [Required]
             [Display(Name = "TDcmp工作流Cron")]
             public string TDcmpWorkFlowCronExpression { get; set; } = default!;
+
             [Required]
             [TextArea]
-            [Display(Name = "折效客户过滤规则")]
-            public string ConvertedCusFilterRules { get; set; } = default!;
+            [Display(Name = "机构可见性配置")]
+            public string OrgUnitHierarchyVisiblity { get; set; } = default!;
+
             [Required]
             [Display(Name = "1000-20万日均折算率")]
             public decimal ConvertedCusOrgUnitFirstLevel { get; set; }
+
             [Required]
             [Display(Name = "20万-50万日均折算率")]
             public decimal ConvertedCusOrgUnitSecondLevel { get; set; }
+
             [Required]
             [Display(Name = "50万-500万日均折算率")]
             public decimal ConvertedCusOrgUnitThirdLevel { get; set; }
+
             [Required]
             [Display(Name = "500万-2000万日均折算率")]
             public decimal ConvertedCusOrgUnitFourthLevel { get; set; }
+
             [Required]
             [Display(Name = "2000万-1亿元日均折算率")]
             public decimal ConvertedCusOrgUnitFifthLevel { get; set; }
+
             [Required]
             [Display(Name = "1亿元日均以上折算率")]
             public decimal ConvertedCusOrgUnitSixthLevel { get; set; }
