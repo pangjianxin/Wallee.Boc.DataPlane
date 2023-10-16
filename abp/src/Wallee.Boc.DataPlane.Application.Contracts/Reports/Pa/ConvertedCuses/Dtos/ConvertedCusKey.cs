@@ -15,5 +15,5 @@ public class ConvertedCusKey
     /// <summary>
     /// 客户号
     /// </summary>
-    public string Cusidt { get; set; } = default!;
+    public string CusIdentity { get; set; } = default!;
 }

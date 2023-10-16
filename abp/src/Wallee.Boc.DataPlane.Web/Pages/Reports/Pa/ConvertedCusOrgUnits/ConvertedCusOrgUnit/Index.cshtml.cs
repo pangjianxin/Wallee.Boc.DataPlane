@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.ConvertedCusOrgUnit;
+namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit;
 
 public class IndexModel : DataPlanePageModel
 {

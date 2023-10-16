@@ -135,10 +135,7 @@ public class DataPlaneDbContext :
     /// 折效客户明细
     /// </summary>
     public DbSet<ConvertedCus> ConvertedCus { get; set; }
-    /// <summary>
-    /// 客户机构调整
-    /// </summary>
-    public DbSet<CusOrgAdjusment> CusOrgAdjusments { get; set; }
+
     /// <summary>
     /// 机构层级表
     /// </summary>

@@ -5,10 +5,14 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Dynamic.Core;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
 using Wallee.Boc.DataPlane.CsvHelper;
+using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Identity;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
@@ -22,10 +26,13 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
 {
 
     private readonly IConvertedCusRepository _repository;
+    private readonly IOrgUnitHierarchyRepository _orgUnitHierarchyRepository;
 
-    public ConvertedCusAppService(IConvertedCusRepository repository) : base(repository)
+    public ConvertedCusAppService(
+        IConvertedCusRepository repository, IOrgUnitHierarchyRepository orgUnitHierarchyRepository) : base(repository)
     {
         _repository = repository;
+        _orgUnitHierarchyRepository = orgUnitHierarchyRepository;
     }
 
     protected override async Task<ConvertedCus> GetEntityByIdAsync(ConvertedCusKey id)
@@ -34,7 +41,7 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
         return (await AsyncExecuter.FirstOrDefaultAsync(
             (await _repository.WithDetailsAsync()).Where(e =>
                 e.DataDate == id.DataDate &&
-                e.Cusidt == id.Cusidt
+                e.CusIdentity == id.CusIdentity
             )))!;
     }
 
@@ -42,12 +49,6 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
     {
         // TODO: AbpHelper generated
         return query.OrderBy(e => e.DataDate);
-    }
-
-    protected override async Task<IQueryable<ConvertedCus>> CreateFilteredQueryAsync(ConvertedCusGetListInput input)
-    {
-        // TODO: AbpHelper generated
-        return (await base.CreateFilteredQueryAsync(input)).ApplyFilter(input);
     }
 
     public async Task CreateByFileAsync(CreateUpdateConvertedCusByFileDto input)
@@ -79,6 +80,35 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
 
         await _repository.UpsertAsync(records);
     }
+
+    protected override async Task<IQueryable<ConvertedCus>> CreateFilteredQueryAsync(ConvertedCusGetListInput input)
+    {
+        Expression<Func<ConvertedCus, bool>> predicate = it => true;
+
+        var role = CurrentUser.Roles.FirstOrDefault();
+
+        switch (role)
+        {
+            case "管辖直管行长":
+                var parent = await _orgUnitHierarchyRepository.FindAsync(it => it.OrgIdentity == CurrentUser.GetOrgNo());
+                if (parent != null)
+                {
+                    var children = (await _orgUnitHierarchyRepository
+                        .GetListAsync(it => it.ParentId == parent.Id))
+                        .Select(it => it.OrgIdentity);
+                    predicate = it => children.Contains(it.OrgIdentity);
+                }
+                break;
+            case "网点环节干部":
+                var orgIdentity = CurrentUser.GetOrgNo();
+                predicate = it => it.OrgIdentity == orgIdentity;
+                break;
+            default:
+                break;
+        }
+
+        return (await base.CreateFilteredQueryAsync(input)).Where(predicate).ApplyFilter(input);
+    }
 }
 
 internal class ConvertedCusReadingMap : ClassMap<ConvertedCus>
@@ -86,11 +116,11 @@ internal class ConvertedCusReadingMap : ClassMap<ConvertedCus>
     public ConvertedCusReadingMap()
     {
         Map(it => it.DataDate).Index(0).TypeConverter(new ReadingDateTimeConverter("yyyyMMdd"));
-        Map(it => it.Cusidt).Index(1);
+        Map(it => it.CusIdentity).Index(1);
         Map(it => it.CusName).Index(2);
         Map(it => it.DepYavBal).Index(3);
         Map(it => it.DepCurBal).Index(4);
-        Map(it => it.Orgidt).Index(5);
+        Map(it => it.OrgIdentity).Index(5);
         Map(it => it.OrgName).Index(6);
     }
 }

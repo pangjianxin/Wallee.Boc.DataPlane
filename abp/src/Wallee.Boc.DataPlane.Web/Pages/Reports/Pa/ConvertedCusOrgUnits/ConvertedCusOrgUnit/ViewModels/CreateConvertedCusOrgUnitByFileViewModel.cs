@@ -2,7 +2,7 @@
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using Volo.Abp.Content;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.ConvertedCusOrgUnit.ViewModels
+namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit.ViewModels
 {
     public class CreateConvertedCusOrgUnitByFileViewModel
     {

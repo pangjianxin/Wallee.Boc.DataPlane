@@ -7,7 +7,7 @@ public class CreateOrgUnitHierarchyDto
 {
     public Guid? ParentId { get; set; }
 
-    public string Identity { get; set; } = default!;
+    public string OrgIdentity { get; set; } = default!;
 
     public string Name { get; set; } = default!;
 }

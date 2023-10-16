@@ -70,32 +70,33 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
 
         var records = csv.GetRecords<ConvertedCusOrgUnit>();
 
-        records = await CheckAndSetParentInfo(records);
+        var checkedList = await CheckAndSetParentInfo(records);
 
-        await _repository.UpsertAsync(records);
+        await _repository.UpsertAsync(checkedList);
     }
 
-    private async Task<IEnumerable<ConvertedCusOrgUnit>> CheckAndSetParentInfo(IEnumerable<ConvertedCusOrgUnit> records)
+    private async Task<List<ConvertedCusOrgUnit>> CheckAndSetParentInfo(IEnumerable<ConvertedCusOrgUnit> records)
     {
         var orgUnitHierarchies = await _orgUnitHierarchyRepository.GetListAsync();
 
-        foreach (var record in records)
+        var recordList = records.ToList();
+
+        foreach (var record in recordList)
         {
-            var orgInfo = orgUnitHierarchies.First(it => it.Identity == record.OrgIdentity);
+            var orgInfo = orgUnitHierarchies.FirstOrDefault(it => it.OrgIdentity == record.OrgIdentity);
 
-            if (orgInfo.ParentId.HasValue)
+            if (orgInfo != default)
             {
-                var parent = orgUnitHierarchies.First(it => it.Id == orgInfo.ParentId);
+                if (orgInfo.ParentId.HasValue)
+                {
+                    var parent = orgUnitHierarchies.First(it => it.Id == orgInfo.ParentId);
 
-                record.SetParentInfo(parent.Name, parent.Identity);
-            }
-            else
-            {
-                throw new UserFriendlyException("查找不到该机构的上级机构");
+                    record.SetParentInfo(parent.Name, parent.OrgIdentity);
+                }
             }
         }
 
-        return records;
+        return recordList.Where(it => !it.ParentIdentity.IsNullOrEmpty()).ToList();
     }
 
     public async Task<IRemoteStreamContent> DownloadFileAsync(DateTime dataDate)

@@ -291,27 +291,11 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.HasKey(e => new
                 {
                     e.DataDate,
-                    e.Cusidt,
+                    e.CusIdentity,
                 });
 
                 b.Property(it => it.DepYavBal).HasColumnType("decimal(18,2)");
                 b.Property(it => it.DepCurBal).HasColumnType("decimal(18,2)");
-
-            });
-
-            //客户归属重新分配表
-            builder.Entity<CusOrgAdjusment>(b =>
-            {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "CusOrgAdjusments", DataPlaneConsts.DbSchema, table => table.HasComment("客户机构调整"));
-                b.ConfigureByConvention();
-
-                b.HasKey(e => new
-                {
-                    e.Cusidt,
-                });
-
-                //b.Property(it => it.Cusidt).HasMaxLength(32).IsRequired();
-                b.Property(it => it.Orgidt).HasMaxLength(32).IsRequired();
 
             });
 
@@ -321,8 +305,8 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.ConfigureByConvention();
 
                 b.HasKey(it => it.Id);
-                b.HasIndex(it => it.Identity).IsUnique();
-                b.Property(it => it.Identity).IsRequired().HasMaxLength(16);
+                b.HasIndex(it => it.OrgIdentity).IsUnique();
+                b.Property(it => it.OrgIdentity).IsRequired().HasMaxLength(16);
                 b.Property(it => it.Name).IsRequired().HasMaxLength(128);
                 /* Configure more properties here */
             });

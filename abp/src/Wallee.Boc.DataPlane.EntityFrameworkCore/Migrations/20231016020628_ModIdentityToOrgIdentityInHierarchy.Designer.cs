@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.EntityFrameworkCore;
@@ -12,9 +13,11 @@ using Wallee.Boc.DataPlane.EntityFrameworkCore;
 namespace Wallee.Boc.DataPlane.Migrations
 {
     [DbContext(typeof(DataPlaneDbContext))]
-    partial class DataPlaneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231016020628_ModIdentityToOrgIdentityInHierarchy")]
+    partial class ModIdentityToOrgIdentityInHierarchy
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1910,7 +1913,7 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<DateTime>("DataDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CusIdentity")
+                    b.Property<string>("Cusidt")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("CusName")
@@ -1923,19 +1926,45 @@ namespace Wallee.Boc.DataPlane.Migrations
                     b.Property<decimal>("DepYavBal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("OrgIdentity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("OrgName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DataDate", "CusIdentity");
+                    b.Property<string>("Orgidt")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DataDate", "Cusidt");
 
                     b.ToTable("AppConvertedCus", null, t =>
                         {
                             t.HasComment("折效客户明细");
+                        });
+                });
+
+            modelBuilder.Entity("Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.CusOrgAdjusment", b =>
+                {
+                    b.Property<string>("Cusidt")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("LastModificationTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("LastModificationTime");
+
+                    b.Property<Guid?>("LastModifierId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("LastModifierId");
+
+                    b.Property<string>("Orgidt")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Cusidt");
+
+                    b.ToTable("AppCusOrgAdjusments", null, t =>
+                        {
+                            t.HasComment("客户机构调整");
                         });
                 });
 

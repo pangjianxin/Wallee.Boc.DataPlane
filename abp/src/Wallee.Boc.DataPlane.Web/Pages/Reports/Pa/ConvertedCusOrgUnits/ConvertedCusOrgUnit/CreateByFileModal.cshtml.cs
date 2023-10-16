@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
-using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.ConvertedCusOrgUnit.ViewModels;
+using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit.ViewModels;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.ConvertedCusOrgUnit
+namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit
 {
     public class CreateByFileModalModel : DataPlanePageModel
     {

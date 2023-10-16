@@ -35,12 +35,12 @@ public class OrgUnitHierarchyAppService : CrudAppService<OrgUnitHierarchy, OrgUn
 
     public override async Task<OrgUnitHierarchyDto> CreateAsync(CreateOrgUnitHierarchyDto input)
     {
-        if (await Repository.AnyAsync(it => it.Identity == input.Identity))
+        if (await Repository.AnyAsync(it => it.OrgIdentity == input.OrgIdentity))
         {
             throw new UserFriendlyException("该机构号已存在,请检查");
         }
 
-        var entity = new OrgUnitHierarchy(GuidGenerator.Create(), input.ParentId, input.Identity, input.Name);
+        var entity = new OrgUnitHierarchy(GuidGenerator.Create(), input.ParentId, input.OrgIdentity, input.Name);
         await Repository.InsertAsync(entity);
 
         return await MapToGetOutputDtoAsync(entity);
@@ -50,15 +50,15 @@ public class OrgUnitHierarchyAppService : CrudAppService<OrgUnitHierarchy, OrgUn
     {
         OrgUnitHierarchy entity = await Repository.GetAsync(id);
 
-        if (entity.Identity != input.Identity)
+        if (entity.OrgIdentity != input.OrgIdentity)
         {
-            if (await Repository.AnyAsync(it => it.Identity == input.Identity))
+            if (await Repository.AnyAsync(it => it.OrgIdentity == input.OrgIdentity))
             {
                 throw new UserFriendlyException("该机构号已存在,请检查");
             }
         }
         entity.ConcurrencyStamp = input.ConcurrencyStamp;
-        entity.UpdateInfo(input.Name, input.Identity);
+        entity.UpdateInfo(input.Name, input.OrgIdentity);
         await Repository.UpdateAsync(entity);
         return await MapToGetOutputDtoAsync(entity);
     }

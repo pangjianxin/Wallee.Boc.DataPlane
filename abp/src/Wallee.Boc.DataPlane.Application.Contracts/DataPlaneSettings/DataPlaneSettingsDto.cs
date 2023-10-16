@@ -3,6 +3,7 @@
     public class DataPlaneSettingsDto
     {
         public string TDcmpWorkFlowCronExpression { get; set; } = default!;
+        public string ConvertedCusFilterRules { get; set; } = default!;
         public decimal ConvertedCusOrgUnitFirstLevel { get; set; }
         public decimal ConvertedCusOrgUnitSecondLevel { get; set; }
         public decimal ConvertedCusOrgUnitThirdLevel { get; set; }

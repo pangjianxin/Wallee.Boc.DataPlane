@@ -43,6 +43,11 @@
         </abp-row>
     </abp-card-header>
     <abp-card-body>
-        <abp-table striped-rows="true" id="ConvertedCusTable" class="nowrap" />
+        <abp-dynamic-form abp-model="ViewModel" id="ConvertedCusDetailsFilter" required-symbols="false" class="mb-3">
+        </abp-dynamic-form>
+        @* <abp-table striped-rows="true" id="ConvertedCusTable" class="nowrap" /> *@
+        <abp-row id="convertedCusDetailWidget">
+            @await Component.InvokeAsync("ConvertedCusDetail")
+        </abp-row>
     </abp-card-body>
 </abp-card>

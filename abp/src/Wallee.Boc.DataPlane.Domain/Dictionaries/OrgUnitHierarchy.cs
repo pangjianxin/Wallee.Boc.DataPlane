@@ -9,21 +9,21 @@ namespace Wallee.Boc.DataPlane.Dictionaries
     public class OrgUnitHierarchy : AuditedAggregateRoot<Guid>
     {
         protected OrgUnitHierarchy() { }
-        public OrgUnitHierarchy(Guid id, Guid? parentId, string identity, string name) : base(id)
+        public OrgUnitHierarchy(Guid id, Guid? parentId, string orgIdentity, string name) : base(id)
         {
             ParentId = parentId;
-            Identity = identity;
+            OrgIdentity = orgIdentity;
             Name = name;
         }
 
         public Guid? ParentId { get; private set; }
-        public string Identity { get; private set; } = default!;
+        public string OrgIdentity { get; private set; } = default!;
         public string Name { get; private set; } = default!;
 
         public void UpdateInfo(string name, string identity)
         {
             Name = name;
-            Identity = identity;
+            OrgIdentity = identity;
         }
 
         public void Move(Guid? parentId)

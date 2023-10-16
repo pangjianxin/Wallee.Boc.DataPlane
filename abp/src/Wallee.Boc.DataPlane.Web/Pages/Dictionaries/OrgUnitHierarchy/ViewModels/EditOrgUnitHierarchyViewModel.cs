@@ -11,7 +11,7 @@ namespace Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrgUnitHierarchy.ViewModel
         public string Name { get; set; } = default!;
 
         [Display(Name = "OrgUnitHierarchyIdentity")]
-        public string Identity { get; set; } = default!;
+        public string OrgIdentity { get; set; } = default!;
 
         [HiddenInput]
         public string ConcurrencyStamp { get; set; } = default!;

@@ -15,5 +15,5 @@ public class CreateOrgUnitHierarchyViewModel
     public string Name { get; set; } = default!;
     [Required]
     [Display(Name = "OrgUnitHierarchyIdentity")]
-    public string Identity { get; set; } = default!;
+    public string OrgIdentity { get; set; } = default!;
 }

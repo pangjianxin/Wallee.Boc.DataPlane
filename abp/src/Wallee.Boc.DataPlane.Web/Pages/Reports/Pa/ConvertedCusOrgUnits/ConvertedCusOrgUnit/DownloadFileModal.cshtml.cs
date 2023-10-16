@@ -6,7 +6,7 @@ using Volo.Abp;
 using Volo.Abp.Timing;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 
-namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertCusOrgUnits.ConvertedCusOrgUnit
+namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCusOrgUnits.ConvertedCusOrgUnit
 {
     public class DownloadFileModalModel : DataPlanePageModel
     {

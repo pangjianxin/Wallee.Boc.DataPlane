@@ -16,7 +16,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         /// <summary>
         /// 客户号
         /// </summary>
-        public string Cusidt { get; set; } = default!;
+        public string CusIdentity { get; set; } = default!;
         /// <summary>
         /// 客户名称
         /// </summary>
@@ -32,7 +32,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         /// <summary>
         /// 所属机构
         /// </summary>
-        public string Orgidt { get; set; } = default!;
+        public string OrgIdentity { get; set; } = default!;
         /// <summary>
         /// 所属机构名称
         /// </summary>
@@ -46,7 +46,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses
         {
             return new object[]
             {
-               DataDate,Cusidt
+               DataDate,CusIdentity
             };
         }
 

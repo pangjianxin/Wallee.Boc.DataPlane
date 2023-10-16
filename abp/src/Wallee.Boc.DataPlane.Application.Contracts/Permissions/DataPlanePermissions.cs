@@ -66,7 +66,7 @@ public static class DataPlanePermissions
         public const string Defaults = GroupName + ".Reports";
         public const string ConvertedCusOrgUnit = Defaults + ".ConvertedCusOrgUnit";
         public const string ConvertedCus = Defaults + ".ConvertedCus";
-        public const string CusOrgAdjusment = Defaults + ".CusOrgAdjusment";
+        public const string ConvertedCusManagement = Defaults + ".ConvertedCusManagement";
     }
 
     public class Dashboard

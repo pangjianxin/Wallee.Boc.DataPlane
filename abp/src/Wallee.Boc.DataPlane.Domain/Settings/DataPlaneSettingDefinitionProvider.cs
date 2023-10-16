@@ -16,5 +16,6 @@ public class DataPlaneSettingDefinitionProvider : SettingDefinitionProvider
         context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitFourthLevel));
         context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitFifthLevel));
         context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusOrgUnitSixthLevel));
+        context.Add(new SettingDefinition(DataPlaneSettings.ConvertedCusFilterRules));
     }
 }

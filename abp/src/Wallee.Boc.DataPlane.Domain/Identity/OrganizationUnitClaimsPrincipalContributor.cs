@@ -1,10 +1,14 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Identity;
 using Volo.Abp.Security.Claims;
+using Volo.Abp.Users;
 
 namespace Wallee.Boc.DataPlane.Identity
 {
@@ -40,6 +44,14 @@ namespace Wallee.Boc.DataPlane.Identity
             }
 
             context.ClaimsPrincipal.AddIdentityIfNotContains(claimsIdentity);
+        }
+    }
+
+    public static class CurrentUserExtensions
+    {
+        public static string? GetOrgNo(this ICurrentUser currentUser)
+        {
+            return currentUser.FindClaimValue(AbpOrganizationUnitClaimTypes.OrganizationUnit);
         }
     }
 }

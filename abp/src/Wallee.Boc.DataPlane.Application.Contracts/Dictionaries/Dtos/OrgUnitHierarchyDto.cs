@@ -12,7 +12,7 @@ public class OrgUnitHierarchyDto : AuditedEntityDto<Guid>, IHasConcurrencyStamp
 {
     public Guid? ParentId { get; set; }
 
-    public string Identity { get; set; } = default!;
+    public string OrgIdentity { get; set; } = default!;
 
     public string Name { get; set; } = default!;
     public string ConcurrencyStamp { get; set; } = default!;

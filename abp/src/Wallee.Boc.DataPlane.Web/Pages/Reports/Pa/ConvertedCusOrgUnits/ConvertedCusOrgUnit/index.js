@@ -2,8 +2,9 @@ $(function () {
     var l = abp.localization.getResource('DataPlane');
 
     var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
-    var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/Pa/ConvertCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
-    var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
+    var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/Pa/ConvertedCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
+    var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertedCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
+    var convertedCusOrgDetailModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertedCuses/ConvertedCus/ConvertedCusDetailsModal");
 
     var dataTable = $('#ConvertedCusOrgUnitTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
@@ -20,24 +21,10 @@ $(function () {
                     items:
                         [
                             {
-                                text: l('Edit'),
-                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCusOrgUnit'),
+                                text: l('View'),
+                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCus'),
                                 action: function (data) {
-                                    editModal.open({ id: data.record.id });
-                                }
-                            },
-                            {
-                                text: l('Delete'),
-                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCusOrgUnit'),
-                                confirmMessage: function (data) {
-                                    return l('ConvertedCusOrgUnitDeletionConfirmationMessage', data.record.id);
-                                },
-                                action: function (data) {
-                                    service.delete(data.record.id)
-                                        .then(function () {
-                                            abp.notify.info(l('SuccessfullyDeleted'));
-                                            dataTable.ajax.reload();
-                                        });
+                                    convertedCusOrgDetailModal.open({ orgidt: data.record.orgIdentity });
                                 }
                             }
                         ]
@@ -46,6 +33,10 @@ $(function () {
             {
                 title: l('ConvertedCusOrgUnitLabel'),
                 data: "parentName"
+            },
+            {
+                title: l('ConvertedCusOrgUnitUpOrgidt'),
+                data: "parentIdentity"
             },
             {
                 title: l('ConvertedCusOrgUnitDataDate'),
@@ -58,12 +49,8 @@ $(function () {
                 }
             },
             {
-                title: l('ConvertedCusOrgUnitUpOrgidt'),
-                data: "parentIdentity"
-            },
-            {
                 title: l('ConvertedCusOrgUnitOrgidt'),
-                data: "identity"
+                data: "orgIdentity"
             },
             {
                 title: l('ConvertedCusOrgUnitFirstLevel'),
@@ -105,7 +92,6 @@ $(function () {
     });
 
     downloadFileModal.onResult(function (event, response) {
-        console.log(response.responseText);
         window.open(`/api/app/converted-cus-org-unit/download/${response.responseText}`, "_self");
     });
 });

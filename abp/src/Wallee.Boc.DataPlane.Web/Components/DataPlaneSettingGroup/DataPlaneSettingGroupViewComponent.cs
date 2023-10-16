@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using Wallee.Boc.DataPlane.DataPlaneSettings;
 
 namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
@@ -22,13 +23,13 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             return View("~/Components/DataPlaneSettingGroup/Default.cshtml", new UpdateDataPlaneSettingsViewModel
             {
                 TDcmpWorkFlowCronExpression = settings.TDcmpWorkFlowCronExpression,
-
+                ConvertedCusFilterRules = settings.ConvertedCusFilterRules,
                 ConvertedCusOrgUnitFirstLevel = settings.ConvertedCusOrgUnitFirstLevel,
                 ConvertedCusOrgUnitSecondLevel = settings.ConvertedCusOrgUnitSecondLevel,
                 ConvertedCusOrgUnitThirdLevel = settings.ConvertedCusOrgUnitThirdLevel,
                 ConvertedCusOrgUnitFourthLevel = settings.ConvertedCusOrgUnitFourthLevel,
                 ConvertedCusOrgUnitFifthLevel = settings.ConvertedCusOrgUnitFifthLevel,
-                ConvertedCusOrgUnitSixthLevel = settings.ConvertedCusOrgUnitSixthLevel,
+                ConvertedCusOrgUnitSixthLevel = settings.ConvertedCusOrgUnitSixthLevel
             });
         }
 
@@ -38,7 +39,11 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             [Display(Name = "TDcmp工作流Cron")]
             public string TDcmpWorkFlowCronExpression { get; set; } = default!;
             [Required]
-            [Display(Name = "2000-20万日均折算率")]
+            [TextArea]
+            [Display(Name = "折效客户过滤规则")]
+            public string ConvertedCusFilterRules { get; set; } = default!;
+            [Required]
+            [Display(Name = "1000-20万日均折算率")]
             public decimal ConvertedCusOrgUnitFirstLevel { get; set; }
             [Required]
             [Display(Name = "20万-50万日均折算率")]

@@ -1,11 +1,15 @@
-using System.Threading.Tasks;
+using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus.ViewModels;
 
 namespace Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus;
 
 public class IndexModel : DataPlanePageModel
 {
-    public virtual async Task OnGetAsync()
+    public ConvertedCusDetailsFilterViewModel ViewModel { get; set; } = default!;
+    public virtual void OnGet()
     {
-        await Task.CompletedTask;
+        ViewModel = new ConvertedCusDetailsFilterViewModel
+        {
+
+        };
     }
 }

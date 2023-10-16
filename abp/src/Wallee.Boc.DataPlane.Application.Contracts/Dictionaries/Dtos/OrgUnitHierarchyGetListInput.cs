@@ -9,7 +9,7 @@ namespace Wallee.Boc.DataPlane.Dictionaries.Dtos;
 public class OrgUnitHierarchyGetListInput : FilterBase, IPagedAndSortedResultRequest
 {
     [StringFilterOptions(AutoFilterer.Enums.StringFilterOption.Contains)]
-    [CompareTo(nameof(OrgUnitHierarchyDto.Name), nameof(OrgUnitHierarchyDto.Identity))]
+    [CompareTo(nameof(OrgUnitHierarchyDto.Name), nameof(OrgUnitHierarchyDto.OrgIdentity))]
     public string? Filter { get; set; }
     public int SkipCount { get; set; }
     public int MaxResultCount { get; set; }

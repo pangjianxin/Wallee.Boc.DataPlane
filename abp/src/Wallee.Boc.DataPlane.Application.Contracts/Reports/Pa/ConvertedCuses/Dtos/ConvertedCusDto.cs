@@ -1,6 +1,5 @@
 using System;
 using Volo.Abp.Application.Dtos;
-using Volo.Abp.Auditing;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
@@ -17,7 +16,7 @@ public class ConvertedCusDto : EntityDto
     /// <summary>
     /// 客户号
     /// </summary>
-    public string Cusidt { get; set; } = default!;
+    public string CusIdentity { get; set; } = default!;
     /// <summary>
     /// 客户名称
     /// </summary>
@@ -33,7 +32,7 @@ public class ConvertedCusDto : EntityDto
     /// <summary>
     /// 所属机构
     /// </summary>
-    public string Orgidt { get; set; } = default!;
+    public string OrgIdentity { get; set; } = default!;
     /// <summary>
     /// 所属机构名称
     /// </summary>

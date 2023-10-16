@@ -9,7 +9,7 @@ $(function () {
     const transformData = function (data) {
         let map = {};
         //初始化children
-        data.forEach(item => map[item.id] = { id: item.id, text: `${item.name}-${item.identity}`, type: "default", identity: item.identity, children: [] });
+        data.forEach(item => map[item.id] = { id: item.id, text: `${item.name}-${item.orgIdentity}`, type: "default", identity: item.identity, children: [] });
         //填充children
         data.forEach(item => {
             if (item.parentId) {
