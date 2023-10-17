@@ -74,7 +74,6 @@ public class DataPlaneEntityFrameworkCoreModule : AbpModule
             options.AddRepository<OrganizationUnitCoordinate, OrganizationUnitCoordinateRepository>();
             options.AddRepository<ConvertedCusOrgUnit, ConvertedCusOrgUnitRepository>();
             options.AddRepository<ConvertedCus, ConvertedCusRepository>();
-            options.AddRepository<OrgUnitHierarchy, OrgUnitHierarchyRepository>();
         });
 
         Configure<AbpDbContextOptions>(options =>

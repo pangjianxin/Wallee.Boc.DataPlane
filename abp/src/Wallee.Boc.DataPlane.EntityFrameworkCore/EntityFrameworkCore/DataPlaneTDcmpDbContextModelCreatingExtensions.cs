@@ -298,18 +298,6 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.Property(it => it.DepCurBal).HasColumnType("decimal(18,2)");
 
             });
-
-            builder.Entity<OrgUnitHierarchy>(b =>
-            {
-                b.ToTable(DataPlaneConsts.DbTablePrefix + "OrgUnitHierarchies", DataPlaneConsts.DbSchema, table => table.HasComment("机构层级表"));
-                b.ConfigureByConvention();
-
-                b.HasKey(it => it.Id);
-                b.HasIndex(it => it.OrgIdentity).IsUnique();
-                b.Property(it => it.OrgIdentity).IsRequired().HasMaxLength(16);
-                b.Property(it => it.Name).IsRequired().HasMaxLength(128);
-                /* Configure more properties here */
-            });
         }
     }
 }

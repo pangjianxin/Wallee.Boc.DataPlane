@@ -13,6 +13,8 @@ using Volo.Abp.SettingManagement.EntityFrameworkCore;
 using Volo.Abp.TenantManagement;
 using Volo.Abp.TenantManagement.EntityFrameworkCore;
 using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
+using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
 using Wallee.Boc.DataPlane.TDcmp.CcicAddresses;
 using Wallee.Boc.DataPlane.TDcmp.CcicAntiMoneyLaunderings;
 using Wallee.Boc.DataPlane.TDcmp.CcicBasics;
@@ -26,10 +28,7 @@ using Wallee.Boc.DataPlane.TDcmp.CcicPhones;
 using Wallee.Boc.DataPlane.TDcmp.CcicPractices;
 using Wallee.Boc.DataPlane.TDcmp.CcicRegisters;
 using Wallee.Boc.DataPlane.TDcmp.CcicSignOrgs;
-using Volo.Abp.EntityFrameworkCore.Modeling;
 using Wallee.Boc.DataPlane.WorkFlows.CcicCusInfos;
-using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
-using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
 
 namespace Wallee.Boc.DataPlane.EntityFrameworkCore;
 
@@ -135,11 +134,6 @@ public class DataPlaneDbContext :
     /// 折效客户明细
     /// </summary>
     public DbSet<ConvertedCus> ConvertedCus { get; set; }
-
-    /// <summary>
-    /// 机构层级表
-    /// </summary>
-    public DbSet<OrgUnitHierarchy> OrgUnitHierachies { get; set; }
 
     public DataPlaneDbContext(DbContextOptions<DataPlaneDbContext> options)
         : base(options)
