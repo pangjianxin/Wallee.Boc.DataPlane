@@ -5,7 +5,6 @@ public static class DataPlaneSettings
     private const string Prefix = "DataPlane";
 
     public const string TDcmpWorkFlowCronExpression = Prefix + "TDcmpWorkFlowCronExpression";
-    public const string ConvertedCusFilterRules = Prefix + ".ConvertedCusFilterRules";
 
     public const string ConvertedCusOrgUnitFirstLevel = Prefix + ".ConvertedCusOrgUnitFirstLevel";
     public const string ConvertedCusOrgUnitSecondLevel = Prefix + ".ConvertedCusOrgUnitSecondLevel";

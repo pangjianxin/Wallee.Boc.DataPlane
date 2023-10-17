@@ -12,8 +12,10 @@ using Volo.Abp;
 using Volo.Abp.Application.Services;
 using Volo.Abp.Content;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.Dictionaries;
+using Wallee.Boc.DataPlane.Identity;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits;
@@ -26,14 +28,14 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
     IConvertedCusOrgUnitAppService
 {
     private readonly IConvertedCusOrgUnitRepository _repository;
-    private readonly IOrgUnitHierarchyRepository _orgUnitHierarchyRepository;
+    private readonly IOrganizationUnitRepository _organizationUnitRepository;
 
     public ConvertedCusOrgUnitAppService(
         IConvertedCusOrgUnitRepository repository,
-        IOrgUnitHierarchyRepository orgUnitHierarchyRepository) : base(repository)
+        IOrganizationUnitRepository organizationUnitRepository) : base(repository)
     {
         _repository = repository;
-        _orgUnitHierarchyRepository = orgUnitHierarchyRepository;
+        _organizationUnitRepository = organizationUnitRepository;
     }
 
     protected override async Task<IQueryable<ConvertedCusOrgUnit>> CreateFilteredQueryAsync(ConvertedCusOrgUnitGetListInput input)
@@ -77,21 +79,21 @@ public class ConvertedCusOrgUnitAppService : AbstractKeyReadOnlyAppService<Conve
 
     private async Task<List<ConvertedCusOrgUnit>> CheckAndSetParentInfo(IEnumerable<ConvertedCusOrgUnit> records)
     {
-        var orgUnitHierarchies = await _orgUnitHierarchyRepository.GetListAsync();
+        var orgUnits = await _organizationUnitRepository.GetListAsync();
 
         var recordList = records.ToList();
 
         foreach (var record in recordList)
         {
-            var orgInfo = orgUnitHierarchies.FirstOrDefault(it => it.OrgIdentity == record.OrgIdentity);
+            var orgInfo = orgUnits.FirstOrDefault(it => it.GetOrgNo() == record.OrgIdentity);
 
             if (orgInfo != default)
             {
                 if (orgInfo.ParentId.HasValue)
                 {
-                    var parent = orgUnitHierarchies.First(it => it.Id == orgInfo.ParentId);
+                    var parent = orgUnits.First(it => it.Id == orgInfo.ParentId);
 
-                    record.SetParentInfo(parent.Name, parent.OrgIdentity);
+                    record.SetParentInfo(parent.DisplayName, parent.GetOrgNo());
                 }
             }
         }

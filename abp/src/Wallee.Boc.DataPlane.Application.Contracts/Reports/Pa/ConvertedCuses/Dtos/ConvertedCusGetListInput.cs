@@ -16,6 +16,8 @@ public class ConvertedCusGetListInput : FilterBase, IPagedAndSortedResultRequest
     [CompareTo(nameof(ConvertedCusDto.DataDate))]
     public DateTime? DataDate { get; set; }
 
+    public string? OrgIdentity { get; set; }
+
     public int SkipCount { get; set; }
     public int MaxResultCount { get; set; }
     public string? Sorting { get; set; }

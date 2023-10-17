@@ -11,7 +11,7 @@ namespace Wallee.Boc.DataPlane.Identity
     {
         public static Guid[] FindOrganizationUnits([NotNull] this ICurrentUser currentUser)
         {
-            var organizationUnits = currentUser.FindClaims(AbpOrganizationUnitClaimTypes.OrganizationUnit);
+            var organizationUnits = currentUser.FindClaims(AbpOrganizationUnitClaimTypes.OrganizationUnitCode);
             if (organizationUnits.IsNullOrEmpty())
             {
                 return new Guid[0];

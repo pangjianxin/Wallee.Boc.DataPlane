@@ -1,18 +1,20 @@
 using AutoFilterer.Extensions;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Data;
 using Wallee.Boc.DataPlane.CsvHelper;
-using Wallee.Boc.DataPlane.Dictionaries;
 using Wallee.Boc.DataPlane.Identity;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Caches;
+using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
@@ -26,13 +28,13 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
 {
 
     private readonly IConvertedCusRepository _repository;
-    private readonly IOrgUnitHierarchyRepository _orgUnitHierarchyRepository;
+    private readonly IOrganizationUnitCacheProvider _organizationUnitCacheProvider;
 
     public ConvertedCusAppService(
-        IConvertedCusRepository repository, IOrgUnitHierarchyRepository orgUnitHierarchyRepository) : base(repository)
+        IConvertedCusRepository repository, IOrganizationUnitCacheProvider organizationUnitCacheProvider) : base(repository)
     {
         _repository = repository;
-        _orgUnitHierarchyRepository = orgUnitHierarchyRepository;
+        _organizationUnitCacheProvider = organizationUnitCacheProvider;
     }
 
     protected override async Task<ConvertedCus> GetEntityByIdAsync(ConvertedCusKey id)
@@ -80,34 +82,18 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
 
         await _repository.UpsertAsync(records);
     }
-
     protected override async Task<IQueryable<ConvertedCus>> CreateFilteredQueryAsync(ConvertedCusGetListInput input)
     {
-        Expression<Func<ConvertedCus, bool>> predicate = it => true;
+        var queryable = await base.CreateFilteredQueryAsync(input);
 
-        var role = CurrentUser.Roles.FirstOrDefault();
+        var visibleOrgs = (await _organizationUnitCacheProvider.GetVisibleOrganizationUnitsAsync(CurrentUser.GetOrganizationUnitCode()))
+            .Select(it => it.GetProperty<string>("OrgNo")).ToList();
 
-        switch (role)
-        {
-            case "管辖直管行长":
-                var parent = await _orgUnitHierarchyRepository.FindAsync(it => it.OrgIdentity == CurrentUser.GetOrgNo());
-                if (parent != null)
-                {
-                    var children = (await _orgUnitHierarchyRepository
-                        .GetListAsync(it => it.ParentId == parent.Id))
-                        .Select(it => it.OrgIdentity);
-                    predicate = it => children.Contains(it.OrgIdentity);
-                }
-                break;
-            case "网点环节干部":
-                var orgIdentity = CurrentUser.GetOrgNo();
-                predicate = it => it.OrgIdentity == orgIdentity;
-                break;
-            default:
-                break;
-        }
+        queryable = queryable.Where(it => visibleOrgs.Contains(it.OrgIdentity));
 
-        return (await base.CreateFilteredQueryAsync(input)).Where(predicate).ApplyFilter(input);
+        queryable = queryable.WhereIf(input.OrgIdentity != default, it => it.OrgIdentity == input.OrgIdentity);
+
+        return queryable.ApplyFilter(input);
     }
 }
 

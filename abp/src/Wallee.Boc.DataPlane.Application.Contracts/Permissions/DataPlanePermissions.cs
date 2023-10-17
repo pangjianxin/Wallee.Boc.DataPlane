@@ -16,6 +16,7 @@ public static class DataPlanePermissions
         public const string Update = Default + ".Update";
         public const string Delete = Default + ".Delete";
         public const string Operation = Default + ".Operation";
+        
     }
     public class OrganizationUnits
     {
@@ -58,7 +59,6 @@ public static class DataPlanePermissions
     {
         public const string Default = GroupName + ".Dictionaries";
         public const string OrganizationUnitCoordinate = Default + ".OrganizationUnitCoordinate";
-        public const string OrgUnitHierarchy = Default + ".OrgUnitHierarchy";
 
     }
     public class Reports

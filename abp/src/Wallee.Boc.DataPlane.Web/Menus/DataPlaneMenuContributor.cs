@@ -161,13 +161,6 @@ public class DataPlaneMenuContributor : IMenuContributor
                 );
             }
 
-            if (await context.IsGrantedAsync(DataPlanePermissions.Dictionaries.OrgUnitHierarchy))
-            {
-                dictionariesMenu.AddItem(
-                    new ApplicationMenuItem(DataPlaneMenus.OrgUnitHierarchy, l["Menu:Dictionaries:OrgUnitHierarchy"], "/Dictionaries/OrgUnitHierarchy", icon: "fas fa-bars")
-                );
-            }
-
             context.Menu.AddItem(dictionariesMenu);
         }
 

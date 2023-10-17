@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -40,7 +37,8 @@ namespace Wallee.Boc.DataPlane.Identity
 
             foreach (var userOu in userOus)
             {
-                claimsIdentity.AddClaim(new Claim(AbpOrganizationUnitClaimTypes.OrganizationUnit, userOu.GetOrgNo()));
+                claimsIdentity.AddClaim(new Claim(AbpOrganizationUnitClaimTypes.OrganizationUnitIdentity, userOu.GetOrgNo()));
+                claimsIdentity.AddClaim(new Claim(AbpOrganizationUnitClaimTypes.OrganizationUnitCode, userOu.Code));
             }
 
             context.ClaimsPrincipal.AddIdentityIfNotContains(claimsIdentity);
@@ -49,9 +47,14 @@ namespace Wallee.Boc.DataPlane.Identity
 
     public static class CurrentUserExtensions
     {
-        public static string? GetOrgNo(this ICurrentUser currentUser)
+        public static string? GetOrganizationUnitCode(this ICurrentUser currentUser)
         {
-            return currentUser.FindClaimValue(AbpOrganizationUnitClaimTypes.OrganizationUnit);
+            return currentUser.FindClaimValue(AbpOrganizationUnitClaimTypes.OrganizationUnitCode);
+        }
+
+        public static string? GetOrganizationUnitIdentity(this ICurrentUser currentUser)
+        {
+            return currentUser.FindClaimValue(AbpOrganizationUnitClaimTypes.OrganizationUnitIdentity);
         }
     }
 }

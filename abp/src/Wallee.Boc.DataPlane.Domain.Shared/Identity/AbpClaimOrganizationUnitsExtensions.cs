@@ -14,7 +14,7 @@ namespace Wallee.Boc.DataPlane.Identity
         {
             Check.NotNull(principal, nameof(principal));
 
-            var userOusOrNull = principal.Claims?.Where(c => c.Type == AbpOrganizationUnitClaimTypes.OrganizationUnit);
+            var userOusOrNull = principal.Claims?.Where(c => c.Type == AbpOrganizationUnitClaimTypes.OrganizationUnitCode);
             if (userOusOrNull == null || !userOusOrNull.Any())
             {
                 return new Guid[0];

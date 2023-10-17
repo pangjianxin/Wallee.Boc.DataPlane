@@ -509,14 +509,6 @@
     "ConvertedCusOrgUnitDeletionConfirmationMessage": "确认删除该条折效记录{0}?",
     "Permission:Reports:ConvertedCus": "客户资产汇总",
     "Menu:Reports:ConvertedCus": "客户资产汇总",
-    "ConvertedCus": "客户资产汇总",
-    "Permission:Dictionaries:OrgUnitHierarchy": "财务机构管理",
-    "Menu:Dictionaries:OrgUnitHierarchy": "财务机构管理",
-    "OrgUnitHierarchy": "财务机构管理",
-    "OrgUnitHierarchyIdentity": "机构号",
-    "OrgUnitHierarchyName": "机构名称",
-    "CreateOrgUnitHierarchy": "新增机构",
-    "EditOrgUnitHierarchy": "编辑机构",
-    "OrgUnitHierarchyDeletionConfirmationMessage": "确认删除{0}?"
+    "ConvertedCus": "客户资产汇总"
   }
 }

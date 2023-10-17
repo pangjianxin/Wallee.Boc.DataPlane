@@ -229,7 +229,7 @@
     const transformData = function (data) {
         let map = {};
         //初始化children
-        data.forEach(item => map[item.id] = { id: item.id, text: item.displayName, orgNo: item.extraProperties.OrgNo, children: [] });
+        data.forEach(item => map[item.id] = { id: item.id, text: `${item.displayName}(${item.extraProperties.OrgNo})`, orgNo: item.extraProperties.OrgNo, children: [] });
         //填充children
         data.forEach(item => {
             if (item.parentId) {

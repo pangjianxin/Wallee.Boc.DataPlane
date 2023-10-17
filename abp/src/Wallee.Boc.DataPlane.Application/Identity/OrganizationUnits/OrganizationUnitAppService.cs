@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authorization;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Identity;
 using Volo.Abp.ObjectExtending;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Caches;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
+using Wallee.Boc.DataPlane.Permissions;
 
 namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
 {
@@ -12,7 +17,7 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
     {
         protected OrganizationUnitManager OrganizationUnitManager { get; }
         protected IOrganizationUnitRepository OrganizationUnitRepository { get; }
-
+        public IOrganizationUnitCacheProvider OrganizationUnitCacheProvider { get; }
         protected IdentityUserManager UserManager { get; }
         protected IIdentityRoleRepository RoleRepository { get; }
         protected IIdentityUserRepository UserRepository { get; }
@@ -22,13 +27,15 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
             IIdentityRoleRepository roleRepository,
             IIdentityUserRepository userRepository,
             OrganizationUnitManager organizationUnitManager,
-            IOrganizationUnitRepository organizationUnitRepository)
+            IOrganizationUnitRepository organizationUnitRepository,
+            IOrganizationUnitCacheProvider organizationUnitCacheProvider)
         {
             UserManager = userManager;
             RoleRepository = roleRepository;
             UserRepository = userRepository;
             OrganizationUnitManager = organizationUnitManager;
             OrganizationUnitRepository = organizationUnitRepository;
+            OrganizationUnitCacheProvider = organizationUnitCacheProvider;
             ObjectMapperContext = typeof(AbpIdentityApplicationModule);
         }
 
@@ -220,6 +227,15 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
         public async virtual Task DeleteUserAsync(Guid organizationUnitId, Guid userId)
         {
             await UserManager.RemoveFromOrganizationUnitAsync(userId, organizationUnitId);
+        }
+
+
+        public async Task<ListResultDto<OrganizationUnitDto>> GetVisibleOrganizationUnitsAsync()
+        {
+            return new ListResultDto<OrganizationUnitDto>
+            {
+                Items = await OrganizationUnitCacheProvider.GetVisibleOrganizationUnitsAsync(CurrentUser.GetOrganizationUnitCode(), true)
+            };
         }
     }
 }

@@ -4,8 +4,10 @@ $(function () {
     var service = wallee.boc.dataPlane.reports.convertedCusOrgUnit;
     var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/Pa/ConvertedCusOrgUnits/ConvertedCusOrgUnit/CreateByFileModal');
     var downloadFileModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertedCusOrgUnits/ConvertedCusOrgUnit/DownloadFileModal");
-    var convertedCusOrgDetailModal = new abp.ModalManager(abp.appPath + "Reports/Pa/ConvertedCuses/ConvertedCus/ConvertedCusDetailsModal");
+    let selectedOu = undefined;
 
+    $('#ConvertedCusFilter div').addClass('col-sm-6').parent().addClass("row");
+    //折效机构客户表初始化
     var dataTable = $('#ConvertedCusOrgUnitTable').DataTable(abp.libs.datatables.normalizeConfiguration({
         processing: true,
         serverSide: true,
@@ -16,20 +18,6 @@ $(function () {
         order: [[0, "asc"]],
         ajax: abp.libs.datatables.createAjax(service.getList),
         columnDefs: [
-            {
-                rowAction: {
-                    items:
-                        [
-                            {
-                                text: l('View'),
-                                visible: abp.auth.isGranted('DataPlane.Reports.ConvertedCus'),
-                                action: function (data) {
-                                    convertedCusOrgDetailModal.open({ orgidt: data.record.orgIdentity });
-                                }
-                            }
-                        ]
-                }
-            },
             {
                 title: l('ConvertedCusOrgUnitLabel'),
                 data: "parentName"
@@ -78,31 +66,43 @@ $(function () {
             }
         ]
     }));
-
-    var convertedCusDetailWidget = new abp.WidgetManager({
-        wrapper: '#convertedCusDetailWidget',
-        //filterCallback: function () {
-        //    var input = {};
-        //    $("#ConvertedCusDetailsFilter")
-        //        .serializeArray()
-        //        .forEach(function (data) {
-        //            if (data.value != '') {
-        //                input[abp.utils.toCamelCase(data.name.replace(/ConvertedCusDetailsFilter./g, ''))] = data.value;
-        //            }
-        //        })
-        //    return input;
-        //}
+    //折效账户表
+    var convertedCusWidget = new abp.WidgetManager({
+        wrapper: '#convertedCusWidget',
+        filterCallback: function () {
+            var input = {};
+            $("#ConvertedCusFilter")
+                .serializeArray()
+                .forEach(function (data) {
+                    if (data.value != '') {
+                        input[abp.utils.toCamelCase(data.name.replace(/ConvertedCusFilter./g, ''))] = data.value;
+                    }
+                });
+            input.orgIdentity = selectedOu;
+            return input;
+        }
+    });
+    convertedCusWidget.init();
+    $("#ConvertedCusFilter :input").on('change', function (e) {
+        convertedCusWidget.refresh();
     });
 
-    convertedCusDetailWidget.init();
-
+    //机构表初始化
     var organizationUnitWidget = new abp.WidgetManager({
         wrapper: "#organizationUnitWidget",
     })
-
     organizationUnitWidget.init();
 
-    abp.event.on("organizationUnit:view", data => console.log(data));
+    const onOrganizationUnitView = function (data) {
+        selectedOu = data.currentOuIdentity;
+        convertedCusWidget.refresh();
+    }
+    window.addEventListener("load", function () {
+        abp.event.on("organizationUnit:view", onOrganizationUnitView);
+    });
+    window.addEventListener("unload", function () {
+        abp.event.off("organizationUnit:view", onOrganizationUnitView);
+    });
 
     createByFileModal.onResult(function () {
         dataTable.ajax.reload();
@@ -117,6 +117,6 @@ $(function () {
     });
 
     downloadFileModal.onResult(function (event, response) {
-        window.open(`/api/app/converted-cus-org-unit/download/${response.responseText}`, "_self");
+        window.open(`/api/app/reports/converted-cus-org-unit/download/${response.responseText}`, "_self");
     });
 });

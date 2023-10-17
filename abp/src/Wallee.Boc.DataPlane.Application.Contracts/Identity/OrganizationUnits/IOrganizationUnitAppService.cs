@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
@@ -41,5 +42,6 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
         Task AddUsersAsync(Guid id, OrganizationUnitAddUserDto input);
         Task DeleteRoleAsync(Guid organizationUnitId, Guid roleId);
         Task DeleteUserAsync(Guid organizationUnitId, Guid userId);
+        Task<ListResultDto<OrganizationUnitDto>> GetVisibleOrganizationUnitsAsync();
     }
 }

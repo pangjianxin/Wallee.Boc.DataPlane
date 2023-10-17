@@ -3,7 +3,6 @@ using Wallee.Boc.DataPlane.Dictionaries.Dtos;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrganizationUnitCoordinate.ViewModels;
-using Wallee.Boc.DataPlane.Web.Pages.Dictionaries.OrgUnitHierarchy.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.Identity.OrganizationUnits;
 using Wallee.Boc.DataPlane.Web.Pages.Reports.Pa.ConvertedCuses.ConvertedCus.ViewModels;
 using Wallee.Boc.DataPlane.Web.Pages.WorkFlows.CcicCusInfos.ViewModels;
@@ -27,10 +26,5 @@ public class DataPlaneWebAutoMapperProfile : Profile
         CreateMap<CreateEditOrganizationUnitCoordinateViewModel, CreateUpdateOrganizationUnitCoordinateDto>();
 
         CreateMap<ConvertedCusDto, CreateEditConvertedCusByFileViewModel>();
-
-        CreateMap<OrgUnitHierarchyDto, CreateOrgUnitHierarchyViewModel>();
-        CreateMap<CreateOrgUnitHierarchyViewModel, CreateOrgUnitHierarchyDto>();
-        CreateMap<OrgUnitHierarchyDto, EditOrgUnitHierarchyViewModel>();
-        CreateMap<EditOrgUnitHierarchyViewModel, UpdateOrgUnitHierarchyDto>();
     }
 }

@@ -35,16 +35,16 @@
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
                 {
                     <abp-button id="NewConvertedCusOrgUnitByFileButton"
-                            text="上传文件"
-                            icon="upload"
-                            button-type="Warning" />
+                                text="上传文件"
+                                icon="upload"
+                                button-type="Warning" />
                 }
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCusOrgUnit))
                 {
                     <abp-button id="DownloadFileButton"
-                            text="下载报表"
-                            icon="download"
-                            button-type="Primary" />
+                                text="下载报表"
+                                icon="download"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
@@ -53,12 +53,25 @@
         <abp-row>
             <abp-table striped-rows="true" id="ConvertedCusOrgUnitTable" class="nowrap" />
         </abp-row>
-        <hr />
+    </abp-card-body>
+</abp-card>
+
+<abp-card>
+    <abp-card-header>
         <abp-row>
-            <abp-column size="_4" id="organizationUnitWidget">
+            <abp-column size-md="_6">
+                <abp-card-title>@L["ConvertedCus"]</abp-card-title>
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-dynamic-form abp-model="ConvertedCusFilter" id="ConvertedCusFilter" required-symbols="false">
+        </abp-dynamic-form>
+        <abp-row>
+            <abp-column size="_4" id="organizationUnitWidget" style="padding-top:10px;">
                 @await Component.InvokeAsync("OrganizationUnit")
             </abp-column>
-            <abp-column size="_8" id="convertedCusDetailWidget">
+            <abp-column size="_8" id="convertedCusWidget">
                 @await Component.InvokeAsync("ConvertedCusDetail")
             </abp-column>
         </abp-row>

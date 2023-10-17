@@ -23,7 +23,6 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             return View("~/Components/DataPlaneSettingGroup/Default.cshtml", new UpdateDataPlaneSettingsViewModel
             {
                 TDcmpWorkFlowCronExpression = settings.TDcmpWorkFlowCronExpression,
-                OrgUnitHierarchyVisiblity = settings.OrgUnitHierarchyVisiblity,
                 ConvertedCusOrgUnitFirstLevel = settings.ConvertedCusOrgUnitFirstLevel,
                 ConvertedCusOrgUnitSecondLevel = settings.ConvertedCusOrgUnitSecondLevel,
                 ConvertedCusOrgUnitThirdLevel = settings.ConvertedCusOrgUnitThirdLevel,
@@ -38,11 +37,6 @@ namespace Wallee.Boc.DataPlane.Web.Components.DataPlaneSettingGroup
             [Required]
             [Display(Name = "TDcmp工作流Cron")]
             public string TDcmpWorkFlowCronExpression { get; set; } = default!;
-
-            [Required]
-            [TextArea]
-            [Display(Name = "机构可见性配置")]
-            public string OrgUnitHierarchyVisiblity { get; set; } = default!;
 
             [Required]
             [Display(Name = "1000-20万日均折算率")]

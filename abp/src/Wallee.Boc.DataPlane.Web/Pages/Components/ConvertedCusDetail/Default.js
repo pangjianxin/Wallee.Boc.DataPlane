@@ -12,6 +12,7 @@
                 paging: true,
                 searching: false,//disable default searchbox
                 autoWidth: false,
+                scrollY: "500px",
                 scrollCollapse: true,
                 order: [[0, "asc"]],
                 ajax: abp.libs.datatables.createAjax(service.getList, () => filters),

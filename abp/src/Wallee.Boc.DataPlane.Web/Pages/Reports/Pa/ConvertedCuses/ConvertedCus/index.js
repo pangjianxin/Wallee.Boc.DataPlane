@@ -10,11 +10,11 @@ $(function () {
         wrapper: '#convertedCusDetailWidget',
         filterCallback: function () {
             var input = {};
-            $("#ConvertedCusDetailsFilter")
+            $("#ConvertedCusFilter")
                 .serializeArray()
                 .forEach(function (data) {
                     if (data.value != '') {
-                        input[abp.utils.toCamelCase(data.name.replace(/ConvertedCusDetailsFilter./g, ''))] = data.value;
+                        input[abp.utils.toCamelCase(data.name.replace(/ConvertedCusFilter./g, ''))] = data.value;
                     }
                 })
             return input;
@@ -23,7 +23,7 @@ $(function () {
 
     convertedCusDetailWidget.init();
 
-    $("#ConvertedCusDetailsFilter :input").on('change', function (e) {
+    $("#ConvertedCusFilter :input").on('change', function (e) {
         convertedCusDetailWidget.refresh();
     });
 

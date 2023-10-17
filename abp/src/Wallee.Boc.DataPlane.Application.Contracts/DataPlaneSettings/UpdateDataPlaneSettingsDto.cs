@@ -7,7 +7,6 @@ namespace Wallee.Boc.DataPlane.DataPlaneSettings
     public class UpdateDataPlaneSettingsDto
     {
         public string TDcmpWorkFlowCronExpression { get; set; } = default!;
-        public string OrgUnitHierarchyVisiblity { get; set; } = default!;
         public decimal ConvertedCusOrgUnitFirstLevel { get; set; }
         public decimal ConvertedCusOrgUnitSecondLevel { get; set; }
         public decimal ConvertedCusOrgUnitThirdLevel { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Application.Dtos;
@@ -12,7 +13,7 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
 {
     [RemoteService(Name = DataPlaneRemoteServiceConsts.RemoteServiceName)]
     [Route("api/identity/organization-units")]
-    [Authorize(DataPlanePermissions.OrganizationUnits.Default)]
+    [Authorize]
     public class OrganizationUnitController : DataPlaneController, IOrganizationUnitAppService
     {
         protected IOrganizationUnitAppService OrganizationUnitAppService { get; }
@@ -159,6 +160,13 @@ namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits
         public async Task DeleteUserAsync(Guid organizationUnitId, Guid userId)
         {
             await OrganizationUnitAppService.DeleteUserAsync(organizationUnitId, userId);
+        }
+
+        [HttpGet]
+        [Route("visible-chilren")]
+        public async Task<ListResultDto<OrganizationUnitDto>> GetVisibleOrganizationUnitsAsync()
+        {
+            return await OrganizationUnitAppService.GetVisibleOrganizationUnitsAsync();
         }
     }
 }

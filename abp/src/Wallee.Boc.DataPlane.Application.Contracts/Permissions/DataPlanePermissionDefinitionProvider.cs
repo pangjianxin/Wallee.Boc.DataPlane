@@ -53,7 +53,6 @@ public class DataPlanePermissionDefinitionProvider : PermissionDefinitionProvide
         //字典
         var dictionariesPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Dictionaries.Default, L("Permission:Dictionaries"));
         dictionariesPermission.AddChild(DataPlanePermissions.Dictionaries.OrganizationUnitCoordinate, L("Permission:Dictionaries:OrganizationUnitCoordinates"));
-        dictionariesPermission.AddChild(DataPlanePermissions.Dictionaries.OrgUnitHierarchy, L("Permission:Dictionaries:OrgUnitHierarchy"));
 
         //系统报表
         var systemReportsPermission = dataPlaneGroup.AddPermission(DataPlanePermissions.Reports.Defaults, L("Permission:Reports"));

@@ -68,8 +68,5 @@ public class DataPlaneApplicationAutoMapperProfile : Profile
         CreateMap<CreateUpdateOrganizationUnitCoordinateDto, OrganizationUnitCoordinate>(MemberList.Source);
         CreateMap<ConvertedCusOrgUnit, ConvertedCusOrgUnitDto>();
         CreateMap<ConvertedCus, ConvertedCusDto>();
-
-        CreateMap<OrgUnitHierarchy, OrgUnitHierarchyDto>();
-        CreateMap<CreateOrgUnitHierarchyDto, OrgUnitHierarchy>(MemberList.Source);
     }
 }
