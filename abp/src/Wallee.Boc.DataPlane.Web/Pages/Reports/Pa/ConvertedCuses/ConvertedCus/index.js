@@ -4,10 +4,12 @@ $(function () {
 
     var createByFileModal = new abp.ModalManager(abp.appPath + 'Reports/Pa/ConvertedCuses/ConvertedCus/CreateByFileModal');
 
-   /* $('#ConvertedCusDetailsFilter div').addClass('col-sm-3');*/
+    let selectedOu = undefined;
 
-    var convertedCusDetailWidget = new abp.WidgetManager({
-        wrapper: '#convertedCusDetailWidget',
+    $('#ConvertedCusFilter div').addClass('col-sm-6').parent().addClass("row");
+    //折效账户表
+    var convertedCusWidget = new abp.WidgetManager({
+        wrapper: '#convertedCusWidget',
         filterCallback: function () {
             var input = {};
             $("#ConvertedCusFilter")
@@ -16,16 +18,30 @@ $(function () {
                     if (data.value != '') {
                         input[abp.utils.toCamelCase(data.name.replace(/ConvertedCusFilter./g, ''))] = data.value;
                     }
-                })
+                });
+            input.orgIdentity = selectedOu;
             return input;
         }
     });
-
-    convertedCusDetailWidget.init();
-
+    convertedCusWidget.init();
     $("#ConvertedCusFilter :input").on('change', function (e) {
-        convertedCusDetailWidget.refresh();
+        convertedCusWidget.refresh();
     });
+
+    //机构表初始化
+    var organizationUnitWidget = new abp.WidgetManager({
+        wrapper: "#organizationUnitWidget",
+    })
+    organizationUnitWidget.init();
+
+    const onOrganizationUnitView = function (data) {
+        selectedOu = data.currentOuIdentity;
+        convertedCusWidget.refresh();
+    }
+
+    abp.event.off("organizationUnit:view", onOrganizationUnitView);
+
+    abp.event.on("organizationUnit:view", onOrganizationUnitView);
 
 
     createByFileModal.onResult(function () {

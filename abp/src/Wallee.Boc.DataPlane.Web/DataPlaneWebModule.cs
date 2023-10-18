@@ -104,7 +104,7 @@ public class DataPlaneWebModule : AbpModule
         context.Services.AddSameSiteCookiePolicy();
         context.ConfigureCors(configuration);
 
-        ConfigureClock();
+        
         ConfigureAuthentication(context);
         ConfigureUrls(configuration);
         ConfigureBundles();
@@ -114,6 +114,7 @@ public class DataPlaneWebModule : AbpModule
         ConfigureAutoApiControllers();
         ConfigureSwaggerServices(context.Services);
         ConfigureSettingManagementPageOptions();
+        ConfigureClock();
     }
 
     public override void PostConfigureServices(ServiceConfigurationContext context)

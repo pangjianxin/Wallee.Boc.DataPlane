@@ -272,6 +272,7 @@ namespace Wallee.Boc.DataPlane.EntityFrameworkCore
                 b.HasKey(it => new { it.DataDate, it.OrgIdentity });
                 b.Property(it => it.DataDate).HasColumnOrder(0).IsRequired();
                 b.Property(it => it.OrgIdentity).HasColumnOrder(1).HasMaxLength(8).IsRequired();
+                b.Property(it => it.OrgName).HasMaxLength(128).IsRequired().HasDefaultValue("");
                 b.Property(it => it.ParentName).HasMaxLength(100).IsRequired(false);
                 b.Property(it => it.ParentIdentity).HasMaxLength(16).IsRequired(false);
                 b.Property(it => it.FirstLevel).HasColumnType("decimal(18,2)");

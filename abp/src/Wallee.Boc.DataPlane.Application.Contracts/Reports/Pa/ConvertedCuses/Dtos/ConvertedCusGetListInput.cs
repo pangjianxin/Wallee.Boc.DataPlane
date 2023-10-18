@@ -10,7 +10,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 public class ConvertedCusGetListInput : FilterBase, IPagedAndSortedResultRequest
 {
     [StringFilterOptions(StringFilterOption.Contains)]
-    [CompareTo(nameof(ConvertedCusDto.CusIdentity), nameof(ConvertedCusDto.OrgIdentity))]
+    [CompareTo(nameof(ConvertedCusDto.CusIdentity))]
     public string? Filter { get; set; }
 
     [CompareTo(nameof(ConvertedCusDto.DataDate))]

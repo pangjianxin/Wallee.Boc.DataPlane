@@ -1,8 +1,8 @@
 using AutoFilterer.Extensions;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,7 +14,6 @@ using Volo.Abp.Data;
 using Wallee.Boc.DataPlane.CsvHelper;
 using Wallee.Boc.DataPlane.Identity;
 using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Caches;
-using Wallee.Boc.DataPlane.Permissions;
 using Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses.Dtos;
 
 namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCuses;
@@ -87,11 +86,16 @@ public class ConvertedCusAppService : AbstractKeyReadOnlyAppService<ConvertedCus
         var queryable = await base.CreateFilteredQueryAsync(input);
 
         var visibleOrgs = (await _organizationUnitCacheProvider.GetVisibleOrganizationUnitsAsync(CurrentUser.GetOrganizationUnitCode()))
-            .Select(it => it.GetProperty<string>("OrgNo")).ToList();
+            .Select(it => it.GetProperty<string>("OrgNo"))
+            .DefaultIfEmpty()
+            .ToList();
+
+        if (input.OrgIdentity != default)
+        {
+            visibleOrgs = visibleOrgs.Intersect(new string[] { input.OrgIdentity }).ToList();
+        }
 
         queryable = queryable.Where(it => visibleOrgs.Contains(it.OrgIdentity));
-
-        queryable = queryable.WhereIf(input.OrgIdentity != default, it => it.OrgIdentity == input.OrgIdentity);
 
         return queryable.ApplyFilter(input);
     }

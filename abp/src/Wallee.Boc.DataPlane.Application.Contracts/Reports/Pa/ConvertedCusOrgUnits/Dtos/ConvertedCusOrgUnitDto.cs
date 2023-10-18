@@ -11,6 +11,7 @@ public class ConvertedCusOrgUnitDto : EntityDto
 {
     public string? ParentName { get; set; }
     public string? ParentIdentity { get; set; }
+    public string OrgName { get; set; } = default!;
     public string OrgIdentity { get; set; } = default!;
     public decimal FirstLevel { get; set; }
     public decimal SecondLevel { get; set; }

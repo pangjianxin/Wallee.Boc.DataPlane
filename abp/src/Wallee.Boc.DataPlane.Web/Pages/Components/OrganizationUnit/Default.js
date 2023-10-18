@@ -57,6 +57,7 @@
             {
                 id: item.id,
                 text: item.displayName,
+                icon: "fas fa-home",
                 orgIdentity: item.extraProperties.OrgNo,
                 children: []
             });

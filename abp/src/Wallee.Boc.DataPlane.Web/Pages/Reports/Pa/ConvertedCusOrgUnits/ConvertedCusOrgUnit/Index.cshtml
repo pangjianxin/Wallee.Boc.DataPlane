@@ -56,24 +56,4 @@
     </abp-card-body>
 </abp-card>
 
-<abp-card>
-    <abp-card-header>
-        <abp-row>
-            <abp-column size-md="_6">
-                <abp-card-title>@L["ConvertedCus"]</abp-card-title>
-            </abp-column>
-        </abp-row>
-    </abp-card-header>
-    <abp-card-body>
-        <abp-dynamic-form abp-model="ConvertedCusFilter" id="ConvertedCusFilter" required-symbols="false">
-        </abp-dynamic-form>
-        <abp-row>
-            <abp-column size="_4" id="organizationUnitWidget" style="padding-top:10px;">
-                @await Component.InvokeAsync("OrganizationUnit")
-            </abp-column>
-            <abp-column size="_8" id="convertedCusWidget">
-                @await Component.InvokeAsync("ConvertedCusDetail")
-            </abp-column>
-        </abp-row>
-    </abp-card-body>
-</abp-card>
+

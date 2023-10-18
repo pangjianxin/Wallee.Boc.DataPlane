@@ -10,6 +10,7 @@ namespace Wallee.Boc.DataPlane.Reports.Pa.ConvertedCusOrgUnits
     {
         public DateTime DataDate { get; set; }
         public string OrgIdentity { get; set; } = default!;
+        public string OrgName { get; set; } = default!;
         public decimal FirstLevel { get; set; }
         public decimal SecondLevel { get; set; }
         public decimal ThirdLevel { get; set; }

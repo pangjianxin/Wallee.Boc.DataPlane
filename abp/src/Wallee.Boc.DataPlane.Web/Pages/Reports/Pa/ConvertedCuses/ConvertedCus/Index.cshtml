@@ -35,20 +35,31 @@
                 @if (await Authorization.IsGrantedAsync(DataPlanePermissions.Reports.ConvertedCus))
                 {
                     <abp-button id="NewConvertedCusButton"
-                            text="上传文件"
-                            icon="upload"
-                            button-type="Primary" />
+                                text="上传文件"
+                                icon="upload"
+                                button-type="Primary" />
                 }
             </abp-column>
         </abp-row>
     </abp-card-header>
     <abp-card-body>
+        <abp-dynamic-form abp-model="ConvertedCusFilter" id="ConvertedCusFilter" required-symbols="false">
+        </abp-dynamic-form>
         <abp-row>
-            <abp-dynamic-form abp-model="ConvertedCusFilter" id="ConvertedCusFilter" required-symbols="false">
-            </abp-dynamic-form>
-        </abp-row>
-        <abp-row id="convertedCusDetailWidget">
-            @await Component.InvokeAsync("ConvertedCusDetail")
+            <abp-column size="_3">
+                <abp-card style="max-height:600px;overflow-y:auto;">
+                    <abp-card-header>
+                        <abp-card-title>机构选择</abp-card-title>
+                        <abp-card-subtitle>通过右键点击机构图标来选择机构</abp-card-subtitle>
+                    </abp-card-header>
+                    <abp-card-body id="organizationUnitWidget">
+                        @await Component.InvokeAsync("OrganizationUnit")
+                    </abp-card-body>
+                </abp-card>
+            </abp-column>
+            <abp-column size="_9" id="convertedCusWidget">
+                @await Component.InvokeAsync("ConvertedCusDetail")
+            </abp-column>
         </abp-row>
     </abp-card-body>
 </abp-card>
