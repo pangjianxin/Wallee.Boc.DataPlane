@@ -1,6 +1,6 @@
-﻿$(function () {
+﻿var abp = abp || {};
+$(function () {
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
-
     var inputAction = function (requestData, dataTableSettings) {
         console.log(requestData);
         console.log(dataTableSettings);
@@ -47,6 +47,12 @@
             ]
         }));
     }
+    abp.modals.AddUserToOu = function () {
+        function initModal(modalManager, args) {
 
-    initOuUserTable();
+            initOuUserTable();
+        };
+
+        return { initModal };
+    }
 })

@@ -1,6 +1,6 @@
-﻿$(function () {
+﻿var abp = abp || {};
+$(function () {
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
-
     var inputAction = function (requestData, dataTableSettings) {
         return {
             filter: "",
@@ -42,5 +42,14 @@
             ]
         }));
     }
-    initOuRoleTable();
+    abp.modals.AddRoleToOu = function () {
+        function initModal(modalManager, args) {
+            console.log("??");
+            initOuRoleTable();
+        };
+
+        return {
+            initModal: initModal
+        };
+    };
 })

@@ -3,8 +3,8 @@
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
     var createModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/CreateModal");
     var editModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/EditModal");
-    var addRoleToOuModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/AddRoleToOuModal");
-    var addUserToOuModal = new abp.ModalManager(abp.appPath + "Identity/OrganizationUnits/AddUserToOuModal");
+    var addRoleToOuModal = new abp.ModalManager({ viewUrl: abp.appPath + "Identity/OrganizationUnits/AddRoleToOuModal", modalClass: "AddRoleToOu" });
+    var addUserToOuModal = new abp.ModalManager({ viewUrl: abp.appPath + "Identity/OrganizationUnits/AddUserToOuModal", modalClass:"AddUserToOu"});
     var currentOu = undefined;
     var ouUserDataTable = undefined;
     var ouRoleDataTable = undefined;
