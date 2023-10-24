@@ -1,22 +1,18 @@
 ﻿var abp = abp || {};
 $(function () {
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
-    var inputAction = function (requestData, dataTableSettings) {
-        return {
-            filter: "",
-        };
-    };
-    function initOuRoleTable() {
+
+    function initOuRoleTable(orgId) {
         ouRoleDataTable = $('#unAddedRoleTable').DataTable(abp.libs.datatables.normalizeConfiguration({
             processing: true,
             serverSide: true,
             paging: true,
-            searching: false,
-            autoWidth: false,
+            searching: true,
+            autoWidth: true,
             scrollCollapse: true,
             order: [[0, "asc"]],
-            ajax: abp.libs.datatables.createAjax(function () {
-                return ouService.getUnaddedRoles(organizationUnitId, inputAction);
+            ajax: abp.libs.datatables.createAjax(function (input) {
+                return ouService.getUnaddedRoles(orgId, input);
             }),
             columnDefs: [
                 {
@@ -33,7 +29,7 @@ $(function () {
                                         return `确认要添加该角色?(${data.record.name})`;
                                     },
                                     action: function (data) {
-                                        ouService.addRoles(organizationUnitId, { roleIds: [data.record.id] })
+                                        ouService.addRoles(orgId, { roleIds: [data.record.id] })
                                     }
                                 }
                             ]
@@ -44,7 +40,7 @@ $(function () {
     }
     abp.modals.AddRoleToOu = function () {
         function initModal(modalManager, args) {
-            initOuRoleTable();
+            initOuRoleTable(args.organizationUnitId);
         };
 
         return {

@@ -33,18 +33,4 @@ public class DataPlaneApplicationContractsModule : AbpModule
     {
         DataPlaneDtoExtensions.Configure();
     }
-
-    public override void PostConfigureServices(ServiceConfigurationContext context)
-    {
-        _oneTimeRunner.Run(() =>
-        {
-            ModuleExtensionConfigurationHelper.ApplyEntityConfigurationToApi(
-                IdentityModuleExtensionConsts.ModuleName,
-                IdentityModuleExtensionConsts.EntityNames.OrganizationUnit,
-                getApiTypes: new[] { typeof(OrganizationUnitDto) },
-                createApiTypes: new[] { typeof(OrganizationUnitCreateDto) },
-                updateApiTypes: new[] { typeof(OrganizationUnitUpdateDto) }
-            );
-        });
-    }
 }

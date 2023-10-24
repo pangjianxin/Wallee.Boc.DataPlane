@@ -1,21 +1,19 @@
 ﻿var abp = abp || {};
 $(function () {
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
-    var inputAction = function (requestData, dataTableSettings) {
-        return {
-            id: organizationUnitId,
-        };
-    };
-    function initOuUserTable() {
+
+    function initOuUserTable(orgId) {
         ouUserDataTable = $('#unAddedUsersTable').DataTable(abp.libs.datatables.normalizeConfiguration({
             processing: true,
             serverSide: true,
             paging: true,
-            searching: false,
-            autoWidth: false,
+            searching: true,
+            autoWidth: true,
             scrollCollapse: true,
             order: [[0, "asc"]],
-            ajax: abp.libs.datatables.createAjax(ouService.getUnaddedUsers, inputAction),
+            ajax: abp.libs.datatables.createAjax(function (input) {
+                return ouService.getUnaddedUsers(orgId, input);
+            }),
             columnDefs: [
                 {
                     title: "登录名",
@@ -34,7 +32,7 @@ $(function () {
                                         return `确认要添加该用户?(${data.record.name})`;
                                     },
                                     action: function (data) {
-                                        ouService.addUsers(organizationUnitId, { userIds: [data.record.id] })
+                                        ouService.addUsers(orgId, { userIds: [data.record.id] })
                                     }
                                 }
                             ]
@@ -46,7 +44,7 @@ $(function () {
     abp.modals.AddUserToOu = function () {
         function initModal(modalManager, args) {
 
-            initOuUserTable();
+            initOuUserTable(args.organizationUnitId);
         };
 
         return { initModal };

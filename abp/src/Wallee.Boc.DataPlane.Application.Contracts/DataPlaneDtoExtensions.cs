@@ -1,6 +1,7 @@
-﻿using Volo.Abp.Identity;
-using Volo.Abp.ObjectExtending;
+﻿using Volo.Abp.ObjectExtending;
+using Volo.Abp.ObjectExtending.Modularity;
 using Volo.Abp.Threading;
+using Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos;
 
 namespace Wallee.Boc.DataPlane;
 
@@ -12,15 +13,13 @@ public static class DataPlaneDtoExtensions
     {
         OneTimeRunner.Run(() =>
         {
-            /* You can add extension properties to DTOs
-             * defined in the depended modules.
-             *
-             * Example:
-             *
-             * ObjectExtensionManager.Instance.AddOrUpdateProperty<IdentityRoleDto, string>("Title");
-             * See the documentation for more:
-             * https://docs.abp.io/en/abp/latest/Object-Extensions
-             */
+            ModuleExtensionConfigurationHelper.ApplyEntityConfigurationToApi(
+                IdentityModuleExtensionConsts.ModuleName,
+                IdentityModuleExtensionConsts.EntityNames.OrganizationUnit,
+                getApiTypes: new[] { typeof(OrganizationUnitDto) },
+                createApiTypes: new[] { typeof(OrganizationUnitCreateDto) },
+                updateApiTypes: new[] { typeof(OrganizationUnitUpdateDto) }
+            );
         });
     }
 }
