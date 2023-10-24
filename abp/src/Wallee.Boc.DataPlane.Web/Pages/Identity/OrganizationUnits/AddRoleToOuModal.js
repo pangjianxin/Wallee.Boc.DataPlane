@@ -33,7 +33,7 @@ $(function () {
                                         return `确认要添加该角色?(${data.record.name})`;
                                     },
                                     action: function (data) {
-                                        ouService.addRoles(organizationUnitId, { RoleIds: [data.record.id] })
+                                        ouService.addRoles(organizationUnitId, { roleIds: [data.record.id] })
                                     }
                                 }
                             ]
@@ -44,7 +44,6 @@ $(function () {
     }
     abp.modals.AddRoleToOu = function () {
         function initModal(modalManager, args) {
-            console.log("??");
             initOuRoleTable();
         };
 

@@ -2,10 +2,8 @@
 $(function () {
     var ouService = wallee.boc.dataPlane.identity.organizationUnits.organizationUnit;
     var inputAction = function (requestData, dataTableSettings) {
-        console.log(requestData);
-        console.log(dataTableSettings);
         return {
-            filter: "admin",
+            id: organizationUnitId,
         };
     };
     function initOuUserTable() {
@@ -13,13 +11,11 @@ $(function () {
             processing: true,
             serverSide: true,
             paging: true,
-            searching: true,
+            searching: false,
             autoWidth: false,
             scrollCollapse: true,
             order: [[0, "asc"]],
-            ajax: abp.libs.datatables.createAjax(function () {
-                return ouService.getUnaddedUsers(organizationUnitId, inputAction);
-            }),
+            ajax: abp.libs.datatables.createAjax(ouService.getUnaddedUsers, inputAction),
             columnDefs: [
                 {
                     title: "登录名",
@@ -38,7 +34,7 @@ $(function () {
                                         return `确认要添加该用户?(${data.record.name})`;
                                     },
                                     action: function (data) {
-                                        ouService.addUsers(organizationUnitId, { UserIds: [data.record.id] })
+                                        ouService.addUsers(organizationUnitId, { userIds: [data.record.id] })
                                     }
                                 }
                             ]

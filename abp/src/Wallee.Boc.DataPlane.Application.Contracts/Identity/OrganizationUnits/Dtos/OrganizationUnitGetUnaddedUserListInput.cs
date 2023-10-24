@@ -1,13 +1,12 @@
 ﻿using AutoFilterer.Types;
+using System;
 using Volo.Abp.Application.Dtos;
 
 namespace Wallee.Boc.DataPlane.Identity.OrganizationUnits.Dtos
 {
-    public class OrganizationUnitGetUnaddedUserListInput : FilterBase, IPagedAndSortedResultRequest
+    public class OrganizationUnitGetUnaddedUserListInput : PagedAndSortedResultRequestDto
     {
+        public Guid Id { get; set; }
         public string? Filter { get; set; }
-        public int SkipCount { get; set; }
-        public int MaxResultCount { get; set; } = 10;
-        public string? Sorting { get; set; }
     }
 }
